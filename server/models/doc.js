@@ -1,29 +1,37 @@
-'use strict';
+
 module.exports = (sequelize, DataTypes) => {
-  const docModel = sequelize.define('docModel', {
+  const Doc = sequelize.define('Doc', {
     title: {
-      types: DataTypes.STRING,
+      type: DataTypes.STRING,
     },
     content: {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    access:{
+    complete: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: false
+    },
+    access: {
       type: DataTypes.STRING,
       allowNull: false,
       defaultValue: 'Private'
+    },
+    userId: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
     },
 
   }, {
     classMethods: {
       associate: (models) => {
-          docModel.belongsTo(models.userModel, {
+        Doc.belongsTo(models.User, {
           foreignKey: 'userId',
           // as: 'userId',
           onDelete: 'CASCADE',
-        })
+        });
       }
     }
   });
-  return docModel;
+  return Doc;
 };

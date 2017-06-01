@@ -1,9 +1,14 @@
 const express = require('express');
 const logger = require('morgan');
 const bodyParser = require('body-parser');
+const jwt = require('jsonwebtoken'); // used to create, sign, and verify tokens
+const config = require('./server/config/config.json'); // get our config file
 
 // Set up the express app
 const app = express();
+
+// secret variable
+app.set('superSecret', config.secret);
 
 // Log requests to the console.
 app.use(logger('dev'));
@@ -12,7 +17,9 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
-// Setup a default catch-all route that sends back a welcome message in JSON format.
+require('./server/routes')(app);
+// Setup a default catch-all route that
+// sends back a welcome message in JSON format.
 app.get('*', (req, res) => res.status(200).send({
   message: 'Welcome to the beginning of nothingness.',
 }));
