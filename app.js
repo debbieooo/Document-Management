@@ -3,7 +3,9 @@ const logger = require('morgan');
 const bodyParser = require('body-parser');
 const jwt = require('jsonwebtoken'); // used to create, sign, and verify tokens
 const config = require('./server/config/config.json'); // get our config file
+const dotenv = require('dotenv');
 
+dotenv.config();
 // Set up the express app
 const app = express();
 

@@ -1,3 +1,5 @@
+const bcrypt = require('bcrypt');
+
 module.exports = (sequelize, DataTypes) => {
   const User = sequelize.define('User', {
     // userId: {
@@ -13,6 +15,7 @@ module.exports = (sequelize, DataTypes) => {
     email: {
       type: DataTypes.STRING,
       allowNull: false,
+      unique: true,
     },
     name: {
       type: DataTypes.STRING,
@@ -27,10 +30,6 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
       default: 2,
     },
-    // isLoggedIn: {
-    //   type: DataTypes.BOOLEAN,
-    //   allowNull: false,
-    // }
 
   }, {
     classMethods: {
@@ -44,6 +43,19 @@ module.exports = (sequelize, DataTypes) => {
         //   as: 'user',
           onDelete: 'CASCADE',
         });
+      }
+    },
+    instanceMethods: {
+      encryptPassword() {
+        this.password = bcrypt.hashSync(this.password, bcrypt.genSaltSync(8));
+      },
+      validate(password) {
+        return bcrypt.compareSync(password, this.password);
+      }
+    },
+    hooks: {
+      beforeCreate(user) {
+        user.encryptPassword();
       }
     }
   });
