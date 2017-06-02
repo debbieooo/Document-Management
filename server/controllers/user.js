@@ -1,11 +1,29 @@
 const Users = require('../models').User;
 // const Roles = require('../models').Role;
-const Docs = require('../models').Doc;
+// const Docs = require('../models').Doc;
+const jwt = require('jsonwebtoken');
 
 module.exports = {
   create(req, res) {
-    console.log(req.body);
-    return Users
+    Users.findAndCountAll({ where: {
+      $or: [
+        {
+          userName: req.body.userName,
+        },
+        {
+          email: req.body.email
+        }
+      ]
+    }
+    })
+      .then((result) => {
+        if (result.count > 0) {
+          console.log('USERS.COUNT', result.count);
+          res.status(409)
+            .send({ message: 'Username already exists in the database' });
+        } else {
+          console.log(req.body);
+          Users
       .create({
         userName: req.body.userName,
         name: req.body.name,
@@ -13,8 +31,67 @@ module.exports = {
         password: req.body.password,
         roleId: req.body.roleId ? req.body.roleId : 2
       })
-      .then(users => res.status(201).send(users))
+      .then((user) => {
+        // console.log(process.env.SECRET_KEY, '\n hey I\'m secret');
+        const token = jwt.sign({
+          data: user.id,
+          expiresIn: '3h'
+        }, process.env.SECRET_KEY);
+
+        return res.status(201).send({ token, user });
+      })
       .catch(error => res.status(400).send(error));
+        }
+      });
+  },
+
+  login(req, res) {
+    if (req.body.email === '' || req.body.password === '') {
+      return res.status(400).json({
+        message: 'Pls put in your values'
+      });
+    }
+    return Users
+      .findOne({
+        where: {
+          $or: [{
+            username: req.body.username
+          }, {
+            email: req.body.email
+          }]
+        }
+      })
+      .then((user) => {
+        if (!user) {
+          return res.status(404).send({
+            message: 'Wrong username/email'
+          });
+        } else if (user.validate(req.body.password)) {
+          const info = {
+            id: user.id,
+            roleId: user.roleId,
+            userName: user.userName,
+            name: user.name,
+            email: user.email
+          };
+          const token = jwt.sign({
+            data: user.id,
+            expiresIn: '3h'
+          }, process.env.SECRET_KEY);
+          res.status(200).send({
+            status: 200,
+            info,
+            message: 'You are now logged in',
+            token
+          });
+        } else {
+          res.status(400).json({
+            status: 400,
+            message: 'Wrong details'
+          });
+        }
+      })
+     .catch(error => res.status(400).send({ message: 'Bad request' }));
   },
   listAll(req, res) {
     return Users
@@ -51,7 +128,7 @@ module.exports = {
   // },
   destroy(req, res) {
     return Users
-     .find({ where: { userName: req.params.userName }})
+     .find({ where: { userName: req.params.userName } })
      .then((user) => {
        if (!user) {
          return res.status(400).send({
