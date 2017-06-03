@@ -6,7 +6,9 @@ module.exports = {
     return Docs
           .create({
             content: req.body.content,
-            userId: req.params.userId,
+            userId: req.body.userId,
+            title: req.body.title,
+            access: req.body.access,
           })
           .then(docs => res.status(201).send(docs))
           .catch(error => res.status(400).send(error));

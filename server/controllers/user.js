@@ -29,7 +29,7 @@ module.exports = {
         name: req.body.name,
         email: req.body.email,
         password: req.body.password,
-        roleId: req.body.roleId ? req.body.roleId : 2
+        roleId: req.body.roleId ? req.body.roleId : 3
       })
       .then((user) => {
         // console.log(process.env.SECRET_KEY, '\n hey I\'m secret');
@@ -46,16 +46,19 @@ module.exports = {
   },
 
   login(req, res) {
-    if (req.body.email === '' || req.body.password === '') {
+    if (
+      req.body.email === '' || req.body.password === ''
+      || req.body.userName === ''
+      ) {
       return res.status(400).json({
         message: 'Pls put in your values'
       });
     }
-    return Users
+    Users
       .findOne({
         where: {
           $or: [{
-            username: req.body.username
+            userName: req.body.userName
           }, {
             email: req.body.email
           }]
@@ -100,35 +103,42 @@ module.exports = {
      .then(users => res.status(200).send(users))
      .catch(error => res.status(400).send(error));
   },
-  // update(req, res) {
-  //   return Users
-  //   .findById(req.params.userId, {
-  //     include: [{
-  //       model: Docs,
-  //       as: 'docs',
-  //     }],
-  //   })
-  //   .then((users) => {
-  //     if (!users) {
-  //       return res.status(404).send({
-  //         message: 'Not Found',
-  //       });
-  //     }
-  //     return users
-  //     .update({
-  //       roleId: req.body.roleId || user.roleId,
-  //       userName: req.body.userName || user.userName,
-  //       name: req.body.name || user.name,
-  //       password: req.body.password || user.password,
-  //     })
-  //     .then(() => res.status(200).send(roles))
-  //     .catch((error) => res.status(400).send(error));
-  //   })
-  //   .catch((error) => res.status(400).send(error));
-  // },
-  destroy(req, res) {
+  findUser(req, res) {
     return Users
-     .find({ where: { userName: req.params.userName } })
+     .findById(req.params.id)
+     .then((user) => {
+       if (!user) {
+         return res.status(400).send({
+           message: 'User Not Found'
+         });
+       }
+
+       res.status(200)
+           .send({ user });
+     })
+     .catch(error => res.status(400).send({
+       message: 'Bad request'
+     }));
+  },
+  update(req, res) {
+    return Users
+    .findById(req.params.id)
+    .then((user) => {
+      if (!user) {
+        return res.status(404).send({
+          message: 'Not Found',
+        });
+      }
+      return user
+      .update(req.body)
+      .then(() => res.status(200).send(user))
+      .catch(error => res.status(400).send(error));
+    })
+    .catch(error => res.status(400).send(error));
+  },
+  delete(req, res) {
+    return Users
+     .findById(req.params.id)
      .then((user) => {
        if (!user) {
          return res.status(400).send({
@@ -142,6 +152,8 @@ module.exports = {
        }))
        .catch(error => res.status(400).send(error));
      })
-     .catch(error => res.status(400).send({ message: 'Bad request' }));
+     .catch(error => res.status(400).send({
+       message: 'Bad request'
+     }));
   }
 };

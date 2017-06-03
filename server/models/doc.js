@@ -7,10 +7,11 @@ module.exports = (sequelize, DataTypes) => {
     content: {
       type: DataTypes.STRING,
       allowNull: false,
-    },
-    complete: {
-      type: DataTypes.BOOLEAN,
-      defaultValue: false
+      validate: {
+        len: {
+          args: [2, 1000000],
+        }
+      }
     },
     access: {
       type: DataTypes.STRING,
@@ -27,7 +28,7 @@ module.exports = (sequelize, DataTypes) => {
       associate: (models) => {
         Doc.belongsTo(models.User, {
           foreignKey: 'userId',
-          // as: 'userId',
+          // as: 'userName',
           onDelete: 'CASCADE',
         });
       }

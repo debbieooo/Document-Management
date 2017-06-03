@@ -16,7 +16,10 @@ module.exports = (app) => {
 // User routes
   app.post('/api/users/signup', users.create);
   app.get('/api/users', authorization.authorize, users.listAll);
-  app.delete('/api/users/delete/:userName', users.destroy);
+  app.delete('/api/users/:id', authorization.authorize, users.delete);
+  app.post('/api/users/login', users.login);
+  app.get('/api/users/:id', users.findUser);
+  app.put('/api/users/:id', users.update);
 
 // Document routes
   app.post('/api/documents', documents.create);

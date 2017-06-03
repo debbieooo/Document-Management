@@ -20,6 +20,8 @@ module.exports = (sequelize, DataTypes) => {
     name: {
       type: DataTypes.STRING,
       allowNull: false,
+      validate: { 
+      }
     },
     password: {
       type: DataTypes.STRING,
@@ -34,13 +36,13 @@ module.exports = (sequelize, DataTypes) => {
   }, {
     classMethods: {
       associate: (models) => {
-        // User.hasMany(models.Doc, {
-        //   foreignKey: 'userId',
-        // //   as: 'userId',
-        // });
+        User.hasMany(models.Doc, {
+          foreignKey: 'userId',
+        //   as: 'docs',
+        });
         User.belongsTo(models.Role, {
           foreignKey: 'roleId',
-        //   as: 'user',
+        //   as: 'role',
           onDelete: 'CASCADE',
         });
       }
