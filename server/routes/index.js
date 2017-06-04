@@ -2,6 +2,7 @@ const roles = require('../controllers/role');
 const users = require('../controllers/user');
 const documents = require('../controllers/doc');
 const authorization = require('../middleware/authorization');
+const search = require('../controllers/search');
 
 module.exports = (app) => {
   app.get('/api', (req, res) => res.status(200).send({
@@ -20,7 +21,15 @@ module.exports = (app) => {
   app.post('/api/users/login', users.login);
   app.get('/api/users/:id', users.findUser);
   app.put('/api/users/:id', users.update);
+  app.get('/api/users/:id/documents', users.findUserDoc);
 
 // Document routes
   app.post('/api/documents', documents.create);
+  app.put('/api/documents/:id', documents.update);
+  app.get('/api/documents/:id', documents.findDoc);
+  // app.get('/api/documents/:title', documents.findDoc);
+  app.delete('/api/documents/:id', documents.delete);
+
+// Search routes
+  app.get('/api/search/users', search.searchUser);
 };

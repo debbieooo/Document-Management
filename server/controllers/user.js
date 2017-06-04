@@ -1,6 +1,6 @@
 const Users = require('../models').User;
 // const Roles = require('../models').Role;
-// const Docs = require('../models').Doc;
+const Docs = require('../models').Doc;
 const jwt = require('jsonwebtoken');
 
 module.exports = {
@@ -135,6 +135,27 @@ module.exports = {
       .catch(error => res.status(400).send(error));
     })
     .catch(error => res.status(400).send(error));
+  },
+  findUserDoc(req, res) {
+    console.log('reqsssss', req.params);
+    return Docs
+     .findAll({ where: {
+       userId: req.params.id
+     }
+     })
+     .then((user) => {
+       if (!user) {
+         return res.status(400).send({
+           message: 'No Document Found for this user'
+         });
+       }
+
+       res.status(200)
+           .send({ user });
+     })
+     .catch(error => res.status(400).send({
+       message: 'Bad request'
+     }));
   },
   delete(req, res) {
     return Users
