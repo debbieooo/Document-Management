@@ -6,11 +6,42 @@ const expect = chai.expect;
 
 const api = request(app);
 // api.get('/api/users/signup');
-
+const user1data = {
+  name: 'testing',
+  userName: 'testing',
+  email: 'testing@debs.com',
+  password: 'testing',
+  roleId: '2'
+};
+const user2data = {
+  name: 'testAdmin',
+  userName: 'testAdmin',
+  email: 'testAdmin@debs.com',
+  password: 'testAdmin',
+  roleId: '1'
+};
 
 describe('User', () => {
+  const user = {};
+  const adminUser = {};
   // sign up tests
-
+  before((done) => {
+    api.post('/api/users/signup').send(user1data)
+       .end((err, res) => {
+        //  console.log(res.body, res.status);
+         user.id = res.body.user.id;
+         user.token = res.body.token;
+         expect(res.status).to.equal(201);
+         api.post('/api/users/signup').send(user2data)
+          .end((err, res) => {
+            //  console.log(res.body, res.status);
+            adminUser.id = res.body.user.id;
+            adminUser.token = res.body.token;
+            expect(res.status).to.equal(201);
+            done();
+          });
+       });
+  });
   xdescribe('signup', () => {
     it('should sign a user up ', (done) => {
       api.post('/api/users/signup').send({
@@ -156,7 +187,7 @@ describe('User', () => {
       });
     });
   });
-  describe('Display all users', () => {
+  xdescribe('Display all users', () => {
       // list all users tests
     it('should not display all the users in the system if not authorized', (done) => {
       api.get('/api/users').end((err, res) => {
@@ -177,10 +208,12 @@ describe('User', () => {
   });
   describe('Cannot delete a user if youre not signed in', (done) => {
     it('deletes a particular user by id', () => {
-      api.delete('/api/users/10').end((err, res) => {
-        expect(res.status).to.equal(401);
-        done();
-      });
+      api.delete(`/api/users/${user.id}`)
+        .set('Authorization', adminUser.token)
+        .end((err, res) => {
+          expect(res.status).to.equal(200);
+          done();
+        });
     });
   });
 });
