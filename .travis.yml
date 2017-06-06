@@ -6,7 +6,7 @@ services:
 before_install:
   - npm install sequelize-cli -g
 before_script:
-  - psql -c 'create database "doc-manager";' -U postgres  && sequelize db:migrate 
+  - psql -c 'create database "doc-manager";' -U debs  && sequelize db:migrate 
 
 script: "npm run test:coverage"
 
