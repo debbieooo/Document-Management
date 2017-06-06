@@ -63,6 +63,10 @@
 	
 	var _reactRouter = __webpack_require__(/*! react-router */ 512);
 	
+	var _Footer = __webpack_require__(/*! ./components/layouts/Footer.jsx */ 532);
+	
+	var _Footer2 = _interopRequireDefault(_Footer);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -88,9 +92,9 @@
 	    key: 'render',
 	    value: function render() {
 	      return _react2.default.createElement(
-	        'p',
+	        'div',
 	        null,
-	        ' Hello world!'
+	        _react2.default.createElement(_Footer2.default, null)
 	      );
 	    }
 	  }]);
@@ -35711,6 +35715,124 @@
 	};
 	
 	exports.default = withRouter;
+
+/***/ },
+/* 531 */,
+/* 532 */
+/*!**************************************************!*\
+  !*** ./client/src/components/layouts/Footer.jsx ***!
+  \**************************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _react = __webpack_require__(/*! react */ 1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var Footer = function Footer() {
+	  return _react2.default.createElement(
+	    "footer",
+	    { className: "page-footer" },
+	    _react2.default.createElement(
+	      "div",
+	      { className: "container" },
+	      _react2.default.createElement(
+	        "div",
+	        { className: "row" },
+	        _react2.default.createElement(
+	          "div",
+	          { className: "col l6 s12" },
+	          _react2.default.createElement(
+	            "h5",
+	            { className: "white-text" },
+	            "Footer Content"
+	          ),
+	          _react2.default.createElement(
+	            "p",
+	            { className: "grey-text text-lighten-4" },
+	            "You can use rows and columns here to organize your footer content."
+	          )
+	        ),
+	        _react2.default.createElement(
+	          "div",
+	          { className: "col l4 offset-l2 s12" },
+	          _react2.default.createElement(
+	            "h5",
+	            { className: "white-text" },
+	            "Links"
+	          ),
+	          _react2.default.createElement(
+	            "ul",
+	            null,
+	            _react2.default.createElement(
+	              "li",
+	              null,
+	              _react2.default.createElement(
+	                "a",
+	                { className: "grey-text text-lighten-3",
+	                  href: "#!" },
+	                "Link 1"
+	              )
+	            ),
+	            _react2.default.createElement(
+	              "li",
+	              null,
+	              _react2.default.createElement(
+	                "a",
+	                { className: "grey-text text-lighten-3",
+	                  href: "#!" },
+	                "Link 2"
+	              )
+	            ),
+	            _react2.default.createElement(
+	              "li",
+	              null,
+	              _react2.default.createElement(
+	                "a",
+	                { className: "grey-text text-lighten-3",
+	                  href: "#!" },
+	                "Link 3"
+	              )
+	            ),
+	            _react2.default.createElement(
+	              "li",
+	              null,
+	              _react2.default.createElement(
+	                "a",
+	                { className: "grey-text text-lighten-3",
+	                  href: "#!" },
+	                "Link 4"
+	              )
+	            )
+	          )
+	        )
+	      )
+	    ),
+	    _react2.default.createElement(
+	      "div",
+	      { className: "footer-copyright" },
+	      _react2.default.createElement(
+	        "div",
+	        { className: "container" },
+	        "\xA9 2014 Copyright Text",
+	        _react2.default.createElement(
+	          "a",
+	          { className: "grey-text text-lighten-4 right", href: "#!" },
+	          "More Links"
+	        )
+	      )
+	    )
+	  );
+	}; /* eslint-disable react-in-jsx-scope */
+	
+	exports.default = Footer;
 
 /***/ }
 /******/ ]);
