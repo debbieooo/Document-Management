@@ -1,20 +1,20 @@
 {
   "development": {
-    "username": "debs",
+    "username": "postgres",
     "password": null,
     "database": "doc-manager",
     "host": "127.0.0.1",
     "dialect": "postgres"
   },
   "test": {
-    "username": "debs",
+    "username": "postgres",
     "password": null,
     "database": "doc-manager-test",
     "host": "127.0.0.1",
     "dialect": "postgres"
   },
   "production": {
-    "username": "debs",
+    "username": "postgres",
     "password": null,
     "database": "doc-manager-production",
     "host": "127.0.0.1",
