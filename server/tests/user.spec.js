@@ -72,7 +72,7 @@ describe('User', () => {
       , (done) => {
         api.post('/api/users/signup').send({
           name: 'Mary',
-          userName: 'Deborah',
+          userName: user1data.userName,
           email: 'marybs@debs.com',
           password: 'testing',
           roleId: '2'
@@ -88,7 +88,7 @@ describe('User', () => {
         api.post('/api/users/signup').send({
           name: 'Mary',
           userName: 'Mary',
-          email: 'debs@debs.com',
+          email: user1data.email,
           password: 'testing',
           roleId: '2'
         })
