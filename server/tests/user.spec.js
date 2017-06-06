@@ -60,13 +60,7 @@ describe('User', () => {
        });
     });
     it('should not allow an already existing user to sign up', (done) => {
-      api.post('/api/users/signup').send({
-        name: 'Deborah',
-        userName: 'Deborah',
-        email: 'debs@debs.com',
-        password: 'testing',
-        roleId: '2'
-      })
+      api.post('/api/users/signup').send(user1data)
       .end((err, res) => {
         expect(res.status).to.equal(409);
         done();
