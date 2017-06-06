@@ -3,8 +3,10 @@ node_js:
   - 6.10.1
 services:
   - postgresql
+before_install:
+  - npm install sequelize -g
 before_script:
-  - psql -c 'create database "doc-manager";' -U postgres && npm install sequelize -g && sequelize db:migrate 
+  - psql -c 'create database "doc-manager";' -U postgres  && sequelize db:migrate 
 
 script: "npm run test:coverage"
 
