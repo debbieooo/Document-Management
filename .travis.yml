@@ -4,7 +4,8 @@ node_js:
 services:
   - postgresql
 before_script:
-  - psql -c 'create database "doc-manager";' -U postgres
+  - psql -c 'create database "doc-manager";' -U postgres && npm install sequelize -g && sequelize db:migrate 
+
 script: "npm run test:coverage"
 
 after_success: "cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js"
