@@ -43,13 +43,13 @@ describe('User', () => {
           });
        });
   });
-  xdescribe('signup', () => {
+  describe('signup', () => {
     it('should sign a user up ', (done) => {
       api.post('/api/users/signup').send({
-        name: 'test2',
-        userName: 'test2',
-        email: 'test2@debs.com',
-        password: 'test2',
+        name: faker.name.firstName(),
+        userName: faker.internet.userName(),
+        email: faker.internet.email(),
+        password: faker.internet.password(),
         roleId: '2'
       })
        .end((err, res) => {
@@ -104,13 +104,13 @@ describe('User', () => {
       });
   });
 
-  xdescribe('(login', () => {
+  describe('(login', () => {
     // log in tests
 
     it('should log an existing user in with email and password', (done) => {
       api.post('/api/users/login').send({
-        email: 'test2@debs.com',
-        password: 'test2'
+        email: user1data.email,
+        password: user1data.password
       })
       .end((err, res) => {
         expect(res.status).to.equal(200);
@@ -119,8 +119,8 @@ describe('User', () => {
     });
     it('should log an existing user in with username and password', (done) => {
       api.post('/api/users/login').send({
-        userName: 'test2',
-        password: 'test2'
+        userName: user1data.userName,
+        password: user1data.password
       })
       .end((err, res) => {
         expect(res.status).to.equal(200);
