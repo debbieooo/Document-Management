@@ -1,23 +1,24 @@
 const app = require('../../app');
 const request = require('supertest');
 const chai = require('chai');
+const faker = require('faker');
 
 const expect = chai.expect;
 
 const api = request(app);
 // api.get('/api/users/signup');
 const user1data = {
-  name: 'testing',
-  userName: 'testing',
-  email: 'testing@debs.com',
-  password: 'testing',
+  name: faker.name.firstName(),
+  userName: faker.internet.userName(),
+  email: faker.internet.email(),
+  password: faker.internet.password(),
   roleId: '2'
 };
 const user2data = {
-  name: 'testAdmin',
-  userName: 'testAdmin',
-  email: 'testAdmin@debs.com',
-  password: 'testAdmin',
+  name: faker.name.firstName(),
+  userName: faker.internet.userName(),
+  email: faker.internet.email(),
+  password: faker.internet.password(),
   roleId: '1'
 };
 
@@ -28,7 +29,7 @@ describe('User', () => {
   before((done) => {
     api.post('/api/users/signup').send(user1data)
        .end((err, res) => {
-        //  console.log(res.body, res.status);
+         console.log(res.body, res.status);
          user.id = res.body.user.id;
          user.token = res.body.token;
          expect(res.status).to.equal(201);
