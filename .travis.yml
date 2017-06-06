@@ -4,7 +4,7 @@ node_js:
 services:
   - postgresql
 before_install:
-  - npm install sequelize -g
+  - npm install sequelize-cli -g
 before_script:
   - psql -c 'create database "doc-manager";' -U postgres  && sequelize db:migrate 
 
