@@ -1,2 +1,2 @@
-[![Build Status](https://travis-ci.org/andela-doni/doc-manager.svg?branch=master)](https://travis-ci.org/andela-doni/doc-manager)
-[![Coverage Status](https://coveralls.io/repos/github/andela-doni/docs/badge.svg?branch=ch-setup-145882287)](https://coveralls.io/github/andela-doni/docs?branch=ch-setup-145882287)
+[![Build Status](https://travis-ci.org/andela-doni/doc-manager.svg?branch=dev)](https://travis-ci.org/andela-doni/doc-manager)
+[![Coverage Status](https://coveralls.io/repos/github/andela-doni/docs/badge.svg?branch=dev)](https://coveralls.io/github/andela-doni/docs?branch=dev)
