@@ -8,17 +8,26 @@ const config = {
   entry: `${APP_DIR}/index.jsx`,
   output: {
     path: BUILD_DIR,
-    filename: 'bundle.js'
+    filename: 'bundle.js',
+    publicPath: '/'
   },
+  // plugins: [
+  //   new webpack.optimize.OccurrenceOrderPlugin(),
+  //   new webpack.HotModuleReplacementPlugin(),
+  // ],
+  // devServer: {
+  //   contentBase: './client/dist',
+  //   hot: true
+  // },
   module: {
     loaders: [
       {
-        test: /\.jsx?/,
-        include: APP_DIR,
+        test: /\.jsx?/, 
+        exclude: /node_modules/,
         loader: 'babel'
       },
       {
-        test: /\.js$/, include: path.join(__dirname, 'src'), loaders: ['babel']
+        test: /\.js$/, exclude: /node_modules/, loaders: ['babel-loader']
       },
       {
         test: /\.eot(\?v=\d+\.\d+\.\d+)?$/, loader: 'file'
@@ -26,6 +35,13 @@ const config = {
       {
         test: /\.(woff|woff2)$/, loader: 'url?prefix=font/&limit=5000'
       },
+      {
+        test: /\.(jpe?g|png|gif|svg)$/i,
+        loaders: [
+            'file?hash=sha512&digest=hex&name=[hash].[ext]',
+            'image-webpack-loader?bypassOnDebug&optimizationLevel=7&interlaced=false'
+        ]
+    },
       {
         test: /\.ttf(\?v=\d+\.\d+\.\d+)?$/,
         loader: 'url?limit=10000&mimetype=application/octet-stream'
@@ -37,17 +53,10 @@ const config = {
       {
         test: /\.scss$/,
         loaders: ['style', 'css', 'sass']
-      },
-      {
-        test: /\.(jpe?g|png|gif|svg)$/i,
-        loaders: [
-          'file-loader?hash=sha512&digest=hex&name=[hash].[ext]',
-          'image-webpack-loader?bypassOnDebug&optimizationLevel',
-          '=7&interlaced=false'
-        ]
       }
     ]
-  }
+  },
+  // resolve: ['', '.js', '.jsx', '.css', '.scss']
 };
 
 module.exports = config;

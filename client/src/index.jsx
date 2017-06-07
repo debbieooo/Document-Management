@@ -1,19 +1,13 @@
+/*eslint-disable import/default */
+// import 'babel-polyfill';
 import React from 'react';
-import 'babel-polyfill';
 import { render } from 'react-dom';
-import {Provider} from 'react-redux';
+import Dashboard from './components/pages/Dashboard.jsx';
+import routes from './route';
 import { Router, browserHistory } from 'react-router';
-// import routes from './routes';
-// import './styles/main.scss';
 
-
-
-
-
-class App extends React.Component {
-  render() {
-    return <p> Hello world!</p>;
-  }
-}
-
-render(<App/>, global.document.getElementById('app'));
+// import '../styles/main.scss';
+render(
+  <Router history={browserHistory} routes={routes} />,
+  document.getElementById('app')
+);
