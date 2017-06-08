@@ -1,31 +1,37 @@
 import React from 'react';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+import * as userActions  from '../../actions/userAction.js'
 
-export default class SignUp extends React.Component {
+class SignUp extends React.Component {
   constructor(props, context) {
     super(props, context);
     this.state = {
-      name: '',
-      userName: '',
-      email: '',
-      password: ''
+			user: Object.assign({}, props.user),
+			errors: {}
     };
 		this.handleChange = this.handleChange.bind(this);
 		this.handleSubmit = this.handleSubmit.bind(this);
+		// console.log('user state', this.state.user);
   }
-	handleSubmit(e) {
-		alert('You have been signed in as' + this.state.name);
+	handleSubmit(event) {
 		event.preventDefault();
+		console.log('this.state.user',this.state.user);
+		this.props.actions.createUser(this.state.user);
 	}
 
 	handleChange(event) {
-		const target = event.target;
-    const value = target.value;
-    const name = target.name;
+		 const target = event.target;
+     const value = event.target.value;
+     const name = event.target.name;
 
-		this.setState({
-			[name] : value
-		})
-			console.log(this);
+		 const user = this.state.user;
+		 user[name] = value;
+		 return this.setState({ user })
+		  this.setState({
+		 	[name] : value
+		 })
+
 	}
   render() {
     return (
@@ -62,6 +68,21 @@ export default class SignUp extends React.Component {
           </div>
         </div>
       </div>
-    );
+    ); 
   }
 }
+
+function mapStateToProps(state, ownProps) {
+	console.log('the state ', state)
+	return {
+		user : state.user
+	}; 
+}
+
+function mapDispatchToProps(dispatch) {
+ return {
+	 actions: bindActionCreators(userActions, dispatch)
+ }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps )(SignUp);

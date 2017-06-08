@@ -1,10 +1,10 @@
 import React from 'react';
 import { Route, IndexRoute } from 'react-router';
-import Landing from './components/pages/Landing.jsx';
-import Login from './components/pages/Login.jsx';
-import SignUp from './components/pages/SignUp.jsx';
+import Landing from './components/sections/Landing.jsx';
+import Login from './components/sections/Login.jsx';
+import SignUp from './components/sections/SignUp.jsx';
 import App from './components/layout/App.jsx';
-import Dashboard from './components/pages/Dashboard.jsx';
+import Dashboard from './components/sections/Dashboard.jsx';
 //eslint-disable-line import/no-named-as-default
 
 export default (

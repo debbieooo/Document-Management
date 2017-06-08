@@ -70,7 +70,7 @@ module.exports = {
             message: 'Wrong username/email'
           });
         } else if (user.validate(req.body.password)) {
-          const info = {
+          const userInfo = {
             id: user.id,
             roleId: user.roleId,
             userName: user.userName,
@@ -83,7 +83,7 @@ module.exports = {
           }, process.env.SECRET_KEY);
           res.status(200).send({
             status: 200,
-            info,
+            userInfo,
             message: 'You are now logged in',
             token
           });
