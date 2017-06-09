@@ -9,10 +9,10 @@ import Dashboard from './components/sections/Dashboard.jsx';
 
 export default (
 <Route>
- <Route path="/welcome" component={Landing} />
+ <Route path="/" component={Landing} />
   <Route path="/login" component={Login} />
    <Route path="/signup" component={SignUp} />
-  <Route path="/" component={App}>
+  <Route path="/home" component={App}>
     <IndexRoute component={Dashboard} />
   </Route>
 </Route>

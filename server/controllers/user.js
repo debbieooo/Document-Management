@@ -5,6 +5,7 @@ const jwt = require('jsonwebtoken');
 
 module.exports = {
   create(req, res) {
+    console.log(req);
     Users.findAndCountAll({ where: {
       $or: [
         {

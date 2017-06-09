@@ -1,48 +1,42 @@
 import React from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import * as userActions  from '../../actions/userAction.js'
+import * as userActions  from '../../actions/userAction';
 
 class SignUp extends React.Component {
   constructor(props, context) {
     super(props, context);
     this.state = {
-			user: Object.assign({}, props.user),
-			errors: {}
+      user: Object.assign({}, props.user),
+      errors: {}
     };
-		this.handleChange = this.handleChange.bind(this);
-		this.handleSubmit = this.handleSubmit.bind(this);
-		// console.log('user state', this.state.user);
+    this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+// console.log('user state', this.state.user);
   }
-	handleSubmit(event) {
-		event.preventDefault();
-		console.log('this.state.user',this.state.user);
-		this.props.actions.createUser(this.state.user);
-	}
+  handleSubmit(event) {
+    event.preventDefault();
+    console.log('this.state.user', this.state.user);
+    this.props.actions.signUp(this.state.user);
+  }
 
-	handleChange(event) {
-		 const target = event.target;
-     const value = event.target.value;
-     const name = event.target.name;
-
-		 const user = this.state.user;
-		 user[name] = value;
-		 return this.setState({ user })
-		  this.setState({
-		 	[name] : value
-		 })
-
-	}
+  handleChange(event) {
+    const value = event.target.value;
+    const name = event.target.name;
+    const user = this.state.user;
+    user[name] = value;
+    return this.setState({ user });
+  }
   render() {
+    console.log('this.state', this.state);
     return (
-  	
 	      <div className="row">
         <div className="col s12 m6">
           <div className="card blue-grey darken-1">
             <div className="card-content white-text">
              	<div className="row">
 				  <h1>Sign Up </h1>
-				<form className="col s12"  onSubmit={this.handleSubmit}>
+				<form className="col s12" onSubmit={this.handleSubmit}>
 						<div className="row">
 						<div className="input-field col s6">
 							<input placeholder="Name" name="name" id="name" type="text" className="validate" value={this.state.name} onChange={this.handleChange}/>
@@ -61,28 +55,27 @@ class SignUp extends React.Component {
 				</div>
 				<button className="btn waves-effect waves-light" type="submit" name="action" value ="submit">Submit
 					<i className="material-icons right">send</i>
-				</button>			
+				</button>
 			</form>
 	</div>
             </div>
           </div>
         </div>
       </div>
-    ); 
+    );
   }
 }
 
-function mapStateToProps(state, ownProps) {
-	console.log('the state ', state)
-	return {
-		user : state.user
-	}; 
+function mapStateToProps(state) {
+  console.log('the state ', state);
+  return {
+    user: state.user
+  };
 }
 
 function mapDispatchToProps(dispatch) {
- return {
-	 actions: bindActionCreators(userActions, dispatch)
- }
+  return { actions: bindActionCreators(userActions, dispatch)
+  };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps )(SignUp);
+export default connect(mapStateToProps, mapDispatchToProps)(SignUp);
