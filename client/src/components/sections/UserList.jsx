@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react';
 import UserListTable from './UserListTable.jsx';
 
-const UserList = ({ users }) =>
+const UserList = ({ users, onClick }) =>
    (
     <table className="bordered responsive-table">
       <thead>
@@ -12,7 +12,7 @@ const UserList = ({ users }) =>
         </tr>
       </thead>
       <tbody>
-        {users.map(user => <UserListTable key={user.id} user ={user}/>)}
+        {users.map(user => <UserListTable key={user.id} user ={user} handleClick= {onClick}/>)}
       </tbody>
     </table>
   );

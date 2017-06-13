@@ -1,3 +1,7 @@
 export default {
-  user: []
+  authUser: {
+    isAuthenticated: false
+  },
+  users: []
+
 };

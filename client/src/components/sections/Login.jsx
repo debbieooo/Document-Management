@@ -1,4 +1,5 @@
 import React from 'react';
+import { browserHistory } from 'react-router';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import * as userActions  from '../../actions/userAction';
@@ -8,7 +9,7 @@ class Login extends React.Component {
     super(props, context);
     this.state = {
       user: Object.assign({}, props.user),
-      errors: {}
+      error: ''
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -16,7 +17,14 @@ class Login extends React.Component {
   handleSubmit(event) {
     event.preventDefault();
     console.log("this.statesssssssss", this.state);
-    this.props.actions.login(this.state.user);
+    this.props.actions.login(this.state.user)
+    .then(token => {
+      browserHistory.push('/home');
+    })
+    .catch(error => {
+      this.setState({error: 'Wrong input details'});
+    });
+      
     alert(`You have been signed in as${this.state.user}`);
   }
 
@@ -48,6 +56,7 @@ class Login extends React.Component {
 									<button className="btn waves-effect waves-light" type="submit" name="action" value="submit">Submit
 					<i className="material-icons right">send</i>
 									</button>
+                  {this.state.error && <div><h5>{this.state.error}</h5></div>}
 								</form>
 							</div>
 						</div>
