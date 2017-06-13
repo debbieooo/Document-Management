@@ -29,7 +29,7 @@ class Dashboard extends React.Component {
     const { users } = this.props;
     return (
       <div>
-        <h1>Users</h1>
+        <h4>Users</h4>
         <UserList users = {users} onClick ={this.handleClick}/>
       </div>
     );
