@@ -16,7 +16,7 @@ module.exports = (app) => {
 
 // User routes
   app.post('/api/users/signup', users.create);
-  app.get('/api/users', authorization.authorize, users.listAll);
+  app.get('/api/users', users.listAll);
   app.delete('/api/users/:id', authorization.authorize, users.delete);
   app.post('/api/users/login', users.login);
   app.get('/api/users/:id', users.findUser);

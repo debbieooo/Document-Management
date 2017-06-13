@@ -5,11 +5,23 @@ const bodyParser = require('body-parser');
 const jwt = require('jsonwebtoken'); // used to create, sign, and verify tokens
 const config = require('./server/config/config.json'); // get our config file
 const dotenv = require('dotenv');
+const webpack = require('webpack');
+const webpackConfig = require('./webpack.config');
+const webpackDevMiddleware = require('webpack-dev-middleware');
+const webpackHotMiddleware = require('webpack-hot-middleware');
 
 dotenv.config();
 // Set up the express app
 const app = express();
 
+// if(process.env.NODE_ENV !== 'test') {
+//   const compiler = webpack(webpackConfig);
+//   app.use(webpackHotMiddleware(compiler, {
+//     noInfo: true,
+//     publicPath: webpackConfig.output.publicPath
+//   }));
+//   app.use(webpackHotMiddleware(compiler));
+// }
 
 // secret variable
 app.set('superSecret', config.secret);
