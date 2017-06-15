@@ -27,7 +27,6 @@ class ManageUser extends React.Component {
     const { users } = this.props;
     return (
       <div>
-        <h4>Users</h4>
         <UserList users = {users} onClick ={this.handleClick}/>
       </div>
     );

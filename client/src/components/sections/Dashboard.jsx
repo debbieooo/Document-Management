@@ -1,5 +1,6 @@
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router';
 import { bindActionCreators } from 'redux';
 import UserList from './UserList.jsx';
 import { userlist }  from '../../actions/userAction';
@@ -29,8 +30,10 @@ class Dashboard extends React.Component {
     const { users } = this.props;
     return (
       <div>
-        <h4>Users</h4>
-        <UserList users = {users} onClick ={this.handleClick}/>
+        <div className="row">
+          <Link to="/users" className="waves-effect waves-light btn-large">Users</Link>
+          <Link to="/documents" className="waves-effect waves-light btn-large">Documents</Link>
+        </div>
       </div>
     );
   }
@@ -58,4 +61,3 @@ function mapDispatchToProps(dispatch) {
   };
 }
 export default connect(mapStateToProps, mapDispatchToProps)(Dashboard);
-

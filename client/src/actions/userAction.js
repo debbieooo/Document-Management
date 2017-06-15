@@ -25,12 +25,19 @@ export function deleteUsers(id) {
     id
   };
 }
+export function currentUserInfo(user) {
+  return {
+    type: types.CURRENT_USER_INFO,
+    user
+  };
+}
 
 
 export function signUp(user) {
   return dispatch => axios.post('/api/users/signup', user)
   .then((response) => {
     localStorage.setItem('token', response.data.token);
+    localStorage.setItem('userInfo', response.data.user);
     dispatch(createUser(response.data.user));
     // axios.defaults.headers.common.Authorization = token;
     return response.data.token;
@@ -46,6 +53,7 @@ export function login(user) {
   .then((response) => {
     // console.log('resonsessss', response);
     localStorage.setItem('token', response.data.token);
+    localStorage.setItem('userInfo', response.data.userInfo);
     dispatch(loginUser(response.data.userInfo));
     return response.data.token;
   })
@@ -58,6 +66,7 @@ export function login(user) {
 export function deleteAcc(userId) {
   const token = localStorage.getItem('token');
   axios.defaults.headers.common.Authorization = token;
+  console.log('im about to delete');
   return dispatch => axios.delete(`api/users/${userId}`)
   .then((response) => {
     dispatch(deleteUsers(userId));
@@ -68,10 +77,11 @@ export function deleteAcc(userId) {
   });
 }
 
+
 export function userlist() {
   return dispatch => axios.get('/api/users')
   .then((response) => {
-    console.log('response.date', response.data);
+    console.log('response.data', response.data);
     dispatch(listUsers(response.data));
     dispatch({ type: 'Error' });
   })
@@ -79,4 +89,15 @@ export function userlist() {
     dispatch({ type: 'Error' });
   });
 }
+
+// export function currentUser(userId) {
+//   return dispatch => axios.get(`api/users/${userId}`)
+//   .then((response) => {
+//     dispatch(currentUserInfo(userId));
+//   })
+//   .catch((error) => {
+//     dispatch({ type: 'Error' });
+//     throw error;
+//   });
+// }
 

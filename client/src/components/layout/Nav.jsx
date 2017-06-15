@@ -8,6 +8,8 @@ class Nav extends React.Component {
   }
   handleClick() {
     alert('logout');
+    localStorage.removeItem('token');
+    localStorage.removeItem('userInfo');
     browserHistory.push('/');
   }
   render() {

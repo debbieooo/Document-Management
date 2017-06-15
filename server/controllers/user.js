@@ -1,6 +1,7 @@
 const Users = require('../models').User;
-// const Roles = require('../models').Role;
 const Docs = require('../models').Doc;
+const db = require('../models');
+// const Roles = require('../models').Role;
 const jwt = require('jsonwebtoken');
 
 module.exports = {
@@ -157,6 +158,23 @@ module.exports = {
      .catch(error => res.status(400).send({
        message: 'Bad request'
      }));
+  },
+  userDoclist(req, res) {
+    // const id =
+    return db.sequelize.query(`SELECT "Doc"."id", "Doc"."title", "Doc"."content", "Doc"."access", "Doc"."userId", "Doc"."createdAt", "Doc"."updatedAt"
+, "User"."id" AS "User.id", "User"."userName" AS "User.userName" FROM "Docs" AS "Doc" LEFT OUTER JOIN "Users" AS "User" ON CAST("Doc"."userId" AS INTEGER) = CAST("User"."id" AS INTEGER);`)
+      .then((docs) => {
+        if (!docs) {
+          return res.status(400).send({
+            message: 'No user found'
+          });
+        }
+        res.status(200)
+          .send(docs[0]);
+      })
+      .catch(error => res.status(400).send({
+        error
+      }));
   },
   delete(req, res) {
     return Users

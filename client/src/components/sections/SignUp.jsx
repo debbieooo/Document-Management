@@ -20,7 +20,6 @@ class SignUp extends React.Component {
     // console.log('this.state.user', this.state.user);
     this.props.actions.signUp(this.state.user)
     .then((token) => {
-      console.log('tokennsss', token);
       browserHistory.push('/home');
     })
     .catch((error) => {
@@ -76,7 +75,7 @@ class SignUp extends React.Component {
 }
 
 function mapStateToProps(state) {
-  // console.log('the state ', state);
+  console.log('the state ', state);
   return {
     user: state.user
   };

@@ -22,9 +22,11 @@ module.exports = (app) => {
   app.get('/api/users/:id', users.findUser);
   app.put('/api/users/:id', users.update);
   app.get('/api/users/:id/documents', users.findUserDoc);
+  app.get('/api/documents', users.userDoclist);
 
 // Document routes
   app.post('/api/documents', documents.create);
+  // app.get('/api/documents', documents.listAllDocs);
   app.put('/api/documents/:id', documents.update);
   app.get('/api/documents/:id', documents.findDoc);
   // app.get('/api/documents/:title', documents.findDoc);
