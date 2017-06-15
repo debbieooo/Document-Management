@@ -8,11 +8,12 @@ class ManageDoc extends React.Component {
   constructor(props, context) {
     super(props, context);
     this.state = {
-      doc: '',
+      doc: Object.assign({}, props.docs),
       error: ''
     };
   }
   componentDidMount() {
+    console.log(this.props)
     this.props.actions.doclist();
   }
   render() {
@@ -20,7 +21,7 @@ class ManageDoc extends React.Component {
     const { docs } = this.props;
     return (
       <div>
-        {/* <h5>Hello Docs</h5>*/}
+        
        <DocList docs = {docs} />
       </div>
     );

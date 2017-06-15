@@ -21,7 +21,7 @@ const DocList = ({ docs }) =>
     </table>
      </div>
 );
-DocList.prototype = {
+DocList.PropTypes = {
   docs: PropTypes.array.isRequired
 };
 export default DocList;

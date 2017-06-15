@@ -9,6 +9,7 @@ export function listDocs(docs) {
 }
 
 export function doclist() {
+  console.log('iam called')
   return dispatch => axios.get('/api/documents')
   .then((response) => {
     console.log('response.data', response.data);
