@@ -12,6 +12,14 @@ export default function userReducer(state = initialState.authUser, action) {
       return Object.assign({}, state, authUser);
     }
 
+    case types.CURRENT_USER_INFO: {
+      const authUser = {
+        ...action.user,
+        isAuthenticated: true
+      };
+      return Object.assign({}, state, authUser);
+    }
+
     case types.LOGIN_USER_SUCCESS: {
       const authUser = {
         ...action.user,
@@ -19,6 +27,10 @@ export default function userReducer(state = initialState.authUser, action) {
       };
       return Object.assign({}, state, authUser);
     }
+    case types.UPDATE_USER_SUCCESS:
+      console.log('updated!!!');
+      return { ...state };
+
     default:
       return state;
   }

@@ -31,12 +31,12 @@ module.exports = {
         name: req.body.name,
         email: req.body.email,
         password: req.body.password,
-        roleId: req.body.roleId ? req.body.roleId : 3
+        roleId: req.body.roleId ? req.body.roleId : 2
       })
       .then((user) => {
         // console.log(process.env.SECRET_KEY, '\n hey I\'m secret');
         const token = jwt.sign({
-          data: user.id,
+          id: user.id,
           expiresIn: '3h'
         }, process.env.SECRET_KEY);
 
@@ -80,7 +80,7 @@ module.exports = {
             email: user.email
           };
           const token = jwt.sign({
-            data: user.id,
+            id: user.id,
             expiresIn: '3h'
           }, process.env.SECRET_KEY);
           res.status(200).send({
@@ -195,5 +195,19 @@ module.exports = {
      .catch(error => res.status(400).send({
        message: 'Bad request'
      }));
+  },
+
+  currentUser(req, res) {
+    const id = req.decoded.id;
+    return Users
+     .findById(id)
+     .then((user) => {
+       if (!user) {
+         return res.status(400).send({
+           message: 'User Not Found'
+         });
+       }
+       return res.status(200).send(user);
+     });
   }
 };

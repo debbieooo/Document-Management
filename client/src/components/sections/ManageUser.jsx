@@ -15,15 +15,12 @@ class ManageUser extends React.Component {
     this.handleClick = this.handleClick.bind(this);
   }
   componentDidMount() {
-    console.log(localStorage.getItem('token'));
     this.props.actions.userlist();
   }
   handleClick(userId) {
-    // console.log('i clicked here ');
     this.props.actions.deleteAcc(userId);
   }
   render() {
-    console.log('users', this.props.users);
     const { users } = this.props;
     return (
       <div>
@@ -33,16 +30,14 @@ class ManageUser extends React.Component {
   }
 }
 ManageUser.propTypes = {
-  users: PropTypes.array.isRequired
+  user: PropTypes.array.isRequired
 };
 ManageUser.defaultProps = {
   users: []
 };
 
 function mapStateToProps(state) {
-  console.log('mapstate', state);
   return {
-
     users: state.users
   };
 }

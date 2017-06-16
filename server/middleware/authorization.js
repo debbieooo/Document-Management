@@ -2,6 +2,7 @@ const jwt = require('jsonwebtoken');
 
 module.exports = {
   authorize(req, res, next) {
+    console.log('qwerty');
     jwt.verify(req.headers.authorization,
     process.env.SECRET_KEY,
     (err, decoded) => {

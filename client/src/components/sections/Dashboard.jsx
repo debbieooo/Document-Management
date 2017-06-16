@@ -33,6 +33,8 @@ class Dashboard extends React.Component {
         <div className="row">
           <Link to="/users" className="waves-effect waves-light btn-large">Users</Link>
           <Link to="/documents" className="waves-effect waves-light btn-large">Documents</Link>
+          <Link to="/profile" className=" disabled"> Edit Profile?</Link>
+
         </div>
       </div>
     );

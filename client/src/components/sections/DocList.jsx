@@ -1,13 +1,14 @@
 import React, { PropTypes } from 'react';
 import DocListTable from './DocListTable.jsx';
 
-const DocList = ({ docs }) =>
+const DocList = ({ docs, onClick }) =>
  (
   <div>
        <h5>Documents</h5>
        <table className="bordered responsive-table">
       <thead>
         <tr>
+          <th>Id</th>
           <th>Author</th>
           <th>Title</th>
           <th>Access</th>
@@ -16,7 +17,7 @@ const DocList = ({ docs }) =>
         </tr>
       </thead>
       <tbody>
-        {docs.map(doc => <DocListTable key={doc.id} doc={doc}/>)}
+        {docs.map(doc => <DocListTable key={doc.id} doc={doc} handleClick= {onClick}/>)}
       </tbody>
     </table>
      </div>

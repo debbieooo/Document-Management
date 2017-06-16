@@ -5,9 +5,9 @@ const authorization = require('../middleware/authorization');
 const search = require('../controllers/search');
 
 module.exports = (app) => {
-  app.get('/api', (req, res) => res.status(200).send({
-    message: 'Create a role',
-  }));
+  // app.get('/api', (req, res) => res.status(200).send({
+  //   message: 'Create a role',
+  // }));
 
 // Role routes
   app.post('/api/roles', roles.create);
@@ -15,6 +15,7 @@ module.exports = (app) => {
   // app.get('/api/roles/allusers', roles.listAll);
 
 // User routes
+  app.get('/api/users/active', authorization.authorize, users.currentUser);
   app.post('/api/users/signup', users.create);
   app.get('/api/users', users.listAll);
   app.delete('/api/users/:id', authorization.authorize, users.delete);

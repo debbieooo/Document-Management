@@ -8,28 +8,31 @@ class ManageDoc extends React.Component {
   constructor(props, context) {
     super(props, context);
     this.state = {
-      doc: Object.assign({}, props.docs),
+      doc: Object.assign({}, props.doc),
       error: ''
     };
+    this.handleClick = this.handleClick.bind(this);
   }
   componentDidMount() {
-    console.log(this.props)
     this.props.actions.doclist();
+  }
+  handleClick(docId) {
+    console.log(docId);
+    this.props.actions.deleteDoc(docId);
   }
   render() {
     console.log('docsss', this.props.docs);
     const { docs } = this.props;
     return (
       <div>
-        
-       <DocList docs = {docs} />
+       <DocList docs = {docs} onClick={this.handleClick}/>
       </div>
     );
   }
 }
 
 ManageDoc.propTypes = {
-  docs: PropTypes.array.isRequired
+  doc: PropTypes.array.isRequired
 };
 ManageDoc.defaultProps = {
   docs: []

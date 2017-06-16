@@ -25,9 +25,15 @@ export function deleteUsers(id) {
     id
   };
 }
-export function currentUserInfo(user) {
+export function getUser(user) {
   return {
     type: types.CURRENT_USER_INFO,
+    user
+  };
+}
+export function updateUser(user) {
+  return {
+    type: types.UPDATE_USER_SUCCESS,
     user
   };
 }
@@ -39,7 +45,6 @@ export function signUp(user) {
     localStorage.setItem('token', response.data.token);
     localStorage.setItem('userInfo', response.data.user);
     dispatch(createUser(response.data.user));
-    // axios.defaults.headers.common.Authorization = token;
     return response.data.token;
   })
   .catch((error) => {
@@ -51,7 +56,6 @@ export function signUp(user) {
 export function login(user) {
   return dispatch => axios.post('/api/users/login', user)
   .then((response) => {
-    // console.log('resonsessss', response);
     localStorage.setItem('token', response.data.token);
     localStorage.setItem('userInfo', response.data.userInfo);
     dispatch(loginUser(response.data.userInfo));
@@ -66,7 +70,6 @@ export function login(user) {
 export function deleteAcc(userId) {
   const token = localStorage.getItem('token');
   axios.defaults.headers.common.Authorization = token;
-  console.log('im about to delete');
   return dispatch => axios.delete(`api/users/${userId}`)
   .then((response) => {
     dispatch(deleteUsers(userId));
@@ -81,7 +84,6 @@ export function deleteAcc(userId) {
 export function userlist() {
   return dispatch => axios.get('/api/users')
   .then((response) => {
-    console.log('response.data', response.data);
     dispatch(listUsers(response.data));
     dispatch({ type: 'Error' });
   })
@@ -90,14 +92,29 @@ export function userlist() {
   });
 }
 
-// export function currentUser(userId) {
-//   return dispatch => axios.get(`api/users/${userId}`)
-//   .then((response) => {
-//     dispatch(currentUserInfo(userId));
-//   })
-//   .catch((error) => {
-//     dispatch({ type: 'Error' });
-//     throw error;
-//   });
-// }
+export function activeUser() {
+  const token = localStorage.getItem('token');
+  axios.defaults.headers.common.Authorization = token;
+  return dispatch => axios.get('/api/users/active')
+  .then((response) => {
+    dispatch(getUser(response.data));
+  })
+  .catch((error) => {
+    dispatch({ type: 'Error' });
+  });
+}
+
+export function sendUserUpdate(user) {
+  const token = localStorage.getItem('token');
+  axios.defaults.headers.common.Authorization = token;
+  return dispatch => axios.put(`api/users/${user.id}`, user)
+  .then((response) => {
+    dispatch(updateUser(response.data));
+    // return response.data.token;
+  })
+  .catch((error) => {
+    dispatch({ type: 'Error' });
+    // throw error;
+  });
+}
 

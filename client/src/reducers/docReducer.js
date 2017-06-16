@@ -4,11 +4,18 @@ import initialState from './initialState';
 export default function docReducer(state = initialState.docs, action) {
   switch (action.type) {
     case types.LOAD_DOCUMENTS_SUCCESS:
-    console.log('yooo', state);
       return [
         ...state,
         ...action.docs
       ];
+    case types.DELETE_DOCUMENTS_SUCCESS:
+    // console.log('yes it happened');
+      return [...state].filter((doc) => {
+        if (doc.id !== action.id) {
+          // console.log('hey i have an id', doc.id, action.id);
+          return doc;
+        }
+      });
 
     default:
       return state;
