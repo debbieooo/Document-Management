@@ -13,6 +13,12 @@ export function deleteDocs(id) {
     id
   };
 }
+export function updateDocs(id) {
+  return {
+    type: types.UPDATE_DOCUMENTS_SUCCESS,
+    id
+  };
+}
 
 export function doclist() {
   return dispatch => axios.get('/api/documents')
@@ -39,5 +45,17 @@ export function deleteDoc(docId) {
     throw error;
   });
 }
+
+export function updateDoc(doc) {
+  return dispatch => axios.put(`api/documents/${doc.id}`, doc)
+  .then((response) => {
+    dispatch(updateDocs(response.data));
+  })
+  .catch((error) => {
+    dispatch({ type: 'Error' });
+  });
+}
+
+
 
 

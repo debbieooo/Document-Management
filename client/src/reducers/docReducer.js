@@ -16,6 +16,14 @@ export default function docReducer(state = initialState.docs, action) {
           return doc;
         }
       });
+    case types.UPDATE_DOCUMENTS_SUCCESS:
+      return [...state].map((doc) => {
+        if (doc.id === action.doc.id) {
+          return action.doc;
+        }
+        return doc;
+      });
+
 
     default:
       return state;

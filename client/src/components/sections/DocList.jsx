@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react';
 import DocListTable from './DocListTable.jsx';
 
-const DocList = ({ docs, onClick }) =>
+const DocList = ({ docs, onClick, authUser }) =>
  (
   <div>
        <h5>Documents</h5>
@@ -17,12 +17,13 @@ const DocList = ({ docs, onClick }) =>
         </tr>
       </thead>
       <tbody>
-        {docs.map(doc => <DocListTable key={doc.id} doc={doc} handleClick= {onClick}/>)}
+        {docs.map(doc => <DocListTable key={doc.id} doc={doc} authUser={authUser} handleClick= {onClick}/>)}
       </tbody>
     </table>
      </div>
 );
-DocList.PropTypes = {
-  docs: PropTypes.array.isRequired
+DocList.propTypes = {
+  docs: PropTypes.array.isRequired,
+  authUser: PropTypes.object.isRequired
 };
 export default DocList;
