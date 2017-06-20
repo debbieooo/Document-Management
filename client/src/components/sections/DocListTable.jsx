@@ -11,7 +11,7 @@ const DocListTable = ({ doc, handleClick, authUser }) => (
        <td>{doc.updatedAt}</td>
       <td> <a className="btn-floating btn-large waves-effect waves-light red" onClick={() => { handleClick(doc.id); }}><i className="material-icons">-</i></a></td>
 {(doc['User.userName'] === authUser.userName) ?
-<td><a className="btn-floating btn-large waves-effect waves-light red" onClick= {() => browserHistory.push('/documents/edit')}><i className="material-icons">mode_edit</i></a></td> : ''}</tr>
+<td><a className="btn-floating btn-large waves-effect waves-light red" onClick= {() => browserHistory.push(`/documents/${doc.id}/edit`)}><i className="material-icons">mode_edit</i></a></td> : ''}</tr>
   );
 
 DocListTable.propTypes = {

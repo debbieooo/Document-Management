@@ -5,6 +5,7 @@ import { bindActionCreators } from 'redux';
 import UserList from './UserList.jsx';
 import { userlist }  from '../../actions/userAction';
 import * as userActions from '../../actions/userAction';
+import CreateDoc from '../sections/CreateDoc.jsx';
 
 class Dashboard extends React.Component {
   constructor(props, context) {
@@ -34,6 +35,8 @@ class Dashboard extends React.Component {
           <Link to="/users" className="waves-effect waves-light btn-large">Users</Link>
           <Link to="/documents" className="waves-effect waves-light btn-large">Documents</Link>
           <Link to="/profile" className=" disabled"> Edit Profile?</Link>
+            <Link to="/documents/create" className=" disabled"><a className="btn-floating btn-large waves-effect waves-light red"><i className="material-icons">add</i></a></Link>
+            
 
         </div>
       </div>

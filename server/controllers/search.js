@@ -3,35 +3,46 @@ const Docs = require('../models').Doc;
 
 module.exports = {
   searchUser(req, res) {
-    if (
-      req.query.userName === '' || req.query.email === ''
-    ) {
-      return res.status(400).json({
-        message: 'Pls put in a query'
-      });
-    }
-    Users
-      .findAll({
-        where: {
-          $or: [{
-            userName: req.query.userName
-          }, {
-            email: req.query.email
-          }]
-        }
-      })
-      .then((user) => {
-        if (!user) {
-          return res.status(404).send({
-            message: 'Wrong username/email'
-          });
-        }
-        const users = user.filter(user => user.id !== req.user.id);
+    const query = req.query.q;
+    Users.findAndCountAll({
+      order: '"createdAt" DESC',
+      where: { name: { $iLike: `%${query}%` } }
+    })
+      .then((result) => {
         res.status(200)
-           .send({ users });
+          .send({
+            result: result.rows,
+            metadata: {
+              count: result.count,
+              searchTerm: query
+            }
+          });
       })
-      .catch(error => res.status(400).send({
-        message: 'Bad request'
-      }));
+      .catch(() => {
+        res.status(404)
+          .send({ message: `${query}cannot be found on the database` });
+      });
   },
+  searchDocs(req, res) {
+    const query = req.query.q;
+    Docs.findAndCountAll({
+      order: '"createdAt" DESC',
+      where: { title: { $iLike: `%${query}%` } }
+    })
+      .then((result) => {
+        res.status(200)
+          .send({
+            result: result.rows,
+            metadata: {
+              count: result.count,
+              searchTerm: query
+            }
+          });
+      })
+      .catch(() => {
+        res.status(404)
+          .send({ message: `${query} cannot be found on the database` });
+      });
+  }
+
 };

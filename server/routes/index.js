@@ -35,4 +35,6 @@ module.exports = (app) => {
 
 // Search routes
   app.get('/api/search/users', search.searchUser);
+  app.get('/api/search/documents', search.searchDocs);
+
 };

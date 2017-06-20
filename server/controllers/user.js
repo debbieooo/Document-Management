@@ -1,6 +1,8 @@
 const Users = require('../models').User;
 const Docs = require('../models').Doc;
+const Roles = require('../models').Roles;
 const db = require('../models');
+
 // const Roles = require('../models').Role;
 const jwt = require('jsonwebtoken');
 
@@ -81,6 +83,7 @@ module.exports = {
           };
           const token = jwt.sign({
             id: user.id,
+            // role: user.roleId,
             expiresIn: '3h'
           }, process.env.SECRET_KEY);
           res.status(200).send({

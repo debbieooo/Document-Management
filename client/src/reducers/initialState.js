@@ -3,6 +3,6 @@ export default {
     isAuthenticated: false
   },
   users: [],
-  docs: []
+  docs: {}
 
 };

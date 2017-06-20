@@ -9,7 +9,8 @@ import ManageUser from './components/sections/ManageUser.jsx';
 import ManageDoc from './components/sections/ManageDoc.jsx';
 import Profile from './components/sections/Profile.jsx';
 import TextEditor from './components/sections/TextEditor.jsx';
-// import 
+import UpdateDoc from './components/sections/UpdateDoc.jsx';
+import CreateDoc from './components/sections/CreateDoc.jsx';
 // eslint-disable-line import/no-named-as-default
 
 const onEnter = (nextState, replace) => {
@@ -28,7 +29,8 @@ export default (
     <Route path='/users' component={ManageUser} />
     <Route path='/documents' component={ManageDoc} />
     <Route path='/profile' component={Profile} />
-    <Route path='/documents/edit' component={TextEditor} />
+    <Route path='/documents/:id/edit' component={UpdateDoc} />
+    <Route path='/documents/create' component={CreateDoc} />
 
 
   </Route>

@@ -19,6 +19,19 @@ export function updateDocs(id) {
     id
   };
 }
+export function fetchDoc(doc) {
+  return {
+    type: types.FETCH_DOCUMENT_SUCCESS,
+    doc
+  };
+}
+export function create(doc) {
+  return {
+    type: types.CREATE_DOCUMENTS_SUCCESS,
+    doc
+  };
+}
+
 
 export function doclist() {
   return dispatch => axios.get('/api/documents')
@@ -47,9 +60,28 @@ export function deleteDoc(docId) {
 }
 
 export function updateDoc(doc) {
-  return dispatch => axios.put(`api/documents/${doc.id}`, doc)
+  console.log('doc consoled', doc);
+  return dispatch => axios.put(`/api/documents/${doc.id}`, doc)
   .then((response) => {
     dispatch(updateDocs(response.data));
+  })
+  .catch((error) => {
+    dispatch({ type: 'Error' });
+  });
+}
+export function findDoc(id) {
+  return dispatch => axios.get(`/api/documents/${id}`)
+  .then((response) => {
+    dispatch(fetchDoc(response.data.doc));
+  })
+  .catch((error) => {
+    dispatch({ type: 'Error' });
+  });
+}
+export function createDoc(doc) {
+  return dispatch => axios.post('/api/documents', doc)
+  .then((response) => {
+    dispatch(create(response.data));
   })
   .catch((error) => {
     dispatch({ type: 'Error' });

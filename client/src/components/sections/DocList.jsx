@@ -4,7 +4,7 @@ import DocListTable from './DocListTable.jsx';
 const DocList = ({ docs, onClick, authUser }) =>
  (
   <div>
-       <h5>Documents</h5>
+      <div className="col s4"><h5>Documents</h5></div>
        <table className="bordered responsive-table">
       <thead>
         <tr>

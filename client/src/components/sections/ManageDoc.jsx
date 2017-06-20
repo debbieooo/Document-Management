@@ -4,6 +4,8 @@ import { bindActionCreators } from 'redux';
 import DocList from './DocList.jsx';
 import { doclist, deleteDoc } from '../../actions/docAction';
 import { activeUser } from '../../actions/userAction';
+import SearchBox from './SearchBox.jsx';
+
 class ManageDoc extends React.Component {
   constructor(props, context) {
     super(props, context);
@@ -29,6 +31,9 @@ class ManageDoc extends React.Component {
     const { docs, authUser } = this.props;
     return (
       <div>
+        <div className="row">
+        <div className= "col s6"><SearchBox /></div>
+        </div>
        <DocList docs = {docs} authUser ={authUser} onClick={this.handleClick}/>
       </div>
     );
@@ -50,7 +55,7 @@ function mapStateToProps(state) {
   console.log('mapstate', state);
   return {
 
-    docs: state.docs,
+    docs: state.docs.docs,
     users: state.users,
     authUser: state.authUser
   };

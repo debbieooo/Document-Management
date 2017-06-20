@@ -28,7 +28,6 @@ export default function userReducer(state = initialState.authUser, action) {
       return Object.assign({}, state, authUser);
     }
     case types.UPDATE_USER_SUCCESS: {
-      console.log('updated!!!');
       const authUser = {
         ...action.user,
         isAuthenticated: true
