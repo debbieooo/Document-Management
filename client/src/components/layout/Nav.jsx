@@ -1,5 +1,5 @@
 import React from 'react';
-import { browserHistory } from 'react-router';
+import { browserHistory, Link } from 'react-router';
 
 class Nav extends React.Component {
   constructor(props, context) {
@@ -15,7 +15,7 @@ class Nav extends React.Component {
     return (
     <nav>
     <div className="nav-wrapper">
-      <a href="#" className="brand-logo">Logo</a>
+      <Link to = "/home" className="brand-logo">Doc</Link>
      <a className= "right" onClick= {this.handleClick} >Logout</a>
     </div>
   </nav>
