@@ -1,6 +1,9 @@
 const Users = require('../models').User;
-// const Roles = require('../models').Role;
 const Docs = require('../models').Doc;
+const Roles = require('../models').Roles;
+const db = require('../models');
+
+// const Roles = require('../models').Role;
 const jwt = require('jsonwebtoken');
 
 module.exports = {
@@ -30,12 +33,12 @@ module.exports = {
         name: req.body.name,
         email: req.body.email,
         password: req.body.password,
-        roleId: req.body.roleId ? req.body.roleId : 3
+        roleId: req.body.roleId ? req.body.roleId : 2
       })
       .then((user) => {
         // console.log(process.env.SECRET_KEY, '\n hey I\'m secret');
         const token = jwt.sign({
-          data: user.id,
+          id: user.id,
           expiresIn: '3h'
         }, process.env.SECRET_KEY);
 
@@ -79,7 +82,8 @@ module.exports = {
             email: user.email
           };
           const token = jwt.sign({
-            data: user.id,
+            id: user.id,
+            // role: user.roleId,
             expiresIn: '3h'
           }, process.env.SECRET_KEY);
           res.status(200).send({
@@ -158,6 +162,23 @@ module.exports = {
        message: 'Bad request'
      }));
   },
+  userDoclist(req, res) {
+    // const id =
+    return db.sequelize.query(`SELECT "Doc"."id", "Doc"."title", "Doc"."content", "Doc"."access", "Doc"."userId", "Doc"."createdAt", "Doc"."updatedAt"
+, "User"."id" AS "User.id", "User"."userName" AS "User.userName" FROM "Docs" AS "Doc" LEFT OUTER JOIN "Users" AS "User" ON CAST("Doc"."userId" AS INTEGER) = CAST("User"."id" AS INTEGER);`)
+      .then((docs) => {
+        if (!docs) {
+          return res.status(400).send({
+            message: 'No user found'
+          });
+        }
+        res.status(200)
+          .send(docs[0]);
+      })
+      .catch(error => res.status(400).send({
+        error
+      }));
+  },
   delete(req, res) {
     return Users
      .findById(req.params.id)
@@ -177,5 +198,19 @@ module.exports = {
      .catch(error => res.status(400).send({
        message: 'Bad request'
      }));
+  },
+
+  currentUser(req, res) {
+    const id = req.decoded.id;
+    return Users
+     .findById(id)
+     .then((user) => {
+       if (!user) {
+         return res.status(400).send({
+           message: 'User Not Found'
+         });
+       }
+       return res.status(200).send(user);
+     });
   }
 };

@@ -1,7 +1,7 @@
 import React from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { browserHistory } from 'react-router';
+import { browserHistory, Link } from 'react-router';
 import * as userActions  from '../../actions/userAction';
 
 class SignUp extends React.Component {
@@ -13,14 +13,11 @@ class SignUp extends React.Component {
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
-// console.log('user state', this.state.user);
   }
   handleSubmit(event) {
     event.preventDefault();
-    // console.log('this.state.user', this.state.user);
     this.props.actions.signUp(this.state.user)
     .then((token) => {
-      console.log('tokennsss', token);
       browserHistory.push('/home');
     })
     .catch((error) => {
@@ -36,7 +33,6 @@ class SignUp extends React.Component {
     return this.setState({ user });
   }
   render() {
-    // console.log('this.state', this.state);
     return (
 	      <div className="row">
         <div className="col s12 m6">
@@ -62,11 +58,13 @@ class SignUp extends React.Component {
 					</div>
 				</div>
 				<button className="btn waves-effect waves-light" type="submit" name="action" value ="submit">Submit
-					<i className="material-icons right">send</i>
 				</button>
         {this.state.error && <div><h5>{this.state.error}</h5></div>}
 			</form>
 	</div>
+           <div className="card-action">
+          <Link to="/login" className=" disabled">Login ?</Link>
+        </div>
             </div>
           </div>
         </div>
@@ -76,7 +74,6 @@ class SignUp extends React.Component {
 }
 
 function mapStateToProps(state) {
-  // console.log('the state ', state);
   return {
     user: state.user
   };

@@ -30,6 +30,12 @@ module.exports = {
        message: 'Bad request'
      }));
   },
+  listAllDocs(req, res) {
+    return Docs
+    .findAll({})
+    .then(docs => res.status(200).send(docs))
+    .catch(error => res.status(404).send(error));
+  },
   // search(req, res) {
   //   return Docs
   //   .findAndCountAll({
@@ -85,4 +91,5 @@ module.exports = {
        message: 'Bad request'
      }));
   }
+
 };
