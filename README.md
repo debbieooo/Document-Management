@@ -1,7 +1,7 @@
 # Document Management System
-The application is available on Heroku [https://doc-manager-app.herokuapp.com/] 
-[![Build Status](https://travis-ci.org/andela-doni/doc-manager.svg?branch=dev)](https://travis-ci.org/andela-doni/doc-manager)   [![Coverage Status](https://coveralls.io/repos/github/andela-doni/doc-manager/badge.svg)](https://coveralls.io/github/andela-doni/doc-manager)
 
+[![Build Status](https://travis-ci.org/andela-doni/doc-manager.svg?branch=dev)](https://travis-ci.org/andela-doni/doc-manager)   [![Coverage Status](https://coveralls.io/repos/github/andela-doni/doc-manager/badge.svg)](https://coveralls.io/github/andela-doni/doc-manager)
+The application is available on Heroku [https://doc-manager-app.herokuapp.com/] 
 A full stack document management system, complete with roles and privileges. Each document defines access rights; the document defines which roles can access it. Also, each document specifies the date it was published.
 
 ### Table of Contents
