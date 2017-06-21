@@ -9,8 +9,11 @@
   },
   "scripts": {
     "start": "npm-run-all --parallel start:server start:client",
-    "start:server": "nodemon ./bin/www",
-    "start:client": "webpack -w & nodemon app.js",
+    "start:dev": "npm-run-all --parallel start:server:dev start:client:dev",
+    "start:server:dev": "nodemon ./bin/www",
+    "start:server": "node ./bin/www",
+    "start:client": "node app.js",
+    "start:client:dev": "webpack -w & nodemon app.js",
     "build": "webpack -p",
     "test": "mocha server/tests",
     "test:coverage": "istanbul cover _mocha server/tests"
