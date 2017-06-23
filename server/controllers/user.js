@@ -152,6 +152,7 @@ module.exports = {
     return Users
       .findById(req.params.id)
       .then((user) => {
+        
         if (userId !== user.id) {
           res.status(401).send({ message: 'Not authorized, its not your account' });
         } else {
