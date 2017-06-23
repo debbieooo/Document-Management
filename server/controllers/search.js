@@ -1,20 +1,33 @@
 const Users = require('../models').User;
-const Docs = require('../models').Doc;
+const Documents = require('../models').Doc;
 
 module.exports = {
   searchUser(req, res) {
-    const query = req.query.q;
+    const offset = parseInt(req.query.offset, 10) || 0;
+    const limit = parseInt(req.query.limit, 10) || 4;
+    const query = req.query.name;
     Users.findAndCountAll({
       order: '"createdAt" DESC',
-      where: { name: { $iLike: `%${query}%` } }
+      where :{
+        $or: [{
+          userName: req.query.userName
+        }, {
+          name: req.query.name
+        }]
+      },
+      limit,
+      offset
     })
-      .then((result) => {
+      .then((user) => {
         res.status(200)
           .send({
-            result: result.rows,
+            user: user.rows,
             metadata: {
-              count: result.count,
-              searchTerm: query
+              count: user.count,
+              searchTerm: query,
+              pageCount: Math.ceil(user.count / limit),
+              page: Math.floor((limit + offset) / limit),
+              pageSize: limit
             }
           });
       })
@@ -24,18 +37,33 @@ module.exports = {
       });
   },
   searchDocs(req, res) {
-    const query = req.query.q;
-    Docs.findAndCountAll({
+    const role = req.decoded.role;
+    const offset = parseInt(req.query.offset, 10) || 0;
+    const limit = parseInt(req.query.limit, 10) || 4;
+    const query = req.query.title;
+    let where = {};
+    if (role !== 1) {
+      where = { title: { $iLike: `%${query}%` } };
+    } else {
+      where = { title: { $iLike: `%${query}%` }, access: 'Public' };
+    }
+    Documents.findAndCountAll({
       order: '"createdAt" DESC',
-      where: { title: { $iLike: `%${query}%` } }
+      offset,
+      limit,
+      where
     })
       .then((result) => {
+        console.log('result.rows.userId', result.userId);
         res.status(200)
           .send({
-            result: result.rows,
+            result,
             metadata: {
               count: result.count,
-              searchTerm: query
+              searchTerm: query,
+              pageCount: Math.floor(result.count / limit),
+              pageSize: limit
+
             }
           });
       })

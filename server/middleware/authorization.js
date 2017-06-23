@@ -9,30 +9,21 @@ module.exports = {
           return res.status(401).json({ message: 'wrong token' });
         }
         req.decoded = decoded;
-        next();
+        return next();
       });
   },
-
-  searchDocScope(req, res, next) {
-    const query = req.params.q;
-    let searchQuery = {
-      where: { title: { $iLike: `%${query}%` } }
-    };
-
-    if (req.decoded.roleId !== 1) {
-      searchQuery = {
-        where: {
-          $and: [
-            { title: { $iLike: `%${query}%` } },
-            { userId: req.decoded.id }
-          ]
-        }
-      };
+  authorizeAdmin(req, res, next) {
+    console.log('request', req.decoded.role);
+    if (req.decoded.role !== 1) {
+      return res.status(401).json({ message: 'unathorized' });
     }
-
-    req.searchQuery = searchQuery;
-
-    next();
+    req.isAdmin = true;
+    return next();
+  },
+  ownerAuthorization(req, res, next) {
+    if (req.decoded.id !== res.body.userId) {
+      return res.status(401).json({ message: 'unathorized' });
+    }
+    return next();
   }
-
 };
