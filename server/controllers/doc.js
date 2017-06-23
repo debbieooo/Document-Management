@@ -1,36 +1,40 @@
-const Docs = require('../models').Doc;
+const Documents = require('../models').Doc;
 const Users = require('../models').User;
 
 
 module.exports = {
   create(req, res) {
+    const access = req.body.access;
+    if (access !== 'Public' && access !== 'Private' && access !== 'Staff') {
+      return res.status(400).send({ message : `No such role  as ${access} available`});
+    }
     const userId = req.decoded.id;
-    return Docs
+    return Documents
       .create({
         content: req.body.content,
         userId,
         title: req.body.title,
         access: req.body.access ? req.body.access : 'Public'
       })
-      .then(docs => res.status(201).send(docs))
+      .then(documents => res.status(201).send(documents))
       .catch(error => res.status(400).send(error));
   },
   findDoc(req, res) {
     const userId = req.decoded.id;
-    return Docs
+    return Documents
       .findById(req.params.id)
-      .then((doc) => {
-        if (doc.userId !== userId && doc.access !== 'Public') {
+      .then((documents) => {
+        if (documents.userId !== userId && documents.access !== 'Public') {
           res.status(401).send({ message: 'Not authorized, its not your document' });
         } else {
-          if (!doc) {
+          if (!documents) {
             return res.status(400).send({
               message: 'Document Not Found'
             });
           }
 
           res.status(200)
-            .send({ doc });
+            .send({ documents });
         }
       })
       .catch(error => res.status(400).send({
@@ -39,22 +43,25 @@ module.exports = {
       }));
   },
   update(req, res) {
-    const userId = req.decoded.id;
-    return Docs
+    const id = req.decoded.id;
+    return Documents
       .findById(req.params.id)
-      .then((docs) => {
-        if (docs.userId !== userId) {
-          res.status(401).send({ message: 'Not authorized, its not your document' });
+      .then((documents) => {
+        if (documents.userId !== id) {
+          res.status(401).send({ message: 'Not authorized, its not your document :)' });
         } else {
-          if (!docs) {
+          if (!documents) {
             return res.status(404).send({
               message: 'Document Not Found'
             });
           }
-          return docs
-            .update(req.body)
-            .then(() => res.status(200).send(docs))
-            .catch(error => res.status(400).send(error));
+          if (documents.userId === id) {
+            return documents
+              .update(req.body)
+              .then(() => res.status(200).send(documents))
+              .catch(error => res.status(400).send(error));
+          }
+          return res.status(401).send({ message: 'You are not authorized :)' });
         }
       })
       .catch(error => res.status(400).send(error));
@@ -64,21 +71,21 @@ module.exports = {
     const role = req.decoded.role;
     console.log('role', role);
     console.log('userId', userId);
-    return Docs
+    return Documents
       .findById(req.params.id)
-      .then((docs) => {
-        if (docs.userId !== userId && role !== 1) {
-          res.status(401).send({ message: 'Not authorized, its not your document' });
+      .then((documents) => {
+        if (documents.userId !== userId && role !== 1) {
+          res.status(401).send({ message: 'Not authorized, its not your document :)' });
         } else {
-          if (!docs) {
+          if (!documents) {
             return res.status(400).send({
-              message: 'Docs Not Found'
+              message: 'Documents Not Found'
             });
           }
-          return docs
+          return documents
             .destroy()
             .then(() => res.status(200).send({
-              message: 'Docs deleted successfully'
+              message: 'Documents deleted successfully'
             }))
             .catch(error => res.status(400).send(error));
         }

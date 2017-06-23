@@ -1,12 +1,11 @@
 const Users = require('../models').User;
-const Docs = require('../models').Doc;
+const Documents = require('../models').Doc;
 
 // const Roles = require('../models').Role;
 const jwt = require('jsonwebtoken');
 
 module.exports = {
   create(req, res) {
-    console.log(req);
     Users.findAndCountAll({
       where: {
         $or: [
@@ -21,11 +20,9 @@ module.exports = {
     })
       .then((result) => {
         if (result.count > 0) {
-          console.log('USERS.COUNT', result.count);
           res.status(409)
-            .send({ message: 'Username already exists in the database' });
+            .send({ message: 'Your username already exists in the database :)' });
         } else {
-          console.log(req.body);
           Users
             .create({
               userName: req.body.userName,
@@ -35,20 +32,22 @@ module.exports = {
               roleId: 2
             })
             .then((user) => {
-              console.log(user.roleId);
               const token = jwt.sign({
                 id: user.id,
                 roleId: user.roleId,
-                expiresIn: '3h'
+                expiresIn: '1h'
               }, process.env.SECRET_KEY);
-
-              return res.status(201).send({ token, user });
+              const name = user.name;
+              const userName = user.userName;
+              const email = user.email;
+              const id = user.id;
+              const roleId = user.roleId;
+              return res.status(201).send({ token, name, userName, email, id, roleId });
             })
-            .catch(error => res.status(400).send(error));
+      .catch(error => res.status(400).send(error, { message : 'Bad request' }));
         }
       });
   },
-
   login(req, res) {
     if (
       req.body.email === '' || req.body.password === ''
@@ -74,7 +73,6 @@ module.exports = {
             message: 'Wrong username/email'
           });
         } else if (user.validate(req.body.password)) {
-          console.log('user.roleId', user.roleId);
           const userInfo = {
             id: user.id,
             roleId: user.roleId,
@@ -82,14 +80,15 @@ module.exports = {
             name: user.name,
             email: user.email
           };
+
           const token = jwt.sign({
             id: user.id,
             role: user.roleId,
-            expiresIn: '3h'
+            expiresIn: '1h'
           }, process.env.SECRET_KEY);
           res.status(200).send({
-            status: 200,
             userInfo,
+            status: 200,
             message: 'You are now logged in',
             token
           });
@@ -100,7 +99,10 @@ module.exports = {
           });
         }
       })
-      .catch(error => res.status(400).send({ message: 'Bad request' }));
+      .catch(error => {
+        console.log(error);
+        res.status(400).send(error, { message: 'Bad request' });
+      });
   },
   listAll(req, res) {
     const offset = parseInt(req.query.offset, 10) || 0;
@@ -108,31 +110,40 @@ module.exports = {
     return Users
       .findAndCountAll({
         limit,
-        offset
+        offset,
+        attributes : ['id', 'userName', 'email', 'name', 'roleId', 'createdAt', 'updatedAt']
       })
-      .then(users => res.status(200).send({
+      .then((users) => 
+      res.status(200).send({
         users,
         metadata: {
           pageCount: Math.ceil(users.count / limit),
-          page: Math.floor((limit + offset) / limit)
+          page: Math.floor((limit + offset) / limit),
+          pageSize: limit,
+          count: users.count
         }
       }))
-      .catch(error => res.status(400).send(error));
+      .catch(error => res.status(400).send(error, { message : 'Bad request' }));
   },
   findUser(req, res) {
     return Users
       .findById(req.params.id)
       .then((user) => {
+        const id = user.id;
+        const name = user.name;
+        const email = user.email;
+        const userName = user.userName;
+        const createdAt = user.createdAt;
+        const updatedAt = user.updatedAt;
         if (!user) {
           return res.status(400).send({
             message: 'User Not Found'
           });
         }
-
         res.status(200)
-          .send({ user });
+          .send({ id, name, email, userName, createdAt, updatedAt, message: 'Search successful' });
       })
-      .catch(error => res.status(400).send({
+      .catch((error) => res.status(400).send({
         message: 'Bad request'
       }));
   },
@@ -151,15 +162,26 @@ module.exports = {
           }
           return user
             .update(req.body)
-            .then(() => res.status(200).send(user))
+            .then(() => {
+              const token = jwt.sign({
+                id: user.id,
+                roleId: user.roleId,
+                expiresIn: '1h'
+              }, process.env.SECRET_KEY);
+              const name = user.name;
+              const userName = user.userName;
+              const email = user.email;
+              const id = user.id;
+              const roleId = user.roleId;
+              return res.status(201).send({ token, name, userName, email, id, roleId, message: 'Your account has been updated' });
+            })
             .catch(error => res.status(400).send(error));
         }
       })
       .catch(error => res.status(400).send(error));
   },
   findUserDoc(req, res) {
-    console.log('reqsssss', req.params);
-    return Docs
+    return Documents
       .findAll({
         where: {
           userId: req.params.id
@@ -183,7 +205,7 @@ module.exports = {
   userDoclist(req, res) {
     const offset = parseInt(req.query.offset, 10) || 0;
     const limit = parseInt(req.query.limit, 10) || 4;
-    return Docs
+    return Documents
       .findAndCountAll({
         offset,
         limit,
@@ -192,19 +214,21 @@ module.exports = {
           attributes: ['name']
         }
       })
-      .then((docs) => {
-        if (!docs) {
-          return res.status(400).send({
+      .then((documents) => {
+        if (!documents) {
+          return res.status(404).send({
             message: 'No user found'
           });
         }
         res.status(200)
           .send({
-            docs,
+            documents,
             metadata: {
-              count: docs.count,
-              pageCount: Math.ceil(docs.count / limit),
-              page: Math.floor((limit + offset) / limit)
+              count: documents.count,
+              pageCount: Math.ceil(documents.count / limit),
+              page: Math.floor((limit + offset) / limit),
+              pageSize: limit
+
             }
 
           });
@@ -218,7 +242,7 @@ module.exports = {
       .findById(req.params.id)
       .then((user) => {
         if (!user) {
-          return res.status(400).send({
+          return res.status(404).send({
             message: 'User Not Found'
           });
         }
@@ -227,7 +251,7 @@ module.exports = {
           .then(() => res.status(200).send({
             message: 'User deleted successfully'
           }))
-          .catch(error => res.status(400).send(error));
+          .catch((error) => res.status(400).send(error, { message : 'You entered the wrong arguments' }));
       })
       .catch(error => res.status(400).send({
         error,
@@ -246,6 +270,7 @@ module.exports = {
           });
         }
         return res.status(200).send(user);
-      });
+      })
+      .catch(error => res.status(404).send(error, { message : 'Bad request' }));
   }
 };
