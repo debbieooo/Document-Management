@@ -1,6 +1,6 @@
 const roles = require('../controllers/role');
 const users = require('../controllers/user');
-const documents = require('../controllers/doc');
+const documents = require('../controllers/documents');
 const authorization = require('../middleware/authorization');
 const search = require('../controllers/search');
 

@@ -1,12 +1,16 @@
-const Documents = require('../models').Doc;
+const Documents = require('../models').Documents;
 const Users = require('../models').User;
 
 
 module.exports = {
   create(req, res) {
     const access = req.body.access;
-    if (access !== 'Public' && access !== 'Private' && access !== 'Staff') {
-      return res.status(400).send({ message : `No such role  as ${access} available`});
+    console.log('userId', req.decoded.id);
+    if (!access) {
+      return res.status(400).send({ message : 'Access required' });
+    }
+    if (access !== 'Public' && access !== 'Private' && access !== 'Role') {
+      return res.status(400).send({ message : `No such access right  as ${access} available` });
     }
     const userId = req.decoded.id;
     return Documents
