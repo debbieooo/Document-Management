@@ -29,14 +29,13 @@ describe('User', () => {
   before((done) => {
     api.post('/api/users/signup').send(user1data)
        .end((err, res) => {
-         console.log(res.body, res.status);
-         user.id = res.body.user.id;
+         console.log('res.body.id', res.body);
+         user.id = res.body.id;
          user.token = res.body.token;
          expect(res.status).to.equal(201);
          api.post('/api/users/signup').send(user2data)
           .end((err, res) => {
-            //  console.log(res.body, res.status);
-            adminUser.id = res.body.user.id;
+            adminUser.id = res.body.id;
             adminUser.token = res.body.token;
             expect(res.status).to.equal(201);
             done();
@@ -53,8 +52,6 @@ describe('User', () => {
         roleId: '2'
       })
        .end((err, res) => {
-        //  console.log(res.body, res.status);
-         console.log('ressssss', res.status);
          expect(res.status).to.equal(201);
          done();
        });
