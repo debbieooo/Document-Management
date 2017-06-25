@@ -7,6 +7,8 @@ const SearchBox = () => (
         <div className="row">
           <div className="input-field col s12">
             <input id="textarea1" className="materialize-textarea"></input>
+            <label className="active" for="textarea1"> Search<i className="material-icons">search</i></label>
+
           </div>
         </div>
       </form>

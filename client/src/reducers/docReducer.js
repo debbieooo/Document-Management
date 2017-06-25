@@ -4,13 +4,7 @@ import initialState from './initialState';
 export default function docReducer(state = initialState.docs, action) {
   switch (action.type) {
     case types.LOAD_DOCUMENTS_SUCCESS:
-      // return [
-      //   ...state,
-      //   ...action.docs
-      // ];
-      // const docs = {
-      //   ..
-      // }
+    console.log('action.docs', action.docs);
       return Object.assign({}, state, { docs: [...state, ...action.docs] });
     case types.DELETE_DOCUMENTS_SUCCESS:
     // console.log('yes it happened');
