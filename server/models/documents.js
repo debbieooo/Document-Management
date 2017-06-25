@@ -1,15 +1,15 @@
 
 module.exports = (sequelize, DataTypes) => {
-  const Doc = sequelize.define('Doc', {
+  const Documents = sequelize.define('Documents', {
     title: {
-      type: DataTypes.STRING,
+      type: DataTypes.STRING
     },
     content: {
       type: DataTypes.STRING,
       allowNull: false,
       validate: {
         len: {
-          args: [2, 1000000],
+          args: [2, 1000000]
         }
       }
     },
@@ -20,19 +20,19 @@ module.exports = (sequelize, DataTypes) => {
     },
     userId: {
       type: DataTypes.INTEGER,
-      allowNull: false,
-    },
+      allowNull: false
+    }
 
   }, {
     classMethods: {
       associate: (models) => {
-        Doc.belongsTo(models.User, {
+        Documents.belongsTo(models.User, {
           foreignKey: 'userId',
           // as: 'userName',
-          onDelete: 'CASCADE',
+          onDelete: 'CASCADE'
         });
       }
     }
   });
-  return Doc;
+  return Documents;
 };
