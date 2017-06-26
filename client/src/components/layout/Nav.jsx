@@ -1,5 +1,6 @@
 import React from 'react';
-import { browserHistory } from 'react-router';
+import { browserHistory, Link } from 'react-router';
+
 
 class Nav extends React.Component {
   constructor(props, context) {
@@ -15,8 +16,18 @@ class Nav extends React.Component {
     return (
     <nav>
     <div className="nav-wrapper">
-      <a href="#" className="brand-logo">Logo</a>
-     <a className= "right" onClick= {this.handleClick} >Logout</a>
+      <Link to = "/home" className="brand-logo">Doc</Link>
+      <ul id="nav-mobile" className="right hide-on-med-and-down">
+        <li><Link to="/users">Users</Link></li>
+         <li> <Link to="/documents">Documents</Link></li>
+          <li><Link to="/documents/create">New Document<a><i className="material-icons">add</i></a></Link>
+</li>
+
+        <li><Link to="/profile"> Edit Profile?</Link></li>
+        <li><a className= "right" onClick= {this.handleClick} >Logout</a></li>
+      </ul>
+
+     
     </div>
   </nav>
     );

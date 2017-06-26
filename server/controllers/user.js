@@ -106,7 +106,7 @@ module.exports = {
   },
   listAll(req, res) {
     const offset = parseInt(req.query.offset, 10) || 0;
-    const limit = parseInt(req.query.limit, 10) || 4;
+    const limit = parseInt(req.query.limit, 10) || 10;
     return Users
       .findAndCountAll({
         limit,
@@ -205,7 +205,7 @@ module.exports = {
   },
   userDoclist(req, res) {
     const offset = parseInt(req.query.offset, 10) || 0;
-    const limit = parseInt(req.query.limit, 10) || 4;
+    const limit = parseInt(req.query.limit, 10) || 10;
     return Documents
       .findAndCountAll({
         offset,

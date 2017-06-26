@@ -15,12 +15,13 @@ class CreateDoc extends React.Component {
     this.submit = this.submit.bind(this);
   }
   submit(doc) {
+    console.log('csds', doc);
     this.props.actions.createDoc({ ...doc, userId: this.state.authUser.id })
     .then(() => alert('Document Added'));
   }
   ComponentDidMount() {
     console.log('user', this.props.actions.activeUser());
-    this.props.actions.activeUser();
+    // this.props.actions.activeUser();
   }
 
 
