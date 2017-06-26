@@ -37,6 +37,16 @@ export function updateUser(user) {
     user
   };
 }
+export function searchSuccess(search, metadata) {
+   console.log('search search', search);
+
+  return {
+    type: types.SEARCH_SUCCESS,
+    search,
+    metadata
+  };
+}
+
 
 
 export function signUp(user) {
@@ -81,10 +91,10 @@ export function deleteAcc(userId) {
 }
 
 
-export function userlist() {
+export function userlist(limit, offset) {
   const token = localStorage.getItem('token');
   axios.defaults.headers.common.Authorization = token;
-  return dispatch => axios.get('/api/users')
+  return dispatch => axios.get(`/api/users/?limit=${limit || 10}&offset=${offset || 0}`)
   .then((response) => {
     dispatch(listUsers(response.data));
     dispatch({ type: 'Error' });
@@ -109,14 +119,25 @@ export function activeUser() {
 export function sendUserUpdate(user) {
   const token = localStorage.getItem('token');
   axios.defaults.headers.common.Authorization = token;
-  return dispatch => axios.put(`api/users/${user.id}`, user)
+  return dispatch => axios.put(`/api/users/${user.id}`, user)
   .then((response) => {
     dispatch(updateUser(response.data));
-    // return response.data.token;
   })
   .catch((error) => {
     dispatch({ type: 'Error' });
-    // throw error;
+  });
+}
+
+export function searchUser(user) {
+  const token = localStorage.getItem('token');
+  axios.defaults.headers.common.Authorization = token;
+  return dispatch => axios.get(`/api/search/users/?userName=${user}`)
+  .then((response) => {
+    console.log('action method', response);
+    dispatch(searchSuccess(response.data.user, response.data.metadata));
+  })
+  .catch((error) => {
+    dispatch({ type: 'Error' });
   });
 }
 

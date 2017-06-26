@@ -33,10 +33,10 @@ export function create(doc) {
 }
 
 
-export function doclist() {
+export function doclist(limit, offset) {
   const token = localStorage.getItem('token');
   axios.defaults.headers.common.Authorization = token;
-  return dispatch => axios.get('/api/documents')
+  return dispatch => axios.get(`/api/documents/?limit=${limit || 10}&offset=${offset || 0}`)
   .then((response) => {
     console.log('response', response);
     dispatch(listDocs(response.data));
