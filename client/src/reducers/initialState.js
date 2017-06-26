@@ -2,7 +2,7 @@ export default {
   authUser: {
     isAuthenticated: false
   },
-  users: [],
-  docs: {}
+  users: { users: [], metadata:{} },
+  documents: { documents: [], metadata:{} }
 
 };

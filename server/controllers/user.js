@@ -1,5 +1,5 @@
 const Users = require('../models').User;
-const Documents = require('../models').Doc;
+const Documents = require('../models').Documents;
 
 // const Roles = require('../models').Role;
 const jwt = require('jsonwebtoken');

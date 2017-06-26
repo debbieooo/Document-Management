@@ -30,7 +30,7 @@ class ManageUser extends React.Component {
   }
 }
 ManageUser.propTypes = {
-  user: PropTypes.array.isRequired
+  users: PropTypes.array.isRequired
 };
 ManageUser.defaultProps = {
   users: []
@@ -38,11 +38,10 @@ ManageUser.defaultProps = {
 
 function mapStateToProps(state) {
   return {
-    users: state.users
+    users: state.users.users
   };
 }
 function mapDispatchToProps(dispatch) {
-  // console.log('userActions', userActions);
   return {
     actions: bindActionCreators(userActions, dispatch)
   };

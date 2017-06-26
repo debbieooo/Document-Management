@@ -1,10 +1,10 @@
 import axios from 'axios';
 import * as types from './actionTypes';
 
-export function listDocs(docs) {
+export function listDocs(documents) {
   return {
     type: types.LOAD_DOCUMENTS_SUCCESS,
-    docs
+    documents
   };
 }
 export function deleteDocs(id) {
@@ -34,9 +34,11 @@ export function create(doc) {
 
 
 export function doclist() {
+  const token = localStorage.getItem('token');
+  axios.defaults.headers.common.Authorization = token;
   return dispatch => axios.get('/api/documents')
   .then((response) => {
-    console.log('response.data', response.data);
+    console.log('response', response);
     dispatch(listDocs(response.data));
     dispatch({ type: 'Error' });
   })
@@ -50,17 +52,16 @@ export function deleteDoc(docId) {
   return dispatch => axios.delete(`api/documents/${docId}`)
   .then((response) => {
     dispatch(deleteDocs(docId));
-    console.log('response', response);
   })
   .catch((error) => {
-    console.log('error', error);
     dispatch({ type: 'Error' });
     throw error;
   });
 }
 
 export function updateDoc(doc) {
-  console.log('doc consoled', doc);
+  const token = localStorage.getItem('token');
+  axios.defaults.headers.common.Authorization = token;
   return dispatch => axios.put(`/api/documents/${doc.id}`, doc)
   .then((response) => {
     dispatch(updateDocs(response.data));
@@ -70,6 +71,8 @@ export function updateDoc(doc) {
   });
 }
 export function findDoc(id) {
+  const token = localStorage.getItem('token');
+  axios.defaults.headers.common.Authorization = token;
   return dispatch => axios.get(`/api/documents/${id}`)
   .then((response) => {
     dispatch(fetchDoc(response.data.doc));
@@ -79,6 +82,8 @@ export function findDoc(id) {
   });
 }
 export function createDoc(doc) {
+  const token = localStorage.getItem('token');
+  axios.defaults.headers.common.Authorization = token;
   return dispatch => axios.post('/api/documents', doc)
   .then((response) => {
     dispatch(create(response.data));

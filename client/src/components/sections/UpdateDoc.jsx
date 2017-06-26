@@ -8,35 +8,35 @@ class UpdateDoc extends React.Component {
   constructor(props, context) {
     super(props, context);
     this.state = {
-      doc: Object.assign({}, props.doc)
+      document: Object.assign({}, props.document)
     };
     this.submit = this.submit.bind(this);
   }
-  submit(doc) {
-    this.props.actions.updateDoc({ ...doc, id: this.state.doc.id });
+  submit(document) {
+    this.props.actions.updateDoc({ ...document, id: this.state.document.id });
   }
   componentDidMount() {
     this.props.actions.findDoc(this.props.params.id);
   }
   componentWillReceiveProps(nextProps) {
-    this.setState({ doc: nextProps.doc });
+    this.setState({ document: nextProps.document });
   }
   render() {
     return (
       <div>
-        {(this.state.doc.title) ? <TextEditor {...this.state.doc} onClick ={this.submit} /> : <img src= "/images/default.gif"/>}
+        {(this.state.document.title) ? <TextEditor {...this.state.document} onClick ={this.submit} /> : <img src= "/images/default.gif"/>}
       </div>
     );
   }
 }
 
 UpdateDoc.defaultProps = {
-  docs: [],
+  documents: [],
 };
 
 function mapStateToProps(state) {
   return {
-    doc: state.docs.doc
+    document: state.documents.document
   };
 }
 

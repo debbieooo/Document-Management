@@ -1,9 +1,10 @@
 import React, { PropTypes } from 'react';
 import DocListTable from './DocListTable.jsx';
 
-const DocList = ({ docs, onClick, authUser }) =>
+const DocList = ({ documents, onClick, authUser }) =>
  (
   <div>
+    {console.log('documents', documents)}
       <div className="col s4"><h5>Documents</h5></div>
        <table className="bordered responsive-table">
       <thead>
@@ -17,13 +18,13 @@ const DocList = ({ docs, onClick, authUser }) =>
         </tr>
       </thead>
       <tbody>
-        {docs.map(doc => <DocListTable key={doc.id} doc={doc} authUser={authUser} handleClick= {onClick}/>)}
+        {documents.map(document => <DocListTable key={document.id} document={document} authUser={authUser} handleClick= {onClick}/>)}
       </tbody>
     </table>
      </div>
 );
 DocList.propTypes = {
-  docs: PropTypes.array.isRequired,
+  documents: PropTypes.array.isRequired,
   authUser: PropTypes.object.isRequired
 };
 export default DocList;

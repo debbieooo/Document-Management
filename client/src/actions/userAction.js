@@ -82,6 +82,8 @@ export function deleteAcc(userId) {
 
 
 export function userlist() {
+  const token = localStorage.getItem('token');
+  axios.defaults.headers.common.Authorization = token;
   return dispatch => axios.get('/api/users')
   .then((response) => {
     dispatch(listUsers(response.data));
