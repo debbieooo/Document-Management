@@ -25,7 +25,7 @@ export default (
   <Route path="/login" component={Login} />
    <Route path="/signup" component={SignUp} />
   <Route path="/home" component={App} onEnter = {onEnter}>
-    <IndexRoute component={Dashboard} />
+    <IndexRoute component={ManageDoc} />
     <Route path='/users' component={ManageUser} />
     <Route path='/documents' component={ManageDoc} />
     <Route path='/profile' component={Profile} />

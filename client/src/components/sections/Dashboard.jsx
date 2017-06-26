@@ -1,4 +1,4 @@
-import React, { PropTypes } from 'react';
+/*import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
 import { bindActionCreators } from 'redux';
@@ -8,23 +8,6 @@ import * as userActions from '../../actions/userAction';
 import CreateDoc from '../sections/CreateDoc.jsx';
 
 class Dashboard extends React.Component {
-  constructor(props, context) {
-    super(props, context);
-    this.state = {
-      user: Object.assign({}, props.user),
-      error: ''
-    };
-    this.handleClick = this.handleClick.bind(this);
-  }
-  componentDidMount() {
-    console.log(localStorage.getItem('token'));
-    this.props.actions.userlist();
-    // console.log('this.props.actions', this.props.actions.userlist);
-  }
-  handleClick(userId) {
-    console.log('i clicked here ');
-    this.props.actions.deleteAcc(userId);
-  }
 
   render() {
     console.log('users', this.props.users);
@@ -65,4 +48,4 @@ function mapDispatchToProps(dispatch) {
     actions: bindActionCreators(userActions, dispatch)
   };
 }
-export default connect(mapStateToProps, mapDispatchToProps)(Dashboard);
+export default connect(mapStateToProps, mapDispatchToProps)(Dashboard);*/
