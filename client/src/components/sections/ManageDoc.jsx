@@ -10,9 +10,9 @@ class ManageDoc extends React.Component {
   constructor(props, context) {
     super(props, context);
     this.state = {
-      doc: Object.assign({}, props.doc),
+      documents: Object.assign({}, props.documents),
       error: '',
-      authUser: Object.assign({}, props.authUser),
+      authUser: Object.assign({}, props.authUser)
 
     };
     this.handleClick = this.handleClick.bind(this);
@@ -26,27 +26,27 @@ class ManageDoc extends React.Component {
     this.props.actions.deleteDoc(docId);
   }
   render() {
-    console.log('docsss', this.props.docs);
+    console.log('docsss', this.props.documents);
     console.log(this.props, 'This is my props');
-    const { docs, authUser } = this.props;
+    const { documents, authUser } = this.props;
     return (
       <div>
         <div className="row">
         <div className= "col s6"><SearchBox /></div>
         </div>
-       <DocList docs = {docs} authUser ={authUser} onClick={this.handleClick}/>
+       <DocList documents = {documents} authUser ={authUser} onClick={this.handleClick}/>
       </div>
     );
   }
 }
 
 ManageDoc.propTypes = {
-  doc: PropTypes.array.isRequired,
+  documents: PropTypes.array.isRequired,
   users: PropTypes.array.isRequired,
   authUser: PropTypes.object.isRequired
 };
 ManageDoc.defaultProps = {
-  docs: [],
+  documents: [],
   users: [],
   authUser: {}
 };
@@ -55,7 +55,7 @@ function mapStateToProps(state) {
   console.log('mapstate', state);
   return {
 
-    docs: state.docs.docs,
+    documents: state.documents.documents,
     users: state.users,
     authUser: state.authUser
   };

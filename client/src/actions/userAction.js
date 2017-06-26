@@ -86,7 +86,6 @@ export function userlist() {
   axios.defaults.headers.common.Authorization = token;
   return dispatch => axios.get('/api/users')
   .then((response) => {
-    console.log('response data', response.data);
     dispatch(listUsers(response.data));
     dispatch({ type: 'Error' });
   })

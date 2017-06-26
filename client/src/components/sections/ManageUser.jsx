@@ -16,35 +16,29 @@ class ManageUser extends React.Component {
   }
   componentDidMount() {
     this.props.actions.userlist();
-    console.log('this.props.actions.userlist()', this.props.actions.userlist());
-
   }
   handleClick(userId) {
     this.props.actions.deleteAcc(userId);
   }
   render() {
-    console.log('props', this.props);
-
     const { users } = this.props;
     return (
       <div>
-        {console.log('userssssssss', this.props.users)}
         <UserList users = {users} onClick ={this.handleClick}/>
       </div>
     );
   }
 }
 ManageUser.propTypes = {
-  user: PropTypes.array.isRequired
+  users: PropTypes.array.isRequired
 };
 ManageUser.defaultProps = {
   users: []
 };
 
 function mapStateToProps(state) {
-  console.log('state.users', state.users);
   return {
-    users: state.users
+    users: state.users.users
   };
 }
 function mapDispatchToProps(dispatch) {
