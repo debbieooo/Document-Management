@@ -3,7 +3,7 @@ import TextEditor from './TextEditor.jsx';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as docActions from '../../actions/docAction';
-
+import { browserHistory } from 'react-router';
 class UpdateDoc extends React.Component {
   constructor(props, context) {
     super(props, context);
@@ -13,7 +13,11 @@ class UpdateDoc extends React.Component {
     this.submit = this.submit.bind(this);
   }
   submit(document) {
-    this.props.actions.updateDoc({ ...document, id: this.state.document.id });
+    console.log('submit action starting');
+    this.props.actions.updateDoc({ ...document, id: this.state.document.id })
+    .then(() => {
+      browserHistory.goBack();
+    });
   }
   componentDidMount() {
     this.props.actions.findDoc(this.props.params.id);
@@ -24,14 +28,14 @@ class UpdateDoc extends React.Component {
   render() {
     return (
       <div>
-        {(this.state.document.title) ? <TextEditor {...this.state.document} onClick ={this.submit} /> : <img src= "/images/default.gif"/>}
+        {this.state.document.title ? <TextEditor {...this.state.document} onClick ={this.submit} /> : <img src= "/images/default.gif"/>}
       </div>
     );
   }
 }
 
 UpdateDoc.defaultProps = {
-  documents: [],
+  documents: []
 };
 
 function mapStateToProps(state) {

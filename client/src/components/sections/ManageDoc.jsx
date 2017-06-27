@@ -33,10 +33,8 @@ class ManageDoc extends React.Component {
   }
   handlePageChange(event) {
     this.props.actions.doclist(this.state.limit, event.target.value * this.state.limit);
-    console.log('changing to');
   }
   componentWillReceiveProps(nextProps) {
-    console.log(nextProps);
     this.setState({ documents: nextProps.documents });
   }
   inputChange(event) {
@@ -46,7 +44,6 @@ class ManageDoc extends React.Component {
 
   render() {
     const { documents, authUser } = this.state;
-    console.log('propsppss', this.props);
     return (
       <div>
         {this.props.documents.length > 1 ?
@@ -86,7 +83,6 @@ ManageDoc.defaultProps = {
 };
 
 function mapStateToProps(state) {
-  console.log('mapstate', state);
   return {
 
     documents: state.documents.documents,

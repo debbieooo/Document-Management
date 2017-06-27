@@ -22,6 +22,7 @@ export default function docReducer(state = initialState.documents, action) {
       return Object.assign({}, state, { document: action.document });
 
     case types.CREATE_DOCUMENTS_SUCCESS:
+      console.log('it was created!');
       return Object.assign({}, state, action.document);
 
     default:
