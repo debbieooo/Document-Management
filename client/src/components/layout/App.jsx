@@ -13,11 +13,14 @@ export default class App extends React.Component {
     return (
       <div>
        <Nav/>
-         <div className= "container">
-        {this.props.children}
+        <div>
+          <div className="container" id="container">
+          {this.props.children}
+          </div>
+        {/*<Footer />*/}
+          
         </div>
-        <Footer />
-        </div>
+      </div>
     );
   }
 }

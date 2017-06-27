@@ -11,7 +11,7 @@ const DocListTable = ({ document, handleClick, authUser }) => (
        <td>{document.updatedAt}</td>
       <td> <a className="btn-floating btn-large waves-effect waves-light red" onClick={() => { handleClick(document.id); }}><i className="material-icons">-</i></a></td>
 {(document.User.name === authUser.name)
-? <td><a className="btn-floating btn-large waves-effect waves-light red" 
+? <td><a className="btn-floating btn-large waves-effect waves-light red"
   onClick= {() => browserHistory.push(`/documents/${document.id}/edit`)}><i className="material-icons">mode_edit</i></a></td> : ''}
 </tr>
   );

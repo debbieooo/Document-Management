@@ -11,10 +11,10 @@ class ManageUser extends React.Component {
   constructor(props, context) {
     super(props, context);
     this.state = {
-      users: props.user,
+      users: [],
       error: '',
       limit: 10,
-      search: ''
+      searching: false
     };
     this.handleClick = this.handleClick.bind(this);
     this.handlePageChange = this.handlePageChange.bind(this);
@@ -42,20 +42,21 @@ class ManageUser extends React.Component {
   }
   handleSearch(event) {
     this.props.actions.searchUser(event.target.value);
+    this.setState({ searching: event.target.value.length > 0 });
     console.log('handles state');
 
   }
   render() {
-    console.log('this.properties', this.props.search.length);
-    const  users  = this.props.search && this.props.search.length > 1 ? this.props.search : this.state.users;
+    console.log('this.properties', this.state.searching);
+    const users  = this.state.searching ? this.props.search : this.state.users;
     return (
       <div>
-      {this.props.users.length > 1
+      {this.props.users && this.props.users.length > 1
         ? <div>
         <div className="row">
           <div className= "col s6"><SearchBox onChange = {this.handleSearch}/></div>
 
-          <div className="right-align">
+          { !this.state.searching ? <div className="right-align">
               <div className="input-field inline">
                 <input id="number" type="number" className="validate" onChange= {this.inputChange}/>
                 <label for="number" className="active">Limit</label>
@@ -64,7 +65,7 @@ class ManageUser extends React.Component {
                   pageCount={this.props.metadata.pageCount}
                   handleChange={this.handlePageChange}
                 />
-          </div>
+          </div> : ''}
         </div>
         <UserList users = {users} onClick ={this.handleClick}/>
       </div>

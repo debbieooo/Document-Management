@@ -1,5 +1,6 @@
 import axios from 'axios';
 import * as types from './actionTypes';
+import {searchSuccess} from './userAction';
 
 export function listDocs(documents) {
   return {
@@ -93,7 +94,15 @@ export function createDoc(document) {
   });
 }
 
-
-
-
-
+export function searchDoc(document) {
+  const token = localStorage.getItem('token');
+  axios.defaults.headers.common.Authorization = token;
+  return dispatch => axios.get(`/api/search/documents/?title=${document}`)
+  .then((response) => {
+    console.log(response);
+    dispatch(searchSuccess(response.data.result.rows, response.data.metadata));
+  })
+  .catch((error) => {
+    dispatch({ type: 'Error' });
+  });
+}

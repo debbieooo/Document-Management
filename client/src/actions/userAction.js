@@ -131,7 +131,7 @@ export function sendUserUpdate(user) {
 export function searchUser(user) {
   const token = localStorage.getItem('token');
   axios.defaults.headers.common.Authorization = token;
-  return dispatch => axios.get(`/api/search/users/?userName=${user}`)
+  return dispatch => axios.get(`/api/search/users/?q=${user}`)
   .then((response) => {
     console.log('action method', response);
     dispatch(searchSuccess(response.data.user, response.data.metadata));
