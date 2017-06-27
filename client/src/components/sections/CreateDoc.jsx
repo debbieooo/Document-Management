@@ -4,24 +4,27 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { createDoc } from '../../actions/docAction';
 import { activeUser } from '../../actions/userAction';
+import { browserHistory } from 'react-router';
+
 
 class CreateDoc extends React.Component {
   constructor(props, context) {
     super(props, context);
     this.state = {
-      doc: {},
-      authUser: Object.assign({}, props.authUser),
+      document: {},
+      authUser: Object.assign({}, props.authUser)
     };
     this.submit = this.submit.bind(this);
   }
-  submit(doc) {
-    console.log('csds', doc);
-    this.props.actions.createDoc({ ...doc, userId: this.state.authUser.id })
-    .then(() => alert('Document Added'));
+  submit(document) {
+    this.props.actions.createDoc(document)
+    .then(() => alert('Document Added'))
+    .then(() => {
+      browserHistory.goBack();
+    });
   }
   ComponentDidMount() {
     console.log('user', this.props.actions.activeUser());
-    // this.props.actions.activeUser();
   }
 
 
@@ -38,7 +41,7 @@ class CreateDoc extends React.Component {
 function mapStateToProps(state) {
   console.log('mapstate', state);
   return {
-    docs: state.docs.docs,
+    documents: state.documents.documents,
     users: state.users,
     authUser: state.authUser
   };

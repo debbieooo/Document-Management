@@ -1,5 +1,6 @@
 import axios from 'axios';
 import * as types from './actionTypes';
+import {searchSuccess} from './userAction';
 
 export function listDocs(documents) {
   return {
@@ -19,26 +20,25 @@ export function updateDocs(id) {
     id
   };
 }
-export function fetchDoc(doc) {
+export function fetchDoc(document) {
   return {
     type: types.FETCH_DOCUMENT_SUCCESS,
-    doc
+    document
   };
 }
-export function create(doc) {
+export function create(document) {
   return {
     type: types.CREATE_DOCUMENTS_SUCCESS,
-    doc
+    document
   };
 }
 
 
-export function doclist() {
+export function doclist(limit, offset) {
   const token = localStorage.getItem('token');
   axios.defaults.headers.common.Authorization = token;
-  return dispatch => axios.get('/api/documents')
+  return dispatch => axios.get(`/api/documents/?limit=${limit || 10}&offset=${offset || 0}`)
   .then((response) => {
-    console.log('response', response);
     dispatch(listDocs(response.data));
     dispatch({ type: 'Error' });
   })
@@ -59,10 +59,10 @@ export function deleteDoc(docId) {
   });
 }
 
-export function updateDoc(doc) {
+export function updateDoc(document) {
   const token = localStorage.getItem('token');
   axios.defaults.headers.common.Authorization = token;
-  return dispatch => axios.put(`/api/documents/${doc.id}`, doc)
+  return dispatch => axios.put(`/api/documents/${document.id}`, document)
   .then((response) => {
     dispatch(updateDocs(response.data));
   })
@@ -75,16 +75,17 @@ export function findDoc(id) {
   axios.defaults.headers.common.Authorization = token;
   return dispatch => axios.get(`/api/documents/${id}`)
   .then((response) => {
-    dispatch(fetchDoc(response.data.doc));
+    dispatch(fetchDoc(response.data.documents));
   })
   .catch((error) => {
     dispatch({ type: 'Error' });
   });
 }
-export function createDoc(doc) {
+export function createDoc(document) {
   const token = localStorage.getItem('token');
   axios.defaults.headers.common.Authorization = token;
-  return dispatch => axios.post('/api/documents', doc)
+  console.log('document load', document);
+  return dispatch => axios.post('/api/documents', document)
   .then((response) => {
     dispatch(create(response.data));
   })
@@ -93,6 +94,15 @@ export function createDoc(doc) {
   });
 }
 
-
-
-
+export function searchDoc(document) {
+  const token = localStorage.getItem('token');
+  axios.defaults.headers.common.Authorization = token;
+  return dispatch => axios.get(`/api/search/documents/?title=${document}`)
+  .then((response) => {
+    console.log(response);
+    dispatch(searchSuccess(response.data.result.rows, response.data.metadata));
+  })
+  .catch((error) => {
+    dispatch({ type: 'Error' });
+  });
+}

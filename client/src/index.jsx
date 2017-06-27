@@ -7,6 +7,7 @@ import { Router, browserHistory } from 'react-router';
 import { Provider } from 'react-redux';
 import routes from './route';
 import configureStore from './store/store';
+require('../styles/main.scss');
 // import { signUp, login, userlist } from './actions/userAction';
 
 

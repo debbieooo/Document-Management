@@ -4,7 +4,6 @@ import UserListTable from './UserListTable.jsx';
 const UserList = ({ users, onClick }) =>
    (
      <div>
-       {console.log('users.rows', users.row)}
        <h5>Users</h5>
        <table className="bordered responsive-table">
       <thead>

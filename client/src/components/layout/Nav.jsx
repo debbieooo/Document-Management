@@ -20,7 +20,7 @@ class Nav extends React.Component {
       <ul id="nav-mobile" className="right hide-on-med-and-down">
         <li><Link to="/users">Users</Link></li>
          <li> <Link to="/documents">Documents</Link></li>
-          <li><Link to="/documents/create">New Document<a><i className="material-icons">add</i></a></Link>
+          <li><Link to="/documents/create">New Document</Link>
 </li>
 
         <li><Link to="/profile"> Edit Profile?</Link></li>

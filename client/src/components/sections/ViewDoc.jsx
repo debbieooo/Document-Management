@@ -4,20 +4,13 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as docActions from '../../actions/docAction';
 import { browserHistory } from 'react-router';
+import NotAuthorized from './NotAuthorized.jsx';
 class UpdateDoc extends React.Component {
   constructor(props, context) {
     super(props, context);
     this.state = {
       document: Object.assign({}, props.document)
     };
-    this.submit = this.submit.bind(this);
-  }
-  submit(document) {
-    console.log('submit action starting');
-    this.props.actions.updateDoc({ ...document, id: this.state.document.id })
-    .then(() => {
-      browserHistory.goBack();
-    });
   }
   componentDidMount() {
     this.props.actions.findDoc(this.props.params.id);
@@ -25,10 +18,14 @@ class UpdateDoc extends React.Component {
   componentWillReceiveProps(nextProps) {
     this.setState({ document: nextProps.document });
   }
+  createMarkup() {
+    return { __html: this.state.document.content };
+  }
   render() {
     return (
       <div>
-        {this.state.document.title ? <TextEditor {...this.state.document} onClick ={this.submit} /> : <img src= "/images/default.gif"/>}
+        <h5>{this.state.document.title}</h5>
+        {this.state.document.title ? <div dangerouslySetInnerHTML={this.createMarkup()}/> : <NotAuthorized/>}
       </div>
     );
   }
