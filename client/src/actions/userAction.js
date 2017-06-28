@@ -38,7 +38,6 @@ export function updateUser(user) {
   };
 }
 export function searchSuccess(search, metadata) {
-   console.log('search search', search);
 
   return {
     type: types.SEARCH_SUCCESS,
@@ -133,7 +132,6 @@ export function searchUser(user) {
   axios.defaults.headers.common.Authorization = token;
   return dispatch => axios.get(`/api/search/users/?q=${user}`)
   .then((response) => {
-    console.log('action method', response);
     dispatch(searchSuccess(response.data.user, response.data.metadata));
   })
   .catch((error) => {

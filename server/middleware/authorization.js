@@ -13,7 +13,6 @@ module.exports = {
       });
   },
   authorizeAdmin(req, res, next) {
-    console.log('request', req.decoded.role);
     if (req.decoded.role !== 1) {
       return res.status(401).json({ message: 'unathorized' });
     }

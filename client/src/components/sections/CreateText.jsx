@@ -19,13 +19,11 @@ class CreateText extends React.Component {
     this.setState({ content: model });
   }
   handleSubmit() {
-    console.log('this.state.access', this.state.access);
     this.props.onClick(this.state);
   }
   handleChange(e) {
     const val = e.target.value;
     this.setState({ access: e.target.value });
-    console.log('change', val, this.state);
   }
   handleInput(e) {
     this.setState({ title: e.target.value });
@@ -33,7 +31,6 @@ class CreateText extends React.Component {
 
 
   render() {
-    console.log('text editor', this.state);
     const { access } = this.state;
     return (
       <div>

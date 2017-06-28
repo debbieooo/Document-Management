@@ -85,7 +85,6 @@ export function findDoc(id) {
 export function createDoc(document) {
   const token = localStorage.getItem('token');
   axios.defaults.headers.common.Authorization = token;
-  console.log('document load', document);
   return dispatch => axios.post('/api/documents', document)
   .then((response) => {
     dispatch(create(response.data));
@@ -100,7 +99,6 @@ export function searchDoc(document) {
   axios.defaults.headers.common.Authorization = token;
   return dispatch => axios.get(`/api/search/documents/?title=${document}`)
   .then((response) => {
-    console.log(response);
     dispatch(searchSuccess(response.data.result.rows, response.data.metadata));
   })
   .catch((error) => {

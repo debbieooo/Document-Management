@@ -23,13 +23,9 @@ class CreateDoc extends React.Component {
       browserHistory.goBack();
     });
   }
-  ComponentDidMount() {
-    console.log('user', this.props.actions.activeUser());
-  }
 
 
   render() {
-    console.log('props for act', this.props);
     return (
     <div>
          <TextEditor onClick ={this.submit} />
@@ -39,7 +35,6 @@ class CreateDoc extends React.Component {
 }
 
 function mapStateToProps(state) {
-  console.log('mapstate', state);
   return {
     documents: state.documents.documents,
     users: state.users,

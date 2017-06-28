@@ -48,8 +48,6 @@ class ManageDoc extends React.Component {
   }
 
   render() {
-    console.log(this.state.searching, 'is searching');
-    console.log('results', this.props.search);
     const { authUser } = this.state;
     const documents  = this.state.searching ? this.props.search : this.state.documents;
 

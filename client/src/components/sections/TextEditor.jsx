@@ -16,17 +16,14 @@ class TextEditor extends React.Component {
     this.handleInput = this.handleInput.bind(this);
   }
   handleEditorChange(e) {
-    console.log('Content was updated:', e.target.getContent());
     this.setState({ content: e.target.getContent() });
   }
   handleSubmit() {
-    console.log('this.state.access', this.state.access);
     this.props.onClick(this.state);
   }
   handleChange(e) {
     const val = e.target.value;
     this.setState({ access: e.target.value });
-    console.log('change', val, this.state);
   }
   handleInput(e) {
     this.setState({ title: e.target.value });
@@ -34,8 +31,6 @@ class TextEditor extends React.Component {
 
 
   render() {
-    console.log('text editor', this.state);
-    console.log('this.state.title', this.state.title);
     const { access } = this.state;
     return (
       <div>
@@ -46,16 +41,6 @@ class TextEditor extends React.Component {
                 <input id="textarea1" className="materialize-textarea" value= {this.state.title} onChange = {this.handleInput} />
                 <label className="active" htmlFor="textarea1">Title</label>
               </div>
-                {/* <p>
-                  {(access === 'Public') ? <div><input name="Public" type="radio" />
-                  <label htmlFor="test2">Public</label></div> : <div><input name="Private" type="radio" id="test2" />
-                  <label htmlFor="test2">Private</label></div>}
-                </p>
-                <p>
-                  {(access === 'Private') ? <div><input name="Private" type="radio" />
-                  <label htmlFor="test2">Public</label></div> : <div><input name="Private" type="radio" id="test2" />
-                  <label htmlFor="test2">Private</label></div>}
-                </p>*/}
                 <p>
                   <div>
                     <input

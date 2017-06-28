@@ -21,7 +21,6 @@ fs
     && (file !== basename)
     && (file.slice(-3) === '.js'))
   .forEach((file) => {
-    console.log(file, '[line 24]');
     const model = sequelize.import(path.join(__dirname, file));
     db[model.name] = model;
   });

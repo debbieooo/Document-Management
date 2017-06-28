@@ -13,7 +13,6 @@ class UpdateDoc extends React.Component {
     this.submit = this.submit.bind(this);
   }
   submit(document) {
-    console.log('submit action starting');
     this.props.actions.updateDoc({ ...document, id: this.state.document.id })
     .then(() => {
       browserHistory.goBack();

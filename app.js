@@ -12,8 +12,6 @@ const webpackDevMiddleware = require('webpack-dev-middleware');
 const webpackHotMiddleware = require('webpack-hot-middleware');
 
 const pathurl = path.join(__dirname, './server/routes/*.js');
-console.log('swagger', pathurl);
-
 dotenv.config();
 // Set up the express app
 const app = express();

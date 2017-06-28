@@ -28,13 +28,11 @@ class ManageUser extends React.Component {
     this.props.actions.deleteAcc(userId);
   }
   componentWillReceiveProps(nextProps) {
-    console.log(nextProps);
     this.setState({ users: nextProps.users });
   }
 
   handlePageChange(event) {
     this.props.actions.userlist(this.state.limit, event.target.value * this.state.limit);
-    console.log('changing to');
   }
   inputChange(event) {
     const users = [...this.props.users];
@@ -43,11 +41,9 @@ class ManageUser extends React.Component {
   handleSearch(event) {
     this.props.actions.searchUser(event.target.value);
     this.setState({ searching: event.target.value.length > 0 });
-    console.log('handles state');
 
   }
   render() {
-    console.log('this.properties', this.state.searching);
     const users  = this.state.searching ? this.props.search : this.state.users;
     return (
       <div>
@@ -83,7 +79,6 @@ ManageUser.defaultProps = {
 };
 
 function mapStateToProps(state) {
-  console.log('state.users', state.search);
   return {
     users: state.users.users,
     metadata: state.users.metadata,

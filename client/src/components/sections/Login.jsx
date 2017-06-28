@@ -16,7 +16,6 @@ class Login extends React.Component {
   }
   handleSubmit(event) {
     event.preventDefault();
-    console.log("this.statesssssssss", this.state);
     this.props.actions.login(this.state.user)
       .then(token => {
         browserHistory.push('/home');
@@ -71,7 +70,6 @@ class Login extends React.Component {
 }
 
 function mapStateToProps(state) {
-  // console.log('the state ', state);
   return {
     user: state.user
   };
