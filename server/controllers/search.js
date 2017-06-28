@@ -1,5 +1,5 @@
 const Users = require('../models').User;
-const Documents = require('../models').Doc;
+const Documents = require('../models').Documents;
 
 module.exports = {
   searchUser(req, res) {
@@ -10,9 +10,9 @@ module.exports = {
       order: '"createdAt" DESC',
       where :{
         $or: [{
-          userName: req.query.userName
+          userName: { $iLike: `%${req.query.q}%` }
         }, {
-          name: req.query.name
+          name: { $iLike: `%${req.query.q}%` }
         }]
       },
       limit,
@@ -51,7 +51,11 @@ module.exports = {
       order: '"createdAt" DESC',
       offset,
       limit,
-      where
+      where,
+      include: {
+        model: Users,
+        attributes: ['name']
+      }
     })
       .then((result) => {
         console.log('result.rows.userId', result.userId);

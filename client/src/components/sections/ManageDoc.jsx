@@ -2,7 +2,7 @@ import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import DocList from './DocList.jsx';
-import { doclist, deleteDoc } from '../../actions/docAction';
+import { doclist, deleteDoc, searchDoc } from '../../actions/docAction';
 import { activeUser } from '../../actions/userAction';
 import SearchBox from './SearchBox.jsx';
 import Paginate from './Paginate.jsx';
@@ -15,13 +15,14 @@ class ManageDoc extends React.Component {
       documents: props.documents,
       error: '',
       authUser: Object.assign({}, props.authUser),
-      limit: 10
+      limit: 10,
+      searching: false
 
     };
     this.handleClick = this.handleClick.bind(this);
     this.handlePageChange = this.handlePageChange.bind(this);
     this.inputChange = this.inputChange.bind(this);
-
+    this.handleSearch = this.handleSearch.bind(this);
 
   }
   componentDidMount() {
@@ -41,16 +42,24 @@ class ManageDoc extends React.Component {
     const documents = [...this.props.documents];
     this.setState({ limit: event.target.value, documents: documents.splice(0, event.target.value) });
   }
+  handleSearch(event) {
+    this.props.actions.searchDoc(event.target.value);
+    this.setState({ searching: event.target.value.length > 0 });
+  }
 
   render() {
-    const { documents, authUser } = this.state;
+    console.log(this.state.searching, 'is searching');
+    console.log('results', this.props.search);
+    const { authUser } = this.state;
+    const documents  = this.state.searching ? this.props.search : this.state.documents;
+
     return (
       <div>
-        {this.props.documents.length > 1 ?
-        <div>
+        {this.props.documents.length > 1
+        ? <div>
           <div className="row">
-            <div className="col s6"><SearchBox /></div>
-            <div className="right-align">
+            <div className="col s6"><SearchBox onChange = {this.handleSearch}/></div>
+            {!this.state.searching ? <div className="right-align">
               <div className="input-field inline">
                 <input id="number" type="number" className="validate" onChange={this.inputChange} />
                 <label for="number" className="active">Limit</label>
@@ -59,7 +68,7 @@ class ManageDoc extends React.Component {
                 pageCount={this.props.metadata.pageCount}
                 handleChange={this.handlePageChange}
               />
-            </div>
+            </div> : ''}
           </div>
           <DocList documents={documents} authUser={authUser} onClick={this.handleClick} />
             </div>
@@ -84,7 +93,7 @@ ManageDoc.defaultProps = {
 
 function mapStateToProps(state) {
   return {
-
+    search: state.search.search,
     documents: state.documents.documents,
     users: state.users,
     authUser: state.authUser,
@@ -93,7 +102,7 @@ function mapStateToProps(state) {
 }
 function mapDispatchToProps(dispatch) {
   return {
-    actions: bindActionCreators({ doclist, activeUser, deleteDoc }, dispatch)
+    actions: bindActionCreators({ doclist, activeUser, deleteDoc, searchDoc }, dispatch)
   };
 }
 export default connect(mapStateToProps, mapDispatchToProps)(ManageDoc);
