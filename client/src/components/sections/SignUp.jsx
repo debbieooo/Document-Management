@@ -8,23 +8,29 @@ class SignUp extends React.Component {
   constructor(props, context) {
     super(props, context);
     this.state = {
-      user: Object.assign({}, props.user),
-      error: ''
+      user: Object.assign({}, props.user, { password: '', confirmPassword: '' }),
+      error: '',
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
   handleSubmit(event) {
     event.preventDefault();
-    this.props.actions.signUp(this.state.user)
+    if (this.passwordConfirmation()) {
+      this.props.actions.signUp(this.state.user)
       .then((token) => {
         browserHistory.push('/home');
       })
       .catch((error) => {
         this.setState({ error: 'Wrong input details' });
       });
+    } else {
+      this.setState({ error: 'Passwords do not match' });
+    }
   }
-
+  passwordConfirmation() {
+    return this.state.user.password === this.state.user.confirmPassword;
+  }
   handleChange(event) {
     const value = event.target.value;
     const name = event.target.name;
@@ -78,6 +84,20 @@ class SignUp extends React.Component {
                       type="password"
                       className="validate"
                       value={this.state.password}
+                      onChange={this.handleChange} />
+                    </div>
+                  </div>
+                  <div className="row">
+                    <div className="input-field col s6"> 
+                        <span>{this.state.error}</span>
+                    </div>
+                    <div className="input-field col s6">
+                      <input placeholder="Confirm Password"
+                      name="confirmPassword"
+                      id="password"
+                      type="password"
+                      className="validate"
+                      value={this.state.confirmPassword}
                       onChange={this.handleChange} />
                     </div>
                   </div>

@@ -37,7 +37,6 @@ class Profile extends React.Component {
     event.preventDefault();
     if (this.passwordConfirmation()) {
       delete this.state.authUser.confirmPassword;
-      console.log(this.state.authUser);
       this.props.actions.sendUserUpdate(this.state.authUser)
       .then(() => {
         browserHistory.push('/home');
@@ -45,7 +44,6 @@ class Profile extends React.Component {
     } else {
       this.setState({ error: 'Passwords do not match' });
     }
-    // console.log(this.state.authUser);
   }
   render() {
     const { authUser } = this.state;

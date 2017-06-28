@@ -44,7 +44,7 @@ module.exports = {
               const roleId = user.roleId;
               return res.status(201).send({ token, name, userName, email, id, roleId });
             })
-      .catch(error => res.status(400).send(error, { message: 'Bad request' }));
+            .catch(error => res.status(400).send(error, { message: 'Bad request' }));
         }
       });
   },
@@ -113,15 +113,15 @@ module.exports = {
         attributes: ['id', 'userName', 'email', 'name', 'roleId', 'createdAt', 'updatedAt']
       })
       .then(users =>
-      res.status(200).send({
-        users,
-        metadata: {
-          pageCount: Math.ceil(users.count / limit),
-          page: Math.floor((limit + offset) / limit),
-          pageSize: limit,
-          count: users.count
-        }
-      }))
+        res.status(200).send({
+          users,
+          metadata: {
+            pageCount: Math.ceil(users.count / limit),
+            page: Math.floor((limit + offset) / limit),
+            pageSize: limit,
+            count: users.count
+          }
+        }))
       .catch(error => res.status(400).send(error, { message: 'Bad request' }));
   },
   findUser(req, res) {
@@ -207,6 +207,19 @@ module.exports = {
   userDoclist(req, res) {
     const offset = parseInt(req.query.offset, 10) || 0;
     const limit = parseInt(req.query.limit, 10) || 10;
+    let where = {};
+    if (req.decoded.role !== 1) {
+      where = {
+        $or: [{
+          userId: req.decoded.id
+        }, {
+          access: 'Public'
+        }]
+      };
+    } else {
+      where = {};
+    }
+
     return Documents
       .findAndCountAll({
         offset,
@@ -214,7 +227,8 @@ module.exports = {
         include: {
           model: Users,
           attributes: ['name']
-        }
+        },
+        where
       })
       .then((documents) => {
         if (!documents) {

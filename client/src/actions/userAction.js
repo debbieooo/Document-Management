@@ -32,7 +32,6 @@ export function getUser(user) {
   };
 }
 export function updateUser(user) {
-  console.log(user);
   return {
     type: types.UPDATE_USER_SUCCESS,
     user
@@ -121,7 +120,6 @@ export function sendUserUpdate(user) {
     dispatch(updateUser(response.data));
   })
   .catch((error) => {
-    console.log(error);
     dispatch({ type: 'Error', error: error.response.data });
   });
 }
