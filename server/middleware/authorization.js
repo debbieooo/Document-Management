@@ -13,17 +13,10 @@ module.exports = {
       });
   },
   authorizeAdmin(req, res, next) {
-    console.log('request', req.decoded.role);
     if (req.decoded.role !== 1) {
       return res.status(401).json({ message: 'unathorized' });
     }
     req.isAdmin = true;
     return next();
   },
-  ownerAuthorization(req, res, next) {
-    if (req.decoded.id !== res.body.userId) {
-      return res.status(401).json({ message: 'unathorized' });
-    }
-    return next();
-  }
 };

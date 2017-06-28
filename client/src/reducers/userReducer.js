@@ -11,7 +11,6 @@ export default function userReducer(state = initialState.users, action) {
           return user;
         }
       }) });
-
     default:
       return state;
   }

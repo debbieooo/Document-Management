@@ -1,14 +1,9 @@
-// This component handles the App template used on every page.
-import { browserHistory } from 'react-router';
-import React, { PropTypes } from 'react';
-import Nav from './Nav.jsx';
-import Footer from './Footer.jsx';
+import React from 'react';//eslint-disable-line
+import PropTypes from 'prop-types';//eslint-disable-line
+import Nav from './Nav.jsx';//eslint-disable-line
+
 
 export default class App extends React.Component {
-  constructor(props, context) {
-    super(props, context);
-  }
-
   render() {
     return (
       <div>
@@ -17,11 +12,12 @@ export default class App extends React.Component {
           <div className="container" id="container">
           {this.props.children}
           </div>
-        {/*<Footer />*/}
-          
         </div>
       </div>
     );
   }
 }
 
+App.propTypes = {
+  children: PropTypes.element.isRequired
+};

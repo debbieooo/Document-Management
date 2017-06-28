@@ -1,8 +1,8 @@
-import React from 'react';
+import React from 'react';//eslint-disable-line
 
-const Paginate = ({ pageCount, currentPage, handleChange }) => 
+const Paginate = ({ pageCount, currentPage, handleChange }) =>
   <div className="input-field inline">
-    <select id="paginate" onChange={(e) => handleChange(e)}>
+    <select id="paginate" onChange={e => handleChange(e)}>
       {pageNumber(pageCount, handleChange)}
     </select>
   </div>

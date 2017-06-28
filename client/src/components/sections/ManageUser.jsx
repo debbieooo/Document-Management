@@ -1,10 +1,10 @@
-import React, { PropTypes } from 'react';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-import UserList from './UserList.jsx';
-import Paginate from './Paginate.jsx';
-import * as userActions from '../../actions/userAction';
-import SearchBox from './SearchBox.jsx';
+import React, { PropTypes } from 'react';//eslint-disable-line
+import { connect } from 'react-redux';//eslint-disable-line
+import { bindActionCreators } from 'redux';//eslint-disable-line
+import UserList from './UserList.jsx';//eslint-disable-line
+import Paginate from './Paginate.jsx';//eslint-disable-line
+import * as userActions from '../../actions/userAction';//eslint-disable-line
+import SearchBox from './SearchBox.jsx';//eslint-disable-line
 
 
 class ManageUser extends React.Component {
@@ -24,42 +24,46 @@ class ManageUser extends React.Component {
   componentDidMount() {
     this.props.actions.userlist();
   }
-  handleClick(userId) {
+  handleClick(userId) {//eslint-disable-line
     this.props.actions.deleteAcc(userId);
   }
   componentWillReceiveProps(nextProps) {
-    console.log(nextProps);
     this.setState({ users: nextProps.users });
   }
 
   handlePageChange(event) {
-    this.props.actions.userlist(this.state.limit, event.target.value * this.state.limit);
-    console.log('changing to');
+    this.props.actions.userlist(
+      this.state.limit, event.target.value * this.state.limit
+    );
   }
   inputChange(event) {
     const users = [...this.props.users];
-    this.setState({ limit: event.target.value, users: users.splice(0, event.target.value) });
+    this.setState({
+      limit: event.target.value, users: users.splice(0, event.target.value)
+    });
   }
   handleSearch(event) {
     this.props.actions.searchUser(event.target.value);
     this.setState({ searching: event.target.value.length > 0 });
-    console.log('handles state');
-
   }
   render() {
-    console.log('this.properties', this.state.searching);
-    const users  = this.state.searching ? this.props.search : this.state.users;
+    const users = this.state.searching ? this.props.search : this.state.users;
     return (
       <div>
       {this.props.users && this.props.users.length > 1
         ? <div>
         <div className="row">
-          <div className= "col s6"><SearchBox onChange = {this.handleSearch}/></div>
+          <div className= "col s6">
+            <SearchBox onChange = {this.handleSearch}/>
+          </div>
 
           { !this.state.searching ? <div className="right-align">
               <div className="input-field inline">
-                <input id="number" type="number" className="validate" onChange= {this.inputChange}/>
-                <label for="number" className="active">Limit</label>
+                <input id="number"
+                type="number"
+                className="validate"
+                onChange= {this.inputChange}/>
+                <label htmlFor="number" className="active">Limit</label>
               </div>
                 <Paginate
                   pageCount={this.props.metadata.pageCount}
@@ -83,7 +87,6 @@ ManageUser.defaultProps = {
 };
 
 function mapStateToProps(state) {
-  console.log('state.users', state.search);
   return {
     users: state.users.users,
     metadata: state.users.metadata,
@@ -96,4 +99,3 @@ function mapDispatchToProps(dispatch) {
   };
 }
 export default connect(mapStateToProps, mapDispatchToProps)(ManageUser);
-

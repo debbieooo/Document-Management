@@ -1,5 +1,5 @@
-import React from 'react';
-import { browserHistory } from 'react-router';
+import React from 'react';//eslint-disable-line
+import { browserHistory } from 'react-router';//eslint-disable-line
 const FroalaEditor = require('react-froala-wysiwyg');
 
 class CreateText extends React.Component {
@@ -19,13 +19,11 @@ class CreateText extends React.Component {
     this.setState({ content: model });
   }
   handleSubmit() {
-    console.log('this.state.access', this.state.access);
     this.props.onClick(this.state);
   }
   handleChange(e) {
     const val = e.target.value;
     this.setState({ access: e.target.value });
-    console.log('change', val, this.state);
   }
   handleInput(e) {
     this.setState({ title: e.target.value });
@@ -33,7 +31,6 @@ class CreateText extends React.Component {
 
 
   render() {
-    console.log('text editor', this.state);
     const { access } = this.state;
     return (
       <div>
@@ -41,19 +38,13 @@ class CreateText extends React.Component {
           <form className="col s8">
             <div className="row">
               <div className="input-field col s8">
-                <input id="textarea1" className="materialize-textarea" value={this.state.title} onChange={this.handleInput} />
-                <label className="active" htmlFor="textarea1">Title</label>
+                <input id="textarea1"
+                className="materialize-textarea"
+                value={this.state.title}
+                onChange={this.handleInput} />
+                <label className="active"
+                htmlFor="textarea1">Title</label>
               </div>
-              {/* <p>
-                  {(access === 'Public') ? <div><input name="Public" type="radio" />
-                  <label htmlFor="test2">Public</label></div> : <div><input name="Private" type="radio" id="test2" />
-                  <label htmlFor="test2">Private</label></div>}
-                </p>
-                <p>
-                  {(access === 'Private') ? <div><input name="Private" type="radio" />
-                  <label htmlFor="test2">Public</label></div> : <div><input name="Private" type="radio" id="test2" />
-                  <label htmlFor="test2">Private</label></div>}
-                </p>*/}
               <p>
                 <div>
                   <input
@@ -78,7 +69,7 @@ class CreateText extends React.Component {
           </form>
         </div>
         <FroalaEditor
-          tag='textarea'
+          tag="textarea"
           model={this.state.content}
           onModelChange={this.handleModelChange}
         />
@@ -97,5 +88,4 @@ class CreateText extends React.Component {
 }
 
 export default CreateText;
-
 

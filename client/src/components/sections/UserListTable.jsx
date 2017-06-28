@@ -1,5 +1,5 @@
-import React, { PropTypes } from 'react';
-import { Link } from 'react-router';
+import React, { PropTypes } from 'react';//eslint-disable-line
+import { Link } from 'react-router';//eslint-disable-line
 
 
 const UserListRow = ({ user, handleClick }) => (
@@ -7,7 +7,10 @@ const UserListRow = ({ user, handleClick }) => (
       <td>{user.roleId}</td>
       <td><Link to ={`/user/${user.id}`}> {user.name}</Link> </td>
      <td><Link to ={`/user/${user.id}`}> {user.userName}</Link> </td>
-     <td> <a className="btn-floating btn-large waves-effect waves-light red" onClick={() => { handleClick(user.id)}}><i className="material-icons">-</i></a></td>
+     <td> <a className="btn-floating btn-large waves-effect waves-light red"
+      onClick={() => { handleClick(user.id); }}>
+      <i className="material-icons">-</i>
+      </a></td>
     </tr>
   );
 

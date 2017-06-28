@@ -1,10 +1,10 @@
-import React, { PropTypes } from 'react';
-import TextEditor from './TextEditor.jsx';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-import { createDoc } from '../../actions/docAction';
-import { activeUser } from '../../actions/userAction';
-import { browserHistory } from 'react-router';
+import React from 'react';//eslint-disable-line
+import { bindActionCreators } from 'redux';//eslint-disable-line
+import { browserHistory } from 'react-router';//eslint-disable-line
+import TextEditor from './TextEditor.jsx';//eslint-disable-line
+import { connect } from 'react-redux';//eslint-disable-line
+import { createDoc } from '../../actions/docAction';//eslint-disable-line
+import { activeUser } from '../../actions/userAction';//eslint-disable-line
 
 
 class CreateDoc extends React.Component {
@@ -16,20 +16,15 @@ class CreateDoc extends React.Component {
     };
     this.submit = this.submit.bind(this);
   }
+
   submit(document) {
     this.props.actions.createDoc(document)
-    .then(() => alert('Document Added'))
     .then(() => {
       browserHistory.goBack();
     });
   }
-  ComponentDidMount() {
-    console.log('user', this.props.actions.activeUser());
-  }
-
 
   render() {
-    console.log('props for act', this.props);
     return (
     <div>
          <TextEditor onClick ={this.submit} />
@@ -38,8 +33,13 @@ class CreateDoc extends React.Component {
   }
 }
 
+CreateDoc.propTypes = {
+  actions: React.PropTypes.object,
+  authUser: React.PropTypes.object,
+  submit: React.PropTypes.func
+};
+
 function mapStateToProps(state) {
-  console.log('mapstate', state);
   return {
     documents: state.documents.documents,
     users: state.users,

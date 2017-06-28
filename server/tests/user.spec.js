@@ -29,7 +29,6 @@ describe('User', () => {
   before((done) => {
     api.post('/api/users/signup').send(user1data)
        .end((err, res) => {
-         console.log('res.body.id', res.body);
          user.id = res.body.id;
          user.token = res.body.token;
          expect(res.status).to.equal(201);

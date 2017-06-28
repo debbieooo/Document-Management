@@ -1,5 +1,5 @@
-import React, { PropTypes } from 'react';
-import UserListTable from './UserListTable.jsx';
+import React, { PropTypes } from 'react';//eslint-disable-line
+import UserListTable from './UserListTable.jsx';//eslint-disable-line
 
 const UserList = ({ users, onClick }) =>
    (
@@ -14,7 +14,9 @@ const UserList = ({ users, onClick }) =>
         </tr>
       </thead>
       <tbody>
-        {users.map(user => <UserListTable key={user.id} user ={user} handleClick= {onClick}/>)}
+        {users.map(user =>
+        <UserListTable key={user.id} user ={user} handleClick= {onClick}/>
+        )}
       </tbody>
     </table>
      </div>

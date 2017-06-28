@@ -58,7 +58,6 @@ module.exports = {
       }
     })
       .then((result) => {
-        console.log('result.rows.userId', result.userId);
         res.status(200)
           .send({
             result,

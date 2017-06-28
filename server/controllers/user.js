@@ -44,7 +44,7 @@ module.exports = {
               const roleId = user.roleId;
               return res.status(201).send({ token, name, userName, email, id, roleId });
             })
-      .catch(error => res.status(400).send(error, { message : 'Bad request' }));
+            .catch(error => res.status(400).send(error, { message: 'Bad request' }));
         }
       });
   },
@@ -99,8 +99,7 @@ module.exports = {
           });
         }
       })
-      .catch(error => {
-        console.log(error);
+      .catch((error) => {
         res.status(400).send(error, { message: 'Bad request' });
       });
   },
@@ -111,19 +110,19 @@ module.exports = {
       .findAndCountAll({
         limit,
         offset,
-        attributes : ['id', 'userName', 'email', 'name', 'roleId', 'createdAt', 'updatedAt']
+        attributes: ['id', 'userName', 'email', 'name', 'roleId', 'createdAt', 'updatedAt']
       })
-      .then((users) => 
-      res.status(200).send({
-        users,
-        metadata: {
-          pageCount: Math.ceil(users.count / limit),
-          page: Math.floor((limit + offset) / limit),
-          pageSize: limit,
-          count: users.count
-        }
-      }))
-      .catch(error => res.status(400).send(error, { message : 'Bad request' }));
+      .then(users =>
+        res.status(200).send({
+          users,
+          metadata: {
+            pageCount: Math.ceil(users.count / limit),
+            page: Math.floor((limit + offset) / limit),
+            pageSize: limit,
+            count: users.count
+          }
+        }))
+      .catch(error => res.status(400).send(error, { message: 'Bad request' }));
   },
   findUser(req, res) {
     return Users
@@ -143,16 +142,18 @@ module.exports = {
         res.status(200)
           .send({ id, name, email, userName, createdAt, updatedAt, message: 'Search successful' });
       })
-      .catch((error) => res.status(400).send({
+      .catch(error => res.status(400).send({
         message: 'Bad request'
       }));
   },
   update(req, res) {
     const userId = req.decoded.id;
     return Users
-      .findById(req.params.id)
+      .findOne({
+        where: { id: req.params.id },
+        attributes: ['id', 'name', 'email', 'userName', 'roleId']
+      })
       .then((user) => {
-        
         if (userId !== user.id) {
           res.status(401).send({ message: 'Not authorized, its not your account' });
         } else {
@@ -174,7 +175,7 @@ module.exports = {
               const email = user.email;
               const id = user.id;
               const roleId = user.roleId;
-              return res.status(201).send({ token, name, userName, email, id, roleId, message: 'Your account has been updated' });
+              return res.status(201).send({ name, userName, email, id, roleId, message: 'Your account has been updated' });
             })
             .catch(error => res.status(400).send(error));
         }
@@ -206,6 +207,19 @@ module.exports = {
   userDoclist(req, res) {
     const offset = parseInt(req.query.offset, 10) || 0;
     const limit = parseInt(req.query.limit, 10) || 10;
+    let where = {};
+    if (req.decoded.role !== 1) {
+      where = {
+        $or: [{
+          userId: req.decoded.id
+        }, {
+          access: 'Public'
+        }]
+      };
+    } else {
+      where = {};
+    }
+
     return Documents
       .findAndCountAll({
         offset,
@@ -213,7 +227,8 @@ module.exports = {
         include: {
           model: Users,
           attributes: ['name']
-        }
+        },
+        where
       })
       .then((documents) => {
         if (!documents) {
@@ -252,7 +267,7 @@ module.exports = {
           .then(() => res.status(200).send({
             message: 'User deleted successfully'
           }))
-          .catch((error) => res.status(400).send(error, { message : 'You entered the wrong arguments' }));
+          .catch(error => res.status(400).send(error, { message: 'You entered the wrong arguments' }));
       })
       .catch(error => res.status(400).send({
         error,
@@ -263,7 +278,10 @@ module.exports = {
   currentUser(req, res) {
     const id = req.decoded.id;
     return Users
-      .findById(id)
+      .findOne({
+        where: { id },
+        attributes: ['id', 'name', 'email', 'userName', 'roleId']
+      })
       .then((user) => {
         if (!user) {
           return res.status(400).send({
@@ -272,6 +290,6 @@ module.exports = {
         }
         return res.status(200).send(user);
       })
-      .catch(error => res.status(404).send(error, { message : 'Bad request' }));
+      .catch(error => res.status(404).send(error, { message: 'Bad request' }));
   }
 };

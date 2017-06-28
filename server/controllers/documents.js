@@ -5,7 +5,6 @@ const Users = require('../models').User;
 module.exports = {
   create(req, res) {
     const access = req.body.access;
-    console.log('userId', req.decoded.id);
     if (!access) {
       return res.status(400).send({ message : 'Access required' });
     }
@@ -73,8 +72,6 @@ module.exports = {
   delete(req, res) {
     const userId = req.decoded.id;
     const role = req.decoded.role;
-    console.log('role', role);
-    console.log('userId', userId);
     return Documents
       .findById(req.params.id)
       .then((documents) => {

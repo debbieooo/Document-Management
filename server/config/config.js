@@ -1,16 +1,16 @@
 require('dotenv').config();
 const environment = {
-  'development': {
+  development: {
     url: process.env.DATABASE_URL,
-    'dialect': 'postgres'
+    dialect: 'postgres'
   },
-  'test': {
+  test: {
     url: process.env.TEST_DATABASE_URL,
-    'dialect': 'postgres'
+    dialect: 'postgres'
   },
-  'production': {
+  production: {
     url: process.env.DATABASE_URL,
-    'dialect': 'postgres'
+    dialect: 'postgres'
   }
 
 };
