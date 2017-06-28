@@ -11,7 +11,6 @@ import Profile from './components/sections/Profile.jsx';
 import TextEditor from './components/sections/TextEditor.jsx';
 import UpdateDoc from './components/sections/UpdateDoc.jsx';
 import CreateDoc from './components/sections/CreateDoc.jsx';
-// import ViewDoc from './components/sections/ViewDoc.jsx';
 // eslint-disable-line import/no-named-as-default
 
 const onEnter = (nextState, replace) => {
@@ -30,11 +29,8 @@ export default (
     <Route path='/users' component={ManageUser} />
     <Route path='/documents' component={ManageDoc} />
     <Route path='/profile' component={Profile} />
-     {/*<Route path='/documents/:id' component={ViewDoc} />*/}
     <Route path='/documents/:id/edit' component={UpdateDoc} />
     <Route path='/documents/create' component={CreateDoc} />
-
-
   </Route>
 </Route>
 );

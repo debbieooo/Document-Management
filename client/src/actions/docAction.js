@@ -2,6 +2,7 @@ import axios from 'axios';
 import * as types from './actionTypes';
 import { searchSuccess } from './userAction';
 
+
 export function listDocs(documents) {
   return {
     type: types.LOAD_DOCUMENTS_SUCCESS,
