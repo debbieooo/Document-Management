@@ -1,9 +1,9 @@
-import React, { PropTypes } from 'react';
-import TextEditor from './TextEditor.jsx';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-import * as docActions from '../../actions/docAction';
-import { browserHistory } from 'react-router';
+import React, { PropTypes } from 'react';//eslint-disable-line
+import TextEditor from './TextEditor.jsx';//eslint-disable-line
+import { browserHistory } from 'react-router';//eslint-disable-line
+import { connect } from 'react-redux';//eslint-disable-line
+import { bindActionCreators } from 'redux';//eslint-disable-line
+import * as docActions from '../../actions/docAction';//eslint-disable-line
 class UpdateDoc extends React.Component {
   constructor(props, context) {
     super(props, context);
@@ -12,7 +12,7 @@ class UpdateDoc extends React.Component {
     };
     this.submit = this.submit.bind(this);
   }
-  submit(document) {
+  submit(document) {//eslint-disable-line
     this.props.actions.updateDoc({ ...document, id: this.state.document.id })
     .then(() => {
       browserHistory.goBack();
@@ -27,7 +27,9 @@ class UpdateDoc extends React.Component {
   render() {
     return (
       <div>
-        {this.state.document.title ? <TextEditor {...this.state.document} onClick ={this.submit} /> : <img src= "/images/default.gif"/>}
+        {this.state.document.title ?
+        <TextEditor {...this.state.document} onClick ={this.submit} />
+         : <img src= "/images/default.gif"/>}
       </div>
     );
   }

@@ -1,5 +1,5 @@
-import React from 'react';
-import { browserHistory, Link } from 'react-router';
+import React from 'react';//eslint-disable-line
+import { browserHistory, Link } from 'react-router';//eslint-disable-line
 
 
 class Nav extends React.Component {
@@ -7,9 +7,8 @@ class Nav extends React.Component {
     super(props, context);
     this.handleClick = this.handleClick.bind(this);
   }
-  handleClick() {
-    alert('logout');
-    localStorage.removeItem('token');
+  handleClick() {//eslint-disable-line
+    window.localStorage.removeItem('token');
     browserHistory.push('/');
   }
   render() {
@@ -22,12 +21,9 @@ class Nav extends React.Component {
          <li> <Link to="/documents">Documents</Link></li>
           <li><Link to="/documents/create">New Document</Link>
 </li>
-
         <li><Link to="/profile"> Edit Profile?</Link></li>
         <li><a className= "right" onClick= {this.handleClick} >Logout</a></li>
       </ul>
-
-     
     </div>
   </nav>
     );

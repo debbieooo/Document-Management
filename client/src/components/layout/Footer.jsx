@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react';//eslint-disable-line
 const Footer = () => (
           <footer className="page-footer">
           <div className="container" />

@@ -1,6 +1,6 @@
-import React from 'react';
-import TinyMCE from 'react-tinymce';
-import { browserHistory } from 'react-router';
+import React from 'react';//eslint-disable-line
+import TinyMCE from 'react-tinymce';//eslint-disable-line
+import { browserHistory } from 'react-router';//eslint-disable-line
 
 class TextEditor extends React.Component {
   constructor(props, context) {
@@ -38,7 +38,10 @@ class TextEditor extends React.Component {
           <form className="col s8">
             <div className="row">
               <div className="input-field col s8">
-                <input id="textarea1" className="materialize-textarea" value= {this.state.title} onChange = {this.handleInput} />
+                <input id="textarea1"
+                className="materialize-textarea"
+                value= {this.state.title}
+                onChange = {this.handleInput} />
                 <label className="active" htmlFor="textarea1">Title</label>
               </div>
                 <p>
@@ -68,7 +71,8 @@ class TextEditor extends React.Component {
           content={this.state.content}
           config={{
             plugins: 'link image code',
-            toolbar: 'undo redo | bold italic | alignleft aligncenter alignright | code'
+            toolbar:
+            'undo redo | bold italic | alignleft aligncenter alignright | code'
           }}
           onChange={this.handleEditorChange}
         />

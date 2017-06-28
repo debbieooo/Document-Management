@@ -1,23 +1,39 @@
-import * as types from '../actions/actionTypes';
-import initialState from './initialState';
+import * as types from '../actions/actionTypes';//eslint-disable-line
+import initialState from './initialState';//eslint-disable-line
 
 export default function docReducer(state = initialState.documents, action) {
   switch (action.type) {
     case types.LOAD_DOCUMENTS_SUCCESS:
-      return Object.assign({}, state, { documents: action.documents.documents.rows, metadata: action.documents.metadata });
+      return Object.assign(
+        {},
+        state,
+        {
+          documents: action.documents.documents.rows,
+          metadata: action.documents.metadata
+        }
+        );
     case types.DELETE_DOCUMENTS_SUCCESS:
-      return Object.assign({}, state, { documents: [...state.documents].filter((document) => {
-        if (document.id !== action.id) {
-          return document;
+      return Object.assign(
+        {},
+        state,
+        {
+          documents: [...state.documents].filter((document) => {//eslint-disable-line
+            if (document.id !== action.id) {
+              return document;
+            }
+          })
         }
-      }) });
+      );
     case types.UPDATE_DOCUMENTS_SUCCESS:
-      return Object.assign({}, state, { documents: [...state.documents].map((document) => {
-        if (document.id === action.document.id) {
-          return action.document;
-        }
-        return document;
-      }) });
+      return Object.assign(
+        {},
+        state,
+        { documents: [...state.documents].map((document) => {
+          if (document.id === action.document.id) {
+            return action.document;
+          }
+          return document;
+        }) });
     case types.FETCH_DOCUMENT_SUCCESS:
       return Object.assign({}, state, { document: action.document });
 

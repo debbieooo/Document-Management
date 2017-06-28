@@ -1,5 +1,5 @@
-import React, { PropTypes } from 'react';
-import DocListTable from './DocListTable.jsx';
+import React, { PropTypes } from 'react';//eslint-disable-line
+import DocListTable from './DocListTable.jsx';//eslint-disable-line
 
 const DocList = ({ documents, onClick, authUser }) =>
  (
@@ -17,13 +17,14 @@ const DocList = ({ documents, onClick, authUser }) =>
         </tr>
       </thead>
       <tbody>
-        {documents.map(document => <DocListTable key={document.id} document={document} authUser={authUser} handleClick= {onClick}/>)}
+        {documents.map(document =>
+        <DocListTable key={document.id}
+        document={document}
+        authUser={authUser}
+        handleClick= {onClick}/>
+        )}
       </tbody>
     </table>
      </div>
 );
-DocList.propTypes = {
-  documents: PropTypes.array.isRequired,
-  authUser: PropTypes.object.isRequired
-};
 export default DocList;

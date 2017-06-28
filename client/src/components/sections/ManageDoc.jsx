@@ -1,11 +1,11 @@
-import React, { PropTypes } from 'react';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-import DocList from './DocList.jsx';
-import { doclist, deleteDoc, searchDoc } from '../../actions/docAction';
-import { activeUser } from '../../actions/userAction';
-import SearchBox from './SearchBox.jsx';
-import Paginate from './Paginate.jsx';
+import React, { PropTypes } from 'react';//eslint-disable-line
+import { connect } from 'react-redux';//eslint-disable-line
+import { bindActionCreators } from 'redux';//eslint-disable-line
+import DocList from './DocList.jsx';//eslint-disable-line
+import { doclist, deleteDoc, searchDoc } from '../../actions/docAction';//eslint-disable-line
+import { activeUser } from '../../actions/userAction';//eslint-disable-line
+import SearchBox from './SearchBox.jsx';//eslint-disable-line
+import Paginate from './Paginate.jsx';//eslint-disable-line
 
 
 class ManageDoc extends React.Component {
@@ -23,24 +23,30 @@ class ManageDoc extends React.Component {
     this.handlePageChange = this.handlePageChange.bind(this);
     this.inputChange = this.inputChange.bind(this);
     this.handleSearch = this.handleSearch.bind(this);
-
   }
   componentDidMount() {
     this.props.actions.doclist();
     this.props.actions.activeUser();
   }
+  componentWillReceiveProps(nextProps) {
+    this.setState({ documents: nextProps.documents });
+  }
   handleClick(docId) {
     this.props.actions.deleteDoc(docId);
   }
   handlePageChange(event) {
-    this.props.actions.doclist(this.state.limit, event.target.value * this.state.limit);
-  }
-  componentWillReceiveProps(nextProps) {
-    this.setState({ documents: nextProps.documents });
+    this.props.actions.doclist(
+      this.state.limit, event.target.value * this.state.limit
+    );
   }
   inputChange(event) {
     const documents = [...this.props.documents];
-    this.setState({ limit: event.target.value, documents: documents.splice(0, event.target.value) });
+    this.setState(
+      {
+        limit: event.target.value,
+        documents: documents.splice(0, event.target.value)
+      }
+  );
   }
   handleSearch(event) {
     this.props.actions.searchDoc(event.target.value);
@@ -49,18 +55,24 @@ class ManageDoc extends React.Component {
 
   render() {
     const { authUser } = this.state;
-    const documents  = this.state.searching ? this.props.search : this.state.documents;
+    const documents =
+    this.state.searching ? this.props.search : this.state.documents;
 
     return (
       <div>
         {this.props.documents.length > 1
         ? <div>
           <div className="row">
-            <div className="col s6"><SearchBox onChange = {this.handleSearch}/></div>
+            <div className="col s6">
+              <SearchBox onChange = {this.handleSearch}/>
+            </div>
             {!this.state.searching ? <div className="right-align">
               <div className="input-field inline">
-                <input id="number" type="number" className="validate" onChange={this.inputChange} />
-                <label for="number" className="active">Limit</label>
+                <input id="number"
+                 type="number"
+                 className="validate"
+                 onChange={this.inputChange} />
+                <label htmlFor="number" className="active">Limit</label>
               </div>
               <Paginate
                 pageCount={this.props.metadata.pageCount}
@@ -68,7 +80,9 @@ class ManageDoc extends React.Component {
               />
             </div> : ''}
           </div>
-          <DocList documents={documents} authUser={authUser} onClick={this.handleClick} />
+          <DocList documents={documents}
+           authUser={authUser}
+           onClick={this.handleClick} />
             </div>
         : <img src="default.gif"/>
         }
@@ -100,7 +114,9 @@ function mapStateToProps(state) {
 }
 function mapDispatchToProps(dispatch) {
   return {
-    actions: bindActionCreators({ doclist, activeUser, deleteDoc, searchDoc }, dispatch)
+    actions: bindActionCreators({
+      doclist, activeUser, deleteDoc, searchDoc }, dispatch
+      )
   };
 }
 export default connect(mapStateToProps, mapDispatchToProps)(ManageDoc);

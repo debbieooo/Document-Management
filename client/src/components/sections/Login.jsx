@@ -1,8 +1,8 @@
-import React from 'react';
-import { browserHistory, Link } from 'react-router';
-import { bindActionCreators } from 'redux';
-import { connect } from 'react-redux';
-import * as userActions from '../../actions/userAction';
+import React from 'react';//eslint-disable-line
+import { browserHistory, Link } from 'react-router';//eslint-disable-line
+import { bindActionCreators } from 'redux';//eslint-disable-line
+import { connect } from 'react-redux';//eslint-disable-line
+import * as userActions from '../../actions/userAction';//eslint-disable-line
 
 class Login extends React.Component {
   constructor(props, context) {
@@ -17,14 +17,12 @@ class Login extends React.Component {
   handleSubmit(event) {
     event.preventDefault();
     this.props.actions.login(this.state.user)
-      .then(token => {
+      .then((token) => {
         browserHistory.push('/home');
       })
-      .catch(error => {
+      .catch((error) => {
         this.setState({ error: 'Wrong input details' });
       });
-
-    alert(`You have been signed in as${this.state.user}`);
   }
 
   handleChange(event) {
@@ -46,21 +44,39 @@ class Login extends React.Component {
                 <form className="col s12" onSubmit={this.handleSubmit}>
                   <div className="row">
                     <div className="input-field col s6">
-                      <input placeholder="Email" name="email" id="email" type="email" className="validate" value={this.state.email} onChange={this.handleChange} />
+                      <input placeholder="Email"
+                        name="email"
+                        id="email"
+                        type="email"
+                        className="validate"
+                        value={this.state.email}
+                        onChange={this.handleChange} />
                     </div>
                     <div className="input-field col s6">
-                      <input placeholder="Password" name="password" id="password" type="password" className="validate" value={this.state.password} onChange={this.handleChange} />
+                      <input placeholder="Password"
+                        name="password"
+                        id="password"
+                        type="password"
+                        className="validate"
+                        value={this.state.password}
+                        onChange={this.handleChange} />
                     </div>
                   </div>
-                  <button className="btn waves-effect waves-light" type="submit" name="action" value="submit">Submit
-					<i className="material-icons right">send</i>
+                  <button className="btn waves-effect waves-light"
+                    type="submit"
+                    name="action"
+                    value="submit">
+                    Submit
+<i className="material-icons right">
+                      send
+                  </i>
                   </button>
                   {this.state.error && <div><h5>{this.state.error}</h5></div>}
                 </form>
               </div>
               <div className="card-action">
-                  <Link to="/signup" className=" disabled">New User?</Link>
-                </div>
+                <Link to="/signup" className=" disabled">New User?</Link>
+              </div>
             </div>
           </div>
         </div>
