@@ -1,28 +1,53 @@
-import React, { PropTypes } from 'react';//eslint-disable-line
-import { bindActionCreators } from 'redux';//eslint-disable-line
-import { connect } from 'react-redux';//eslint-disable-line
-import { browserHistory } from 'react-router';//eslint-disable-line
-import * as userActions from '../../actions/userAction';//eslint-disable-line
+import React, { PropTypes } from 'react';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+import { browserHistory } from 'react-router';
+import * as userActions from '../../actions/userAction';
 
 class Profile extends React.Component {
+  /**
+   * Creates an instance of Profile.
+   * @param {any} props
+   * @param {any} context
+   *
+   * @memberof Profile
+   */
   constructor(props, context) {
     super(props, context);
     this.state = {
       user: Object.assign({}, props.user),
       error: '',
-      authUser: Object.assign({}, props.authUser, { password: '', confirmPassword: '' }),
+      authUser: Object.assign({}, props.authUser, { password: '', confirmPassword: '' })
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
+  /**
+   *
+   *
+   *
+   * @memberof Profile
+   */
   componentDidMount() {
     this.props.actions.activeUser();
   }
-
+/**
+ *
+ *
+ * @param {any} nextProps
+ *
+ * @memberof Profile
+ */
   componentWillReceiveProps(nextProps) {
     this.setState({ authUser: { ...nextProps.authUser } });
   }
-
+/**
+ *
+ *
+ * @param {any} event
+ *
+ * @memberof Profile
+ */
   handleChange(event) {
     const name = event.target.name;
     const value = event.target.value;
@@ -30,9 +55,23 @@ class Profile extends React.Component {
     authUser[name] = value;
     this.setState({ authUser });
   }
+  /**
+   *
+   *
+   * @returns
+   *
+   * @memberof Profile
+   */
   passwordConfirmation() {
     return this.state.authUser.password === this.state.authUser.confirmPassword;
   }
+  /**
+   *
+   *
+   * @param {any} event
+   *
+   * @memberof Profile
+   */
   handleSubmit(event) {
     event.preventDefault();
     if (this.passwordConfirmation()) {
@@ -45,15 +84,22 @@ class Profile extends React.Component {
       this.setState({ error: 'Passwords do not match' });
     }
   }
+  /**
+   *
+   *
+   * @returns
+   *
+   * @memberof Profile
+   */
   render() {
     const { authUser } = this.state;
 
     return (
       <div>
-        {(authUser.name) ?
-        <form className="col s12" onSubmit={this.handleSubmit}>
+        {authUser.name
+        ? <form className="col s12" onSubmit={this.handleSubmit}>
           <div className="row">
-            <div className="input-field col s6">
+            <div className="input-field col s6 ">
               <input value={authUser.name}
                id="first_name2"
                type="text"
@@ -116,8 +162,7 @@ class Profile extends React.Component {
                 </button>
           </div>
         </form>
-        :
-        <img src="/images/default.gif" />
+        : <img src="/images/default.gif" />
         }
 
       </div>
@@ -130,6 +175,12 @@ Profile.propTypes = {
 Profile.defaultProps = {
   users: []
 };
+/**
+ *
+ *
+ * @param {any} state
+ * @returns
+ */
 function mapStateToProps(state) {
   return {
 
@@ -137,6 +188,12 @@ function mapStateToProps(state) {
     authUser: state.authUser
   };
 }
+/**
+ *
+ *
+ * @param {any} dispatch
+ * @returns
+ */
 function mapDispatchToProps(dispatch) {
   return {
     actions: bindActionCreators(userActions, dispatch)

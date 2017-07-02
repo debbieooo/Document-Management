@@ -1,34 +1,59 @@
-import React from 'react';//eslint-disable-line
-import { browserHistory, Link } from 'react-router';//eslint-disable-line
-import { connect } from 'react-redux';//eslint-disable-line
-import { bindActionCreators } from 'redux';//eslint-disable-line
-import { activeUser } from '../../actions/userAction';//eslint-disable-line
+import React from 'react';
+import { browserHistory, Link } from 'react-router';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { activeUser } from '../../actions/userAction';
 
 
 class Nav extends React.Component {
+  /**
+   * Creates an instance of Nav.
+   * @param {any} props
+   * @param {any} context
+   *
+   * @memberof Nav
+   */
   constructor(props, context) {
     super(props, context);
     this.state = {
-      authUser: Object.assign({}, props.authUser),
+      authUser: Object.assign({}, props.authUser)
     };
     this.handleClick = this.handleClick.bind(this);
   }
+  /**
+   *
+   *
+   *
+   * @memberof Nav
+   */
   componentDidMount() {
     this.props.actions.activeUser();
   }
-  handleClick() {//eslint-disable-line
+  /**
+   *
+   *
+   *
+   * @memberof Nav
+   */
+  handleClick() {
     window.localStorage.removeItem('token');
     browserHistory.push('/');
   }
-
+/**
+ *
+ *
+ * @returns
+ *
+ * @memberof Nav
+ */
   render() {
     const { authUser } = this.props;
     return (
     <nav>
-    <div className="nav-wrapper">
-      <Link to = "/home" className="brand-logo">Doc</Link>
+    <div className="nav-wrapper" id="nav">
+      <Link to = "/home" className="brand-logo" id="app-name">Doc</Link>
       <ul id="nav-mobile" className="right hide-on-med-and-down">
-    {(authUser.roleId === 1) ? <li><Link to="/users">Users</Link></li> : ''}
+    {authUser.roleId === 1 ? <li><Link to="/users">Users</Link></li> : ''}
          <li> <Link to="/documents">Documents</Link></li>
           <li><Link to="/documents/create">New Document</Link>
 </li>
@@ -40,12 +65,23 @@ class Nav extends React.Component {
     );
   }
 }
-
+/**
+ *
+ *
+ * @param {any} state
+ * @returns
+ */
 function mapStateToProps(state) {
   return {
-    authUser: state.authUser,
+    authUser: state.authUser
   };
 }
+/**
+ *
+ *
+ * @param {any} dispatch
+ * @returns
+ */
 function mapDispatchToProps(dispatch) {
   return {
     actions: bindActionCreators({

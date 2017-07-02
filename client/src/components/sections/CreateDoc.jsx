@@ -1,10 +1,10 @@
-import React from 'react';//eslint-disable-line
-import { bindActionCreators } from 'redux';//eslint-disable-line
-import { browserHistory } from 'react-router';//eslint-disable-line
-import TextEditor from './TextEditor.jsx';//eslint-disable-line
-import { connect } from 'react-redux';//eslint-disable-line
-import { createDoc } from '../../actions/docAction';//eslint-disable-line
-import { activeUser } from '../../actions/userAction';//eslint-disable-line
+import React from 'react';
+import { bindActionCreators } from 'redux';
+import { browserHistory } from 'react-router';
+import TextEditor from './TextEditor.jsx';
+import { connect } from 'react-redux';
+import { createDoc } from '../../actions/docAction';
+import { activeUser } from '../../actions/userAction';
 
 
 class CreateDoc extends React.Component {

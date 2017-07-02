@@ -3,6 +3,13 @@ const Users = require('../models').User;
 
 
 module.exports = {
+  /**
+   *
+   *
+   * @param {any} req
+   * @param {any} res
+   * @returns
+   */
   create(req, res) {
     const access = req.body.access;
     if (!access) {
@@ -22,6 +29,13 @@ module.exports = {
       .then(documents => res.status(201).send(documents))
       .catch(error => res.status(400).send(error));
   },
+  /**
+   *
+   *
+   * @param {any} req
+   * @param {any} res
+   * @returns
+   */
   findDoc(req, res) {
     const userId = req.decoded.id;
     return Documents
@@ -45,6 +59,13 @@ module.exports = {
         message: 'Bad request'
       }));
   },
+  /**
+   *
+   *
+   * @param {any} req
+   * @param {any} res
+   * @returns
+   */
   update(req, res) {
     const id = req.decoded.id;
     return Documents
@@ -69,6 +90,13 @@ module.exports = {
       })
       .catch(error => res.status(400).send(error));
   },
+  /**
+   *
+   *
+   * @param {any} req
+   * @param {any} res
+   * @returns
+   */
   delete(req, res) {
     const userId = req.decoded.id;
     const role = req.decoded.role;

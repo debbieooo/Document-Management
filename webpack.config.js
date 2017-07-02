@@ -1,8 +1,6 @@
 const webpack = require('webpack');
 const path = require('path');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
-
-
 const BUILD_DIR = path.resolve(__dirname, 'client/public');
 const APP_DIR = path.resolve(__dirname, 'client/src');
 
@@ -15,18 +13,10 @@ const config = {
     filename: 'bundle.js',
     publicPath: '/'
   },
-  // plugins: [
-  //   new webpack.optimize.OccurrenceOrderPlugin(),
-  //   new webpack.HotModuleReplacementPlugin(),
-  // ],
-  // devServer: {
-  //   contentBase: './client/dist',
-  //   hot: true
-  // },
   module: {
     loaders: [
       {
-        test: /\.jsx?/, 
+        test: /\.jsx?/,
         exclude: /node_modules/,
         loader: 'babel'
       },
@@ -42,10 +32,10 @@ const config = {
       {
         test: /\.(jpe?g|png|gif|svg)$/i,
         loaders: [
-            'file?hash=sha512&digest=hex&name=[hash].[ext]',
-            'image-webpack-loader?bypassOnDebug&optimizationLevel=7&interlaced=false'
+          'file?hash=sha512&digest=hex&name=[hash].[ext]',
+          'image-webpack-loader?bypassOnDebug&optimizationLevel=7&interlaced=false'
         ]
-    },
+      },
       {
         test: /\.ttf(\?v=\d+\.\d+\.\d+)?$/,
         loader: 'url?limit=10000&mimetype=application/octet-stream'
@@ -59,8 +49,7 @@ const config = {
         loaders: ['style', 'css', 'sass']
       }
     ]
-  },
-  // resolve: ['', '.js', '.jsx', '.css', '.scss']
+  }
 };
 
 module.exports = config;

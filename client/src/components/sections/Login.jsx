@@ -1,10 +1,17 @@
-import React from 'react';//eslint-disable-line
-import { browserHistory, Link } from 'react-router';//eslint-disable-line
-import { bindActionCreators } from 'redux';//eslint-disable-line
-import { connect } from 'react-redux';//eslint-disable-line
-import * as userActions from '../../actions/userAction';//eslint-disable-line
+import React from 'react';
+import { browserHistory, Link } from 'react-router';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+import * as userActions from '../../actions/userAction';
 
 class Login extends React.Component {
+  /**
+   * Creates an instance of Login.
+   * @param {any} props
+   * @param {any} context
+   *
+   * @memberof Login
+   */
   constructor(props, context) {
     super(props, context);
     this.state = {
@@ -14,6 +21,19 @@ class Login extends React.Component {
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
+
+  componentDidMount() {
+    $(document).ready(function () {
+      $('.slider').slider();
+    });
+  }
+  /**
+   *
+   *
+   * @param {any} event
+   *
+   * @memberof Login
+   */
   handleSubmit(event) {
     event.preventDefault();
     this.props.actions.login(this.state.user)
@@ -24,7 +44,14 @@ class Login extends React.Component {
         this.setState({ error: 'Wrong input details' });
       });
   }
-
+  /**
+   *
+   *
+   * @param {any} event
+   * @returns
+   *
+   * @memberof Login
+   */
   handleChange(event) {
     const value = event.target.value;
     const name = event.target.name;
@@ -32,26 +59,37 @@ class Login extends React.Component {
     user[name] = value;
     return this.setState({ user });
   }
+  /**
+   *
+   *
+   * @returns
+   *
+   * @memberof Login
+   */
   render() {
     return (
-      <div className="row">
-        <div className="col s6 m6 l6" />
-        <div className="col s6 m6 l6">
-          <div className="card blue-grey darken-1">
-            <div className="card-content white-text">
+      <div className="slider fullscreen">
+        <ul className="slides">
+          <li>
+            <img src="/images/Landing.png" />
+            <div className="caption center-align">
+              <h3 id="landing-text">Doc Manager</h3>
+              <h5 className="light grey-text text-lighten-3">Document Management System</h5>
               <div className="row">
-                <h2>Login</h2>
-                <form className="col s12" onSubmit={this.handleSubmit}>
+                <h4>Login</h4>
+                <form className="col s12 offset-s3" onSubmit={this.handleSubmit}>
                   <div className="row">
-                    <div className="input-field col s6">
+                    <div className="input-field col s6 ">
                       <input placeholder="Email"
                         name="email"
                         id="email"
                         type="email"
-                        className="validate"
+                        className="validate input"
                         value={this.state.email}
                         onChange={this.handleChange} />
                     </div>
+                    </div>
+                    <div className = "row">
                     <div className="input-field col s6">
                       <input placeholder="Password"
                         name="password"
@@ -62,15 +100,18 @@ class Login extends React.Component {
                         onChange={this.handleChange} />
                     </div>
                   </div>
+                  <div className= "row col s6">
                   <button className="btn waves-effect waves-light"
+                    id= "button"
                     type="submit"
                     name="action"
                     value="submit">
-                    Submit
+                    Login
 <i className="material-icons right">
                       send
                   </i>
                   </button>
+                  </div>
                   {this.state.error && <div><h5>{this.state.error}</h5></div>}
                 </form>
               </div>
@@ -78,19 +119,39 @@ class Login extends React.Component {
                 <Link to="/signup" className=" disabled">New User?</Link>
               </div>
             </div>
-          </div>
-        </div>
-      </div>
+      </li>
+    </ul>
+  </div >
+      
     );
   }
 }
+// Login.propTypes = {
+//   handleChange: React.PropTypes.func,
+//   handleSubmit: React.PropTypes.func
+// };
 
+// Login.defaultProps = {
+//   handleChange: () => null,
+//   handleSubmit: () => null
+// };
+/**
+ *
+ *
+ * @param {any} state
+ * @returns
+ */
 function mapStateToProps(state) {
   return {
     user: state.user
   };
 }
-
+/**
+ *
+ *
+ * @param {any} dispatch
+ * @returns
+ */
 function mapDispatchToProps(dispatch) {
   return {
     actions: bindActionCreators(userActions, dispatch)

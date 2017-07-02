@@ -1,34 +1,74 @@
-import React from 'react';//eslint-disable-line
-import TinyMCE from 'react-tinymce';//eslint-disable-line
-import { browserHistory } from 'react-router';//eslint-disable-line
+import React from 'react';
+import TinyMCE from 'react-tinymce';
+import { browserHistory } from 'react-router';
 
 class TextEditor extends React.Component {
+  /**
+   * Creates an instance of TextEditor.
+   * @param {any} props
+   * @param {any} context
+   *
+   * @memberof TextEditor
+   */
   constructor(props, context) {
     super(props, context);
     this.state = {
-      content: (this.props.content) ? this.props.content : '',
+      content: this.props.content ? this.props.content : '',
       access: this.props.access ? this.props.access : '',
-      title: (this.props.title) ? this.props.title : '',
+      title: this.props.title ? this.props.title : ''
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleEditorChange = this.handleEditorChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleInput = this.handleInput.bind(this);
   }
+  /**
+   *
+   *
+   * @param {any} e
+   *
+   * @memberof TextEditor
+   */
   handleEditorChange(e) {
     this.setState({ content: e.target.getContent() });
   }
+  /**
+   *
+   *
+   *
+   * @memberof TextEditor
+   */
   handleSubmit() {
     this.props.onClick(this.state);
   }
+  /**
+   *
+   *
+   * @param {any} e
+   *
+   * @memberof TextEditor
+   */
   handleChange(e) {
     const val = e.target.value;
     this.setState({ access: e.target.value });
   }
+  /**
+   *
+   *
+   * @param {any} e
+   *
+   * @memberof TextEditor
+   */
   handleInput(e) {
     this.setState({ title: e.target.value });
   }
-
+  /**
+   *
+   *
+   * @returns
+   *
+   * @memberof TextEditor
+   */
 
   render() {
     const { access } = this.state;
@@ -76,12 +116,12 @@ class TextEditor extends React.Component {
           }}
           onChange={this.handleEditorChange}
         />
-        <button className="btn waves-effect waves-light"
+        <button className="btn"
         type="submit"
         name="action"
         onClick={this.handleSubmit}>Submit
         </button>
-        <button className="btn waves-effect waves-light"
+        <button className="btn"
         type="submit"
         name="action"
         onClick={() => browserHistory.goBack()}> Cancel </button>

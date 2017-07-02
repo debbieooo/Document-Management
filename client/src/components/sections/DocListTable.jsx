@@ -1,10 +1,9 @@
-import React, { PropTypes } from 'react';//eslint-disable-line
-import { Link, browserHistory } from 'react-router';//eslint-disable-line
+import React, { PropTypes } from 'react';
+import { Link, browserHistory } from 'react-router';
 import moment from 'moment';
 
-const DocListTable = ({ document, handleClick, authUser }) => (
+const DocListTable = ({ document, handleClick, authUser }) =>
     <tr className= "center-align">
-      <td>{document.id}</td>
       <td>{document.User.name}</td>
       <td>
         <Link to ={`/documents/${document.id}`}>
@@ -17,10 +16,10 @@ const DocListTable = ({ document, handleClick, authUser }) => (
       <td>
       <a className="btn-floating btn-large waves-effect waves-light red"
        onClick={() => { handleClick(document.id); }}>
-       <i className="material-icons">-</i>
+        <i className="material-icons">delete</i>
        </a>
       </td>
-        {(document.User.name === authUser.name)
+        {document.User.name === authUser.name
           ? <td>
             <a className="btn-floating btn-large waves-effect waves-light red"
           onClick=
@@ -29,7 +28,7 @@ const DocListTable = ({ document, handleClick, authUser }) => (
           </a>
           </td> : ''}
 </tr>
-  );
+  ;
 
 DocListTable.propTypes = {
   document: PropTypes.object.isRequired,

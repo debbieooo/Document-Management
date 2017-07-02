@@ -5,6 +5,12 @@ const Documents = require('../models').Documents;
 const jwt = require('jsonwebtoken');
 
 module.exports = {
+  /**
+   *
+   *
+   * @param {any} req
+   * @param {any} res
+   */
   create(req, res) {
     Users.findAndCountAll({
       where: {
@@ -48,6 +54,13 @@ module.exports = {
         }
       });
   },
+  /**
+   *
+   *
+   * @param {any} req
+   * @param {any} res
+   * @returns
+   */
   login(req, res) {
     if (
       req.body.email === '' || req.body.password === ''
@@ -103,6 +116,13 @@ module.exports = {
         res.status(400).send(error, { message: 'Bad request' });
       });
   },
+  /**
+   *
+   *
+   * @param {any} req
+   * @param {any} res
+   * @returns
+   */
   listAll(req, res) {
     const offset = parseInt(req.query.offset, 10) || 0;
     const limit = parseInt(req.query.limit, 10) || 10;
@@ -124,6 +144,13 @@ module.exports = {
         }))
       .catch(error => res.status(400).send(error, { message: 'Bad request' }));
   },
+  /**
+   *
+   *
+   * @param {any} req
+   * @param {any} res
+   * @returns
+   */
   findUser(req, res) {
     return Users
       .findById(req.params.id)
@@ -143,9 +170,16 @@ module.exports = {
           .send({ id, name, email, userName, createdAt, updatedAt, message: 'Search successful' });
       })
       .catch(error => res.status(400).send({
-        message: 'Bad request'
+        message: 'Bad request', error
       }));
   },
+  /**
+   *
+   *
+   * @param {any} req
+   * @param {any} res
+   * @returns
+   */
   update(req, res) {
     const userId = req.decoded.id;
     return Users
@@ -182,6 +216,13 @@ module.exports = {
       })
       .catch(error => res.status(400).send(error));
   },
+  /**
+   *
+   *
+   * @param {any} req
+   * @param {any} res
+   * @returns
+   */
   findUserDoc(req, res) {
     return Documents
       .findAll({
@@ -204,6 +245,13 @@ module.exports = {
         message: 'Bad request'
       }));
   },
+  /**
+   *
+   *
+   * @param {any} req
+   * @param {any} res
+   * @returns
+   */
   userDoclist(req, res) {
     const offset = parseInt(req.query.offset, 10) || 0;
     const limit = parseInt(req.query.limit, 10) || 10;
@@ -253,6 +301,13 @@ module.exports = {
         error
       }));
   },
+  /**
+   *
+   *
+   * @param {any} req
+   * @param {any} res
+   * @returns
+   */
   delete(req, res) {
     return Users
       .findById(req.params.id)
@@ -274,7 +329,13 @@ module.exports = {
         message: 'Bad request'
       }));
   },
-
+/**
+ *
+ *
+ * @param {any} req
+ * @param {any} res
+ * @returns
+ */
   currentUser(req, res) {
     const id = req.decoded.id;
     return Users

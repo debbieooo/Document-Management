@@ -1,5 +1,5 @@
-import * as types from '../actions/actionTypes';//eslint-disable-line
-import initialState from './initialState';//eslint-disable-line
+import * as types from '../actions/actionTypes';
+import initialState from './initialState';
 
 export default function docReducer(state = initialState.documents, action) {
   switch (action.type) {
@@ -17,7 +17,7 @@ export default function docReducer(state = initialState.documents, action) {
         {},
         state,
         {
-          documents: [...state.documents].filter((document) => {//eslint-disable-line
+          documents: [...state.documents].filter((document) => {
             if (document.id !== action.id) {
               return document;
             }
