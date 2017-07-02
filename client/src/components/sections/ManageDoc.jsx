@@ -1,14 +1,21 @@
-import React, { PropTypes } from 'react';//eslint-disable-line
-import { connect } from 'react-redux';//eslint-disable-line
-import { bindActionCreators } from 'redux';//eslint-disable-line
-import DocList from './DocList.jsx';//eslint-disable-line
-import { doclist, deleteDoc, searchDoc } from '../../actions/docAction';//eslint-disable-line
-import { activeUser } from '../../actions/userAction';//eslint-disable-line
-import SearchBox from './SearchBox.jsx';//eslint-disable-line
-import Paginate from './Paginate.jsx';//eslint-disable-line
+import React, { PropTypes } from 'react';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import DocList from './DocList.jsx';
+import { doclist, deleteDoc, searchDoc } from '../../actions/docAction';
+import { activeUser } from '../../actions/userAction';
+import SearchBox from './SearchBox.jsx';
+import Paginate from './Paginate.jsx';
 
 
 class ManageDoc extends React.Component {
+  /**
+   * Creates an instance of ManageDoc.
+   * @param {any} props
+   * @param {any} context
+   *
+   * @memberof ManageDoc
+   */
   constructor(props, context) {
     super(props, context);
     this.state = {
@@ -24,21 +31,55 @@ class ManageDoc extends React.Component {
     this.inputChange = this.inputChange.bind(this);
     this.handleSearch = this.handleSearch.bind(this);
   }
+  /**
+   *
+   *
+   *
+   * @memberof ManageDoc
+   */
   componentDidMount() {
     this.props.actions.doclist();
     this.props.actions.activeUser();
   }
+  /**
+   *
+   *
+   * @param {any} nextProps
+   *
+   * @memberof ManageDoc
+   */
   componentWillReceiveProps(nextProps) {
     this.setState({ documents: nextProps.documents });
   }
+  /**
+   *
+   *
+   * @param {any} docId
+   *
+   * @memberof ManageDoc
+   */
   handleClick(docId) {
     this.props.actions.deleteDoc(docId);
   }
+  /**
+   *
+   *
+   * @param {any} event
+   *
+   * @memberof ManageDoc
+   */
   handlePageChange(event) {
     this.props.actions.doclist(
       this.state.limit, event.target.value * this.state.limit
     );
   }
+  /**
+   *
+   *
+   * @param {any} event
+   *
+   * @memberof ManageDoc
+   */
   inputChange(event) {
     const documents = [...this.props.documents];
     this.setState(
@@ -46,45 +87,53 @@ class ManageDoc extends React.Component {
         limit: event.target.value,
         documents: documents.splice(0, event.target.value)
       }
-  );
+    );
   }
+  /**
+   *
+   *
+   * @param {any} event
+   *
+   * @memberof ManageDoc
+   */
   handleSearch(event) {
     this.props.actions.searchDoc(event.target.value);
     this.setState({ searching: event.target.value.length > 0 });
   }
+  /**
+   *
+   *
+   * @returns
+   *
+   * @memberof ManageDoc
+   */
 
   render() {
     const { authUser } = this.state;
-    const documents =
-    this.state.searching ? this.props.search : this.state.documents;
+    const documents
+      = this.state.searching ? this.props.search : this.state.documents;
 
     return (
       <div>
         {this.props.documents.length > 1
-        ? <div>
-          <div className="row">
-            <div className="col s6">
-              <SearchBox onChange = {this.handleSearch}/>
-            </div>
-            {!this.state.searching ? <div className="right-align">
-              <div className="input-field inline">
-                <input id="number"
-                 type="number"
-                 className="validate"
-                 onChange={this.inputChange} />
-                <label htmlFor="number" className="active">Limit</label>
+          ? <div>
+            <div className="row">
+              <div className="col s12">
+                <SearchBox onChange={this.handleSearch} />
               </div>
+            </div>
+            <DocList documents={documents}
+              authUser={authUser}
+              onClick={this.handleClick} />
+            {!this.state.searching ? <div className="col s12">
               <Paginate
                 pageCount={this.props.metadata.pageCount}
                 handleChange={this.handlePageChange}
+                currentPage={this.props.metadata.page}
               />
             </div> : ''}
           </div>
-          <DocList documents={documents}
-           authUser={authUser}
-           onClick={this.handleClick} />
-            </div>
-        : <img src="default.gif"/>
+          : <img src="default.gif" />
         }
 
       </div>
@@ -102,7 +151,12 @@ ManageDoc.defaultProps = {
   users: [],
   authUser: {}
 };
-
+/**
+ *
+ *
+ * @param {any} state
+ * @returns
+ */
 function mapStateToProps(state) {
   return {
     search: state.search.search,
@@ -112,11 +166,18 @@ function mapStateToProps(state) {
     metadata: state.documents.metadata
   };
 }
+/**
+ *
+ *
+ * @param {any} dispatch
+ * @returns
+ */
 function mapDispatchToProps(dispatch) {
   return {
     actions: bindActionCreators({
-      doclist, activeUser, deleteDoc, searchDoc }, dispatch
-      )
+      doclist, activeUser, deleteDoc, searchDoc
+    }, dispatch
+    )
   };
 }
 export default connect(mapStateToProps, mapDispatchToProps)(ManageDoc);

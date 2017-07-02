@@ -1,6 +1,6 @@
-import React from 'react';//eslint-disable-line
-import PropTypes from 'prop-types';//eslint-disable-line
-import Nav from './Nav.jsx';//eslint-disable-line
+import React from 'react';
+import PropTypes from 'prop-types';
+import Nav from './Nav.jsx';
 
 
 export default class App extends React.Component {

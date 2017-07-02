@@ -1,5 +1,5 @@
-import React from 'react';//eslint-disable-line
-const Footer = () => (
+import React from 'react';
+const Footer = () =>
           <footer className="page-footer">
           <div className="container" />
           <div className="footer-copyright">
@@ -10,5 +10,5 @@ const Footer = () => (
             </div>
           </div>
         </footer>
-    );
+    ;
 export default Footer;

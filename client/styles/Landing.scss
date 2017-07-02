@@ -1,0 +1,21 @@
+button {
+  background-color: #6D6C8C;
+  button:hover {
+    background-color: #6D6C8C;
+  }
+}
+.input {
+  border-bottom: 2px solid #fff !important;
+  .input:active {
+    border-bottom-color: white;
+  }
+}
+input::-webkit-input-placeholder {
+  color: #fff;
+}
+body {
+  font-family: 'Overpass Mono', monospace;
+}
+.page {
+  background-color: #6D6C8C !important;
+}

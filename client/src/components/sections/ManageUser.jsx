@@ -1,13 +1,19 @@
-import React, { PropTypes } from 'react';//eslint-disable-line
-import { connect } from 'react-redux';//eslint-disable-line
-import { bindActionCreators } from 'redux';//eslint-disable-line
-import UserList from './UserList.jsx';//eslint-disable-line
-import Paginate from './Paginate.jsx';//eslint-disable-line
-import * as userActions from '../../actions/userAction';//eslint-disable-line
-import SearchBox from './SearchBox.jsx';//eslint-disable-line
-
+import React, { PropTypes } from 'react';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import UserList from './UserList.jsx';
+import Paginate from './Paginate.jsx';
+import * as userActions from '../../actions/userAction';
+import SearchBox from './SearchBox.jsx';
 
 class ManageUser extends React.Component {
+  /**
+   * Creates an instance of ManageUser.
+   * @param {any} props
+   * @param {any} context
+   *
+   * @memberof ManageUser
+   */
   constructor(props, context) {
     super(props, context);
     this.state = {
@@ -21,57 +27,101 @@ class ManageUser extends React.Component {
     this.inputChange = this.inputChange.bind(this);
     this.handleSearch = this.handleSearch.bind(this);
   }
+  /**
+   *
+   *
+   *
+   * @memberof ManageUser
+   */
   componentDidMount() {
     this.props.actions.userlist();
   }
+  /**
+   *
+   *
+   * @param {any} userId
+   *
+   * @memberof ManageUser
+   */
   handleClick(userId) {//eslint-disable-line
     this.props.actions.deleteAcc(userId);
   }
+  /**
+   *
+   *
+   * @param {any} nextProps
+   *
+   * @memberof ManageUser
+   */
   componentWillReceiveProps(nextProps) {
+    console.log('this is next props', nextProps);
     this.setState({ users: nextProps.users });
   }
-
-  handlePageChange(event) {
+/**
+ *
+ *
+ * @param {any} event
+ *
+ * @memberof ManageUser
+ */
+  handlePageChange(page) {
+    console.log('going to page', this.state.limit, page, (page - 1) * this.state.limit);
     this.props.actions.userlist(
-      this.state.limit, event.target.value * this.state.limit
+      this.state.limit, (page - 1) * this.state.limit
     );
   }
+  /**
+   *
+   *
+   * @param {any} event
+   *
+   * @memberof ManageUser
+   */
   inputChange(event) {
     const users = [...this.props.users];
     this.setState({
       limit: event.target.value, users: users.splice(0, event.target.value)
     });
   }
+  /**
+   *
+   *
+   * @param {any} event
+   *
+   * @memberof ManageUser
+   */
   handleSearch(event) {
     this.props.actions.searchUser(event.target.value);
     this.setState({ searching: event.target.value.length > 0 });
   }
+  /**
+   *
+   *
+   * @returns
+   *
+   * @memberof ManageUser
+   */
   render() {
     const users = this.state.searching ? this.props.search : this.state.users;
+    console.log(this.props.metadata);
     return (
       <div>
       {this.props.users && this.props.users.length > 1
         ? <div>
         <div className="row">
-          <div className= "col s6">
+          <div className="col s12">
             <SearchBox onChange = {this.handleSearch}/>
           </div>
-
-          { !this.state.searching ? <div className="right-align">
-              <div className="input-field inline">
-                <input id="number"
-                type="number"
-                className="validate"
-                onChange= {this.inputChange}/>
-                <label htmlFor="number" className="active">Limit</label>
-              </div>
-                <Paginate
-                  pageCount={this.props.metadata.pageCount}
-                  handleChange={this.handlePageChange}
-                />
-          </div> : ''}
         </div>
         <UserList users = {users} onClick ={this.handleClick}/>
+        {!this.state.searching ?
+            <div className="col s12">
+              <Paginate
+                pageCount={this.props.metadata.pageCount}
+                handleChange={this.handlePageChange}
+                currentPage={this.props.metadata.page}
+              />
+            </div> : ''}
       </div>
       : <img src="default.gif" />
       }
@@ -85,7 +135,12 @@ ManageUser.propTypes = {
 ManageUser.defaultProps = {
   users: []
 };
-
+/**
+ *
+ *
+ * @param {any} state
+ * @returns
+ */
 function mapStateToProps(state) {
   return {
     users: state.users.users,
@@ -93,6 +148,12 @@ function mapStateToProps(state) {
     search: state.search.search
   };
 }
+/**
+ *
+ *
+ * @param {any} dispatch
+ * @returns
+ */
 function mapDispatchToProps(dispatch) {
   return {
     actions: bindActionCreators(userActions, dispatch)

@@ -1,4 +1,4 @@
-import React, { Proptypes } from 'react';//eslint-disable-line
+import React, { Proptypes } from 'react';
 
 const SearchBox = ({ onChange }) =>
   <div>
@@ -7,16 +7,13 @@ const SearchBox = ({ onChange }) =>
         <div className="row">
           <div className="input-field col s12">
             <input
-            id="search"
-            className="materialize-textarea"
+            id= "search"
+            type="search"
             onChange = {onChange} />
-            <label className="active"
-            htmlFor="search">
-            Search
-            <i className="material-icons">
-              search
-            </i>
-          </label>
+             <label className="label-icon" htmlFor="search">
+               <i className="material-icons">search</i>
+            </label>
+          <i className="material-icons">close</i>
           </div>
         </div>
       </form>

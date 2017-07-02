@@ -2,6 +2,12 @@ const Users = require('../models').User;
 const Documents = require('../models').Documents;
 
 module.exports = {
+  /**
+   *
+   *
+   * @param {any} req
+   * @param {any} res
+   */
   searchUser(req, res) {
     const offset = parseInt(req.query.offset, 10) || 0;
     const limit = parseInt(req.query.limit, 10) || 4;
@@ -36,6 +42,12 @@ module.exports = {
           .send({ message: `${query}cannot be found on the database` });
       });
   },
+  /**
+   *
+   *
+   * @param {any} req
+   * @param {any} res
+   */
   searchDocs(req, res) {
     const role = req.decoded.role;
     const offset = parseInt(req.query.offset, 10) || 0;

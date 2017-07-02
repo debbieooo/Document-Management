@@ -1,10 +1,17 @@
-import React, { PropTypes } from 'react';//eslint-disable-line
-import TextEditor from './TextEditor.jsx';//eslint-disable-line
-import { browserHistory } from 'react-router';//eslint-disable-line
-import { connect } from 'react-redux';//eslint-disable-line
-import { bindActionCreators } from 'redux';//eslint-disable-line
-import * as docActions from '../../actions/docAction';//eslint-disable-line
+import React, { PropTypes } from 'react';
+import TextEditor from './TextEditor.jsx';
+import { browserHistory } from 'react-router';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import * as docActions from '../../actions/docAction';
 class UpdateDoc extends React.Component {
+  /**
+   * Creates an instance of UpdateDoc.
+   * @param {any} props
+   * @param {any} context
+   *
+   * @memberof UpdateDoc
+   */
   constructor(props, context) {
     super(props, context);
     this.state = {
@@ -12,23 +19,50 @@ class UpdateDoc extends React.Component {
     };
     this.submit = this.submit.bind(this);
   }
-  submit(document) {//eslint-disable-line
+  /**
+   *
+   *
+   * @param {any} document
+   *
+   * @memberof UpdateDoc
+   */
+  submit(document) {
     this.props.actions.updateDoc({ ...document, id: this.state.document.id })
     .then(() => {
       browserHistory.goBack();
     });
   }
+  /**
+   *
+   *
+   *
+   * @memberof UpdateDoc
+   */
   componentDidMount() {
     this.props.actions.findDoc(this.props.params.id);
   }
+  /**
+   *
+   *
+   * @param {any} nextProps
+   *
+   * @memberof UpdateDoc
+   */
   componentWillReceiveProps(nextProps) {
     this.setState({ document: nextProps.document });
   }
+  /**
+   *
+   *
+   * @returns
+   *
+   * @memberof UpdateDoc
+   */
   render() {
     return (
       <div>
-        {this.state.document.title ?
-        <TextEditor {...this.state.document} onClick ={this.submit} />
+        {this.state.document.title
+        ? <TextEditor {...this.state.document} onClick ={this.submit} />
          : <img src= "/images/default.gif"/>}
       </div>
     );
@@ -38,13 +72,23 @@ class UpdateDoc extends React.Component {
 UpdateDoc.defaultProps = {
   documents: []
 };
-
+/**
+ *
+ *
+ * @param {any} state
+ * @returns
+ */
 function mapStateToProps(state) {
   return {
     document: state.documents.document
   };
 }
-
+/**
+ *
+ *
+ * @param {any} dispatch
+ * @returns
+ */
 function mapDispatchToProps(dispatch) {
   return {
     actions: bindActionCreators(docActions, dispatch)

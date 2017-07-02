@@ -1,9 +1,9 @@
-import React from 'react';//eslint-disable-line
-import SignUp from './SignUp.jsx'//eslint-disable-line
-import Login from './Login.jsx'//eslint-disable-line
-import {  Link, browserHistory } from 'react-router';//eslint-disable-line
+import { Link, browserHistory } from 'react-router';
+import React from 'react';
+import SignUp from './SignUp.jsx';
+import Login from './Login.jsx';
 
-const Landing = () => (
+const Landing = () =>
     <div className = "Landing">
         <div className="row center-align">
             <h1>Welcome to Doc Manager</h1>
@@ -24,5 +24,5 @@ const Landing = () => (
             </button>
         </div>
     </div>
-  );
+  ;
 export default Landing;

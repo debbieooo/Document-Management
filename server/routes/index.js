@@ -44,7 +44,7 @@ module.exports = (app) => {
  */
 /**
  * @swagger
- * /api/roles:
+ * /api/v1/roles:
  *   post:
  *     tags:
  *       - Roles
@@ -62,10 +62,10 @@ module.exports = (app) => {
  *       200:
  *         description: Successfully created
  */
-  app.post('/api/roles', authorization.authorize, authorization.authorizeAdmin, roles.create);
+  app.post('/api/v1/roles', authorization.authorize, authorization.authorizeAdmin, roles.create);
   /**
  * @swagger
- * /api/roles/{id}:
+ * /api/v1/roles/{id}:
  *   get:
  *     tags:
  *       - Roles
@@ -84,13 +84,13 @@ module.exports = (app) => {
  *         schema:
  *           $ref: '#/definitions/roles'
  */
-  app.get('/api/roles', authorization.authorize, authorization.authorizeAdmin, roles.getAll);
+  app.get('/api/v1/roles', authorization.authorize, authorization.authorizeAdmin, roles.getAll);
 
 
 // User routes
 /**
  * @swagger
- * /api/users/signup:
+ * /api/v1/users/signup:
  *   post:
  *     tags:
  *       - Users
@@ -108,10 +108,10 @@ module.exports = (app) => {
  *       201:
  *         description: Successfully created
  */
-  app.post('/api/users/signup', users.create);
+  app.post('/api/v1/users/signup', users.create);
   /**
  * @swagger
- * /api/users:
+ * /api/v1/users:
  *   get:
  *     tags:
  *       - Users
@@ -130,10 +130,10 @@ module.exports = (app) => {
  *         schema:
  *           $ref: '#/definitions/users'
  */
-  app.get('/api/users/active', authorization.authorize, users.currentUser);
+  app.get('/api/v1/users/active', authorization.authorize, users.currentUser);
   /**
  * @swagger
- * /api/users:
+ * /api/v1/users:
  *   get:
  *     tags:
  *       - Users
@@ -146,10 +146,10 @@ module.exports = (app) => {
  *         schema:
  *           $ref: '#/definitions/users'
  */
-  app.get('/api/users', authorization.authorize, authorization.authorizeAdmin, users.listAll);
+  app.get('/api/v1/users', authorization.authorize, authorization.authorizeAdmin, users.listAll);
   /**
  * @swagger
- * /api/users/{id}:
+ * /api/v1/users/{id}:
  *   delete:
  *     tags:
  *       - Users
@@ -166,10 +166,10 @@ module.exports = (app) => {
  *       200:
  *         description: Successfully deleted
  */
-  app.delete('/api/users/:id', authorization.authorize, authorization.authorizeAdmin, users.delete);
+  app.delete('/api/v1/users/:id', authorization.authorize, authorization.authorizeAdmin, users.delete);
   /**
  * @swagger
- * /api/users/login:
+ * /api/v1/users/login:
  *   post:
  *     tags:
  *       - Users
@@ -187,10 +187,10 @@ module.exports = (app) => {
  *       200:
  *         description: Successfully created
  */
-  app.post('/api/users/login', users.login);
+  app.post('/api/v1/users/login', users.login);
   /**
  * @swagger
- * /api/users/{id}:
+ * /api/v1/users/{id}:
  *   get:
  *     tags:
  *       - Users
@@ -209,10 +209,10 @@ module.exports = (app) => {
  *         schema:
  *           $ref: '#/definitions/users'
  */
-  app.get('/api/users/:id', authorization.authorize, authorization.authorizeAdmin, users.findUser);
+  app.get('/api/v1/users/:id', authorization.authorize, authorization.authorizeAdmin, users.findUser);
   /**
  * @swagger
- * /api/users/{id}:
+ * /api/v1/users/{id}:
  *   put:
  *     tags: Users
  *     description: Updates a single user
@@ -228,10 +228,10 @@ module.exports = (app) => {
  *       200:
  *         description: Successfully updated
  */
-  app.put('/api/users/:id', authorization.authorize, users.update);
+  app.put('/api/v1/users/:id', authorization.authorize, users.update);
   /**
  * @swagger
- * /api/users/{id}/documents:
+ * /api/v1/users/{id}/documents:
  *   get:
  *     tags:
  *       - Users
@@ -250,12 +250,12 @@ module.exports = (app) => {
  *         schema:
  *           $ref: '#/definitions/users'
  */
-  app.get('/api/users/:id/documents', authorization.authorize, users.findUserDoc);
+  app.get('/api/v1/users/:id/documents', authorization.authorize, users.findUserDoc);
 
 // Document routes
 /**
  * @swagger
- * /api/documents:
+ * /api/v1/documents:
  *   post:
  *     tags:
  *       - Users
@@ -273,10 +273,10 @@ module.exports = (app) => {
  *       201:
  *         description: Successfully created
  */
-  app.post('/api/documents', authorization.authorize, documents.create);
+  app.post('/api/v1/documents', authorization.authorize, documents.create);
   /**
  * @swagger
- * /api/documents/{id}:
+ * /api/v1/documents/{id}:
  *   put:
  *     tags: Document
  *     description: Updates a single document
@@ -292,10 +292,10 @@ module.exports = (app) => {
  *       200:
  *         description: Successfully updated
  */
-  app.put('/api/documents/:id', authorization.authorize, documents.update);
+  app.put('/api/v1/documents/:id', authorization.authorize, documents.update);
   /**
  * @swagger
- * /api/documents/{id}:
+ * /api/v1/documents/{id}:
  *   get:
  *     tags:
  *       - Document, Documents
@@ -314,10 +314,10 @@ module.exports = (app) => {
  *         schema:
  *           $ref: '#/definitions/documents'
  */
-  app.get('/api/documents/:id', authorization.authorize, documents.findDoc);
+  app.get('/api/v1/documents/:id', authorization.authorize, documents.findDoc);
   /**
  * @swagger
- * /api/document/{id}:
+ * /api/v1/document/{id}:
  *   delete:
  *     tags:
  *       - Documents
@@ -334,10 +334,10 @@ module.exports = (app) => {
  *       200:
  *         description: Successfully deleted
  */
-  app.delete('/api/documents/:id', authorization.authorize, documents.delete);
+  app.delete('/api/v1/documents/:id', authorization.authorize, documents.delete);
  /**
  * @swagger
- * /api/documents:
+ * /api/v1/documents:
  *   get:
  *     tags:
  *       - Document, Documents
@@ -350,12 +350,12 @@ module.exports = (app) => {
  *         schema:
  *           $ref: '#/definitions/documents'
  */
-  app.get('/api/documents', authorization.authorize, users.userDoclist);
+  app.get('/api/v1/documents', authorization.authorize, users.userDoclist);
 
 // Search routes
 /**
  * @swagger
- * /api/search/users:
+ * /api/v1/search/users:
  *   get:
  *     tags:
  *       - Users
@@ -368,10 +368,10 @@ module.exports = (app) => {
  *         schema:
  *           $ref: '#/definitions/users'
  */
-  app.get('/api/search/users', authorization.authorize, authorization.authorizeAdmin, search.searchUser);
+  app.get('/api/v1/search/users', authorization.authorize, authorization.authorizeAdmin, search.searchUser);
   /**
  * @swagger
- * /api/search/documents:
+ * /api/v1/search/documents:
  *   get:
  *     tags:
  *       - Document, Documents
@@ -384,5 +384,5 @@ module.exports = (app) => {
  *         schema:
  *           $ref: '#/definitions/documents'
  */
-  app.get('/api/search/documents', authorization.authorize, search.searchDocs);
+  app.get('/api/v1/search/documents', authorization.authorize, search.searchDocs);
 };
