@@ -34,10 +34,10 @@ export function deleteDocs(id) {
  * @param {any} id
  * @returns
  */
-export function updateDocs(id) {
+export function updateDocs(document) {
   return {
     type: types.UPDATE_DOCUMENTS_SUCCESS,
-    id
+    document
   };
 }
 /**
@@ -115,6 +115,7 @@ export function deleteDoc(docId) {
  * @returns
  */
 export function updateDoc(document) {
+  console.log(document);
   const token = window.localStorage.getItem('token');
   axios.defaults.headers.common.Authorization = token;
   return dispatch => axios.put(`/api/v1/documents/${document.id}`, document)
@@ -122,6 +123,7 @@ export function updateDoc(document) {
     dispatch(updateDocs(response.data));
   })
   .catch((error) => {
+    console.log(error);
     dispatch({ type: 'Error', error: error.response.data });
   });
 }
@@ -153,6 +155,7 @@ export function findDoc(id) {
 export function createDoc(document) {
   const token = window.localStorage.getItem('token');
   axios.defaults.headers.common.Authorization = token;
+  console.log('document', document)
   return dispatch => axios.post('/api/v1/documents', document)
   .then((response) => {
     dispatch(create(response.data));

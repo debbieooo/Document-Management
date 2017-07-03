@@ -12,7 +12,10 @@ module.exports = {
    */
   create(req, res) {
     const access = req.body.access;
-    if (!access) {
+    const title = req.body.title;
+    if(!title || title === '') {
+      return res.status(400).send({ message: 'title required' })
+    } else if (!access) {
       return res.status(400).send({ message : 'Access required' });
     }
     if (access !== 'Public' && access !== 'Private' && access !== 'Role') {

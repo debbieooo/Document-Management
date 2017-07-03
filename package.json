@@ -15,7 +15,7 @@
     "start:client": "node app.js",
     "start:client:dev": "webpack -w & nodemon app.js",
     "build": "webpack -p",
-    "test": "mocha server/tests",
+    "test": "NODE_ENV=test mocha --require server/tests/helper.js server/tests/**/*.spec.js --compilers js:babel-register",
     "test:coverage": "istanbul cover _mocha server/tests"
   },
   "keywords": [],
@@ -29,6 +29,7 @@
     "babel-polyfill": "^6.23.0",
     "babel-preset-es2015": "^6.24.1",
     "babel-preset-react": "^6.24.1",
+    "babel-register": "^6.24.1",
     "bcrypt-nodejs": "0.0.3",
     "body-parser": "^1.17.2",
     "css-loader": "^0.28.4",
@@ -85,6 +86,7 @@
     "image-webpack-loader": "^3.3.1",
     "mocha": "^3.4.2",
     "mocha-lcov-reporter": "^1.3.0",
+    "node-mocks-http": "^1.6.4",
     "nodemon": "^1.11.0",
     "sinon": "^2.3.2"
   }

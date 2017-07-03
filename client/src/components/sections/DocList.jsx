@@ -16,10 +16,10 @@ const DocList = ({ documents, onClick, authUser }) =>
       </thead>
       <tbody>
         {documents.map(document =>
-        <DocListTable key={document.id}
-        document={document}
-        authUser={authUser}
-        handleClick= {onClick}/>
+          <DocListTable key={document.id}
+          document={document}
+          authUser={authUser}
+          handleClick= {onClick}/>
         )}
       </tbody>
     </table>

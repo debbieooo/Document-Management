@@ -158,10 +158,8 @@ export function deleteAcc(userId) {
 export function userlist(limit, offset) {
   const token = window.localStorage.getItem('token');
   axios.defaults.headers.common.Authorization = token;
-  console.log(limit, offset, `/api/v1/users/?limit=${limit || 10}&offset=${offset || 0}`);
   return dispatch => axios.get(`/api/v1/users/?limit=${limit || 10}&offset=${offset || 0}`)
     .then((response) => {
-      console.log(response);
       dispatch(listUsers(response.data));
       dispatch({ type: 'Error' });
     })
