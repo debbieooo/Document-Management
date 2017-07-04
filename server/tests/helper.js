@@ -4,6 +4,7 @@ import sinon from 'sinon';
 import db from '../models/index';
 import httpMocks from 'node-mocks-http';
 const faker = require('faker');
+import events from 'events';
 
 require('dotenv').config();
 
@@ -26,21 +27,21 @@ global.sequelize = db.sequelize;
 global.generateRegUser = () => {
   return {
     name: faker.name.firstName(),
-  userName: faker.internet.userName(),
-  email: faker.internet.email(),
-  password: faker.internet.password(),
-  roleId: '2'
+    userName: faker.internet.userName(),
+    email: faker.internet.email(),
+    password: faker.internet.password(),
+    roleId: '2'
   }
-}
+};
 global.generateAdminUser = () => {
   return {
     name: faker.name.firstName(),
   userName: faker.internet.userName(),
   email: faker.internet.email(),
   password: faker.internet.password(),
-  roleId: '1'
+  roleId: 1
   }
-}
+};
 global.generateStaffUser = () => {
   return {
     name: faker.name.firstName(),
@@ -49,7 +50,7 @@ global.generateStaffUser = () => {
   password: faker.internet.password(),
   roleId: '3'
   }
-}
+};
 global.generateDocument = (userId) => {
   return {
     content: faker.lorem.paragraphs(),
@@ -57,4 +58,20 @@ global.generateDocument = (userId) => {
     userId,
     access: 'Public'
   }
-}
+};
+global.generateAdminRole = () => {
+  return {
+    title: 'Admin'
+  }
+};
+global.generateRegularRole = () => {
+  return {
+    title: 'Regular'
+  }
+};
+global.generateStaffRole = () => {
+  return {
+    title: 'Staff'
+  }
+};
+global.events = events;

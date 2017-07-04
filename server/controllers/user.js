@@ -50,7 +50,7 @@ module.exports = {
               const roleId = user.roleId;
               return res.status(201).send({ token, name, userName, email, id, roleId });
             })
-            .catch(error => res.status(400).send(error, { message: 'Bad request' }));
+            .catch(error => res.status(400).send({ message: 'Bad request', error }));
         }
       });
   },
@@ -113,7 +113,7 @@ module.exports = {
         }
       })
       .catch((error) => {
-        res.status(400).send(error, { message: 'Bad request' });
+        res.status(400).send({ message: 'Bad request', error });
       });
   },
   /**
@@ -142,7 +142,9 @@ module.exports = {
             count: users.count
           }
         }))
-      .catch(error => res.status(400).send(error, { message: 'Bad request' }));
+      .catch(error => res.status(400).send(
+      { message: 'Bad request', error }
+      ));
   },
   /**
    *
@@ -322,12 +324,7 @@ module.exports = {
           .then(() => res.status(200).send({
             message: 'User deleted successfully'
           }))
-          .catch(error => res.status(400).send(error, { message: 'You entered the wrong arguments' }));
       })
-      .catch(error => res.status(400).send({
-        error,
-        message: 'Bad request'
-      }));
   },
 /**
  *
@@ -345,12 +342,12 @@ module.exports = {
       })
       .then((user) => {
         if (!user) {
-          return res.status(400).send({
+          return res.status(404).send({
             message: 'User Not Found'
           });
         }
         return res.status(200).send(user);
       })
-      .catch(error => res.status(404).send(error, { message: 'Bad request' }));
+      .catch(error => res.status(404).send({ message: 'Bad request', error }));
   }
 };

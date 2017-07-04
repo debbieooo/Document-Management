@@ -56,4 +56,22 @@ describe('Document Model', () => {
         done();       
       });
   });
+  it('should not create a document without content', (done) => {
+    const document = generateDocument(userId);
+    delete document.content;
+    Documents.create(document)
+      .catch((error) => {
+        expect(error.message).to.eql('notNull Violation: content cannot be null');
+        done();       
+      });
+  });
+  it('should not create a document without access settings', (done) => {
+    const document = generateDocument(userId);
+    delete document.access;
+    Documents.create(document)
+      .then((createdDocument) => {
+        expect(createdDocument.access).to.eql('Private');        
+        done();       
+      });
+  });
 });

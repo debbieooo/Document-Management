@@ -8,6 +8,7 @@
     "url": "git+https://github.com/andela-doni/doc-manager.git"
   },
   "scripts": {
+    "test:cover": "nyc --reporter=html --reporter=text",
     "start": "npm-run-all --parallel start:server start:client",
     "start:dev": "npm-run-all --parallel start:server:dev start:client:dev",
     "start:server:dev": "nodemon ./bin/www",
@@ -15,8 +16,13 @@
     "start:client": "node app.js",
     "start:client:dev": "webpack -w & nodemon app.js",
     "build": "webpack -p",
-    "test": "NODE_ENV=test mocha --require server/tests/helper.js server/tests/**/*.spec.js --compilers js:babel-register",
+    "test": "NODE_ENV=test nyc --reporter=html --reporter=text mocha --require server/tests/helper.js server/tests/**/*.spec.js --compilers js:babel-register",
     "test:coverage": "istanbul cover _mocha server/tests"
+  },
+  "nyc": {
+    "exclude": [
+      "server/tests"
+    ]
   },
   "keywords": [],
   "author": "",
@@ -88,6 +94,7 @@
     "mocha-lcov-reporter": "^1.3.0",
     "node-mocks-http": "^1.6.4",
     "nodemon": "^1.11.0",
+    "nyc": "^11.0.3",
     "sinon": "^2.3.2"
   }
 }

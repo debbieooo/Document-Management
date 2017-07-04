@@ -32,4 +32,24 @@ describe('User Model', () => {
         done();       
       });
   });
+    it('should update users password', (done) => {
+    const user = generateAdminUser();
+    User.create(user)
+      .then((createdUser) => {
+         createdUser.update({password: 'new'})     
+         .then((updatedUser) => {
+           expect(createdUser.password).to.not.eql(user.password)
+           done();     
+         })
+      });
+  });
+  it('should update users password', (done) => {
+    const user = generateAdminUser();
+    const password = user.password;
+    User.create(user)
+      .then((createdUser) => {
+         expect(createdUser.validate(password)).to.eql(true)
+         done();
+         })
+      });
 });

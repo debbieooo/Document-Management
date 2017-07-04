@@ -6,40 +6,54 @@ const faker = require('faker');
 const expect = chai.expect;
 
 const api = request(app);
-const user1data = {
-  name: faker.name.firstName(),
-  userName: faker.internet.userName(),
-  email: faker.internet.email(),
-  password: faker.internet.password(),
-  roleId: '2'
-};
-const user2data = {
-  name: faker.name.firstName(),
-  userName: faker.internet.userName(),
-  email: faker.internet.email(),
-  password: faker.internet.password(),
-  roleId: '1'
-};
+const user1data = generateRegUser();
+const user2data = generateAdminUser();
+const Admin = generateAdminRole();
+const Regular = generateRegularRole();
+const Staff = generateStaffRole();
+const document = generateDocument(user1data.id);
 
 describe('User', () => {
   const user = {};
   const adminUser = {};
   // sign up tests
-  before((done) => {
-    api.post('/api/v1/users/signup').send(user1data)
-       .end((err, res) => {
-         user.id = res.body.id;
-         user.token = res.body.token;
-         expect(res.status).to.equal(201);
-         api.post('/api/v1/users/signup').send(user2data)
-          .end((err, res) => {
-            adminUser.id = res.body.id;
-            adminUser.token = res.body.token;
-            expect(res.status).to.equal(201);
+  beforeEach((done) => {
+    sequelize.sync({ force: true})
+      .done(() => {
+        Role.bulkCreate([{ title: 'admin' }, { title: 'regular' }])
+          .then(() => {
+            api.post('/api/v1/users/signup').send(user1data)
+              .end((err, res) => {
+                user.id = res.body.id;
+                user.token = res.body.token;
+                expect(res.status).to.equal(201);
+                User.create(user2data)
+                  .then((createdAdmin) => {
+                    adminUser.id = createdAdmin.id;
+                    console.log(createdAdmin.roleId)
+                    adminUser.token = generateToken(createdAdmin);
+                document.userId = user.id
+                Documents.create(document)
+                .then((createdDoc) => {
+                    adminUser.id = createdDoc.userId;
+                })
+                    done();
+                  });
+              });
+          });
+      });
+  });
+
+  afterEach((done) => {
+    User.destroy({ where: {} })
+      .then(() => {
+        Role.destroy({ where: {} })
+          .then(() => {
             done();
           });
-       });
+      });
   });
+
   describe('signup', () => {
     it('should sign a user up ', (done) => {
       api.post('/api/v1/users/signup').send({
@@ -76,7 +90,7 @@ describe('User', () => {
         expect(res.status).to.equal(409);
         done();
       });
-      });
+    });
     it(
       'should not allow a user to sign up with an existing email'
       , (done) => {
@@ -91,10 +105,10 @@ describe('User', () => {
         expect(res.status).to.equal(409);
         done();
       });
-      });
+    });
   });
 
-  describe('(login', () => {
+  describe('login', () => {
     // log in tests
 
     it('should log an existing user in with email and password', (done) => {
@@ -178,7 +192,7 @@ describe('User', () => {
       });
     });
   });
-  xdescribe('Display all users', () => {
+  describe('Display all users', () => {
       // list all users tests
     it('should not display all the users in the system if not authorized', (done) => {
       api.get('/api/v1/users').end((err, res) => {
@@ -197,14 +211,128 @@ describe('User', () => {
       });
     });
   });
-  describe('Cannot delete a user if youre not signed in', (done) => {
-    it('deletes a particular user by id', () => {
+
+  describe('Cannot delete a user if youre not signed in', () => {
+    it('deletes a particular user by id', (done) => {
       api.delete(`/api/v1/users/${user.id}`)
         .set('Authorization', adminUser.token)
         .end((err, res) => {
           expect(res.status).to.equal(200);
           done();
         });
+    });
+  });
+
+  describe('Bad request error', () => {
+    it('should be thrown when a user attempts signup with  empty params', (done) => {
+      api.post('/api/v1/users/signup').send({
+        name: faker.name.firstName(),
+        userName: faker.internet.userName(),
+        email: faker.internet.email(),
+        roleId: '2'
+      })
+       .end((err, res) => {
+         expect(res.status).to.equal(400);
+         done();
+       });
+    })
+    it('should be thrown when a user attempts login with  empty params', (done) => {
+      api.post('/api/v1/users/login').send({
+        email: user1data.email,
+      })
+      .end((err, res) => {
+        expect(res.status).to.equal(400);
+        done();
+      });
+    });
+    xit('should catch the 404 error for wrong active user route  ', (done) => {
+        api.get('/api/v1/users/40')
+        .set({authorization : adminUser.token})
+        .end((err, res) => {
+          expect(res.status).to.equal(404);
+          done();
+        })
+      });
+  });
+  describe('listall users', () => {
+    it('should have the list of all users without offset and limits', (done) => {
+      api.get('/api/v1/users').set({authorization : adminUser.token})
+      .end((err, res) => {
+        expect(res.status).to.equal(200);
+        done();
+      });
+    });
+  });
+  describe('find a user', () => {
+    it('should find a particular user using id', (done) => {
+      console.log( adminUser.token);
+      api.get(`/api/v1/users/${user.id}`)
+      .set({authorization : adminUser.token})
+      .end((err, res) => {
+        expect(res.status).to.equal(200);
+        done();
+      });
+    });
+  });
+  describe('update a user', () => {
+    it('should update a particular user using id', (done) => {
+      console.log( adminUser.token);
+      api.put(`/api/v1/users/${adminUser.id}`)
+      .send({userName: 'admin'})
+      .set({authorization : adminUser.token})
+      .end((err, res) => {
+        expect(res.status).to.equal(201);
+        done();
+      });
+    });
+  });
+  describe('delete a user', (done) => {
+    it('should update a particular user using id', (done) => {
+      console.log( adminUser.token);
+      api.delete(`/api/v1/users/${user.id}`)
+      .set({authorization : adminUser.token})
+      .end((err, res) => {
+        expect(res.status).to.equal(200);
+        done();
+      });
+    });
+    it('should throw an error with wrong id', (done) => {
+      api.delete('/api/v1/users/3')
+      .set({authorization : adminUser.token})
+      .end((err, res) => {
+        expect(res.status).to.equal(404);
+        done();
+      });
+    });
+    describe('create documents', (done) => {
+      it('should display documents and their authors', (done) => {
+        api.get('/api/v1/documents')
+        .set({authorization : adminUser.token})
+        .end((err, res) => {
+          expect(res.status).to.equal(200);
+          done();
+        })
+      });
+    });
+      describe('create documents', (done) => {
+      it('should display public documents and their authors on the regular users dashboard', (done) => {
+        api.get('/api/v1/documents')
+        .set({authorization : user.token})
+        .end((err, res) => {
+          expect(res.status).to.equal(200);
+          done();
+        })
+      });
+    });
+    describe('get current user', (done) => {
+      it('should ', (done) => {
+        api.get('/api/v1/users/active')
+        .set({authorization : user.token})
+        .end((err, res) => {
+          expect(res.status).to.equal(200);
+          done();
+        })
+      });
     });
   });
 });

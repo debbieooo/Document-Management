@@ -13,10 +13,11 @@ module.exports = {
       process.env.SECRET_KEY,
       (err, decoded) => {
         if (err) {
-          return res.status(401).json({ message: 'wrong token' });
+          res.status(401).json({ message: 'wrong token' });
+        } else {
+          req.decoded = decoded;
+          return next();
         }
-        req.decoded = decoded;
-        return next();
       });
   },
   /**
@@ -30,8 +31,9 @@ module.exports = {
   authorizeAdmin(req, res, next) {
     if (req.decoded.role !== 1) {
       return res.status(401).json({ message: 'unathorized' });
+    } else {
+      req.isAdmin = true;
+      return next();
     }
-    req.isAdmin = true;
-    return next();
   }
 };
