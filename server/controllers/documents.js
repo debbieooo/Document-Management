@@ -27,10 +27,9 @@ module.exports = {
         content: req.body.content,
         userId,
         title: req.body.title,
-        access: req.body.access ? req.body.access : 'Public'
+        access: req.body.access
       })
-      .then(documents => res.status(201).send(documents))
-      .catch(error => res.status(400).send(error));
+      .then(documents => res.status(201).send(documents));
   },
   /**
    *
@@ -44,23 +43,17 @@ module.exports = {
     return Documents
       .findById(req.params.id)
       .then((documents) => {
-        if (documents.userId !== userId && documents.access !== 'Public') {
-          res.status(401).send({ message: 'Not authorized, its not your document' });
-        } else {
-          if (!documents) {
-            return res.status(400).send({
+        if (!documents) {
+            return res.status(404).send({
               message: 'Document Not Found'
             });
-          }
-
+        } else if (documents.userId !== userId && documents.access === 'Private') {
+          return res.status(401).send({ message: 'Not authorized, its not your document' });
+        } else {
           res.status(200)
             .send({ documents });
         }
-      })
-      .catch(error => res.status(400).send({
-        error,
-        message: 'Bad request'
-      }));
+      });
   },
   /**
    *
@@ -74,24 +67,20 @@ module.exports = {
     return Documents
       .findById(req.params.id)
       .then((documents) => {
-        if (documents.userId !== id) {
-          res.status(401).send({ message: 'Not authorized, its not your document :)' });
-        } else {
-          if (!documents) {
+        if (!documents) {
             return res.status(404).send({
               message: 'Document Not Found'
             });
-          }
+          } else if (documents.userId !== id) {
+          return res.status(401).send({ message: 'Not authorized, its not your document :)' });
+        } else {
           if (documents.userId === id) {
             return documents
               .update(req.body)
-              .then(() => res.status(200).send(documents))
-              .catch(error => res.status(400).send(error));
+              .then(() => res.status(200).send(documents));
           }
-          return res.status(401).send({ message: 'You are not authorized :)' });
         }
       })
-      .catch(error => res.status(400).send(error));
   },
   /**
    *
@@ -106,26 +95,20 @@ module.exports = {
     return Documents
       .findById(req.params.id)
       .then((documents) => {
-        if (documents.userId !== userId && role !== 1) {
-          res.status(401).send({ message: 'Not authorized, its not your document :)' });
-        } else {
-          if (!documents) {
-            return res.status(400).send({
+        if (!documents) {
+            return res.status(404).send({
               message: 'Documents Not Found'
             });
-          }
+          } else if (documents.userId !== userId && role !== 1) {
+          res.status(401).send({ message: 'Not authorized, its not your document :)' });
+        } else {
           return documents
             .destroy()
             .then(() => res.status(200).send({
               message: 'Documents deleted successfully'
             }))
-            .catch(error => res.status(400).send(error));
         }
       })
-      .catch(error => res.status(400).send({
-        error,
-        message: 'Bad request'
-      }));
   }
 
 };

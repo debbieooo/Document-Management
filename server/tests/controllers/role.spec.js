@@ -25,7 +25,6 @@ describe('Role', () => {
                 User.create(user2data)
                   .then((createdAdmin) => {
                     adminUser.id = createdAdmin.id;
-                    console.log(createdAdmin.roleId)
                     adminUser.token = generateToken(createdAdmin);
                 document.userId = user.id
                 Documents.create(document)

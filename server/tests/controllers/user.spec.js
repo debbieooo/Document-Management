@@ -26,7 +26,6 @@ describe('User', () => {
                 User.create(user2data)
                   .then((createdAdmin) => {
                     adminUser.id = createdAdmin.id;
-                    console.log(createdAdmin.roleId)
                     adminUser.token = generateToken(createdAdmin);
                 document.userId = user.id
                 Documents.create(document)
@@ -261,7 +260,6 @@ describe('User', () => {
   });
   describe('find a user', () => {
     it('should find a particular user using id', (done) => {
-      console.log( adminUser.token);
       api.get(`/api/v1/users/${user.id}`)
       .set({authorization : adminUser.token})
       .end((err, res) => {
@@ -272,7 +270,6 @@ describe('User', () => {
   });
   describe('update a user', () => {
     it('should update a particular user using id', (done) => {
-      console.log( adminUser.token);
       api.put(`/api/v1/users/${adminUser.id}`)
       .send({userName: 'admin'})
       .set({authorization : adminUser.token})
@@ -284,7 +281,6 @@ describe('User', () => {
   });
   describe('delete a user', (done) => {
     it('should update a particular user using id', (done) => {
-      console.log( adminUser.token);
       api.delete(`/api/v1/users/${user.id}`)
       .set({authorization : adminUser.token})
       .end((err, res) => {
