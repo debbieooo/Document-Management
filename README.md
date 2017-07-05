@@ -1,6 +1,6 @@
 # Document Management System
 
-[![Build Status](https://travis-ci.org/andela-doni/doc-manager.svg?branch=dev)](https://travis-ci.org/andela-doni/doc-manager)   [![Coverage Status](https://coveralls.io/repos/github/andela-doni/doc-manager/badge.svg)](https://coveralls.io/github/andela-doni/doc-manager)
+[![Build Status](https://travis-ci.org/andela-doni/doc-manager.svg?branch=dev)](https://travis-ci.org/andela-doni/doc-manager)   [![Coverage Status](https://coveralls.io/repos/github/andela-doni/doc-manager/badge.svg?branch=dev)](https://coveralls.io/github/andela-doni/doc-manager?branch=dev)
 
 
 
