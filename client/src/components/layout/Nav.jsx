@@ -53,6 +53,7 @@ class Nav extends React.Component {
     <div className="nav-wrapper" id="nav">
       <Link to = "/home" className="brand-logo" id="app-name">Doc</Link>
       <ul id="nav-mobile" className="right hide-on-med-and-down">
+       <li className= "orange-text text-darken-4"><b>Hi {authUser.name}! </b></li>
     {authUser.roleId === 1 ? <li><Link to="/users">Users</Link></li> : ''}
          <li> <Link to="/documents">Documents</Link></li>
           <li><Link to="/documents/create">New Document</Link>

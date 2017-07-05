@@ -8,6 +8,7 @@ import ManageDoc from './components/sections/ManageDoc.jsx';
 import Profile from './components/sections/Profile.jsx';
 import TextEditor from './components/sections/TextEditor.jsx';
 import UpdateDoc from './components/sections/UpdateDoc.jsx';
+import ViewDoc from './components/sections/ViewDoc.jsx';
 import CreateDoc from './components/sections/CreateDoc.jsx';
 import NotFound from './components/sections/NotFound.jsx';
 
@@ -32,8 +33,9 @@ export default
     <Route path='/users' component={ManageUser} />
     <Route path='/documents' component={ManageDoc} />
     <Route path='/profile' component={Profile} />
-    <Route path='/documents/:id/edit' component={UpdateDoc} />
     <Route path='/documents/create' component={CreateDoc} />
+    <Route path='/documents/:id' component={ViewDoc} />
+    <Route path='/documents/:id/edit' component={UpdateDoc} />
     <Route path="*" component={NotFound} />
   </Route>
 </Route>

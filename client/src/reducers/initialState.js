@@ -3,7 +3,7 @@ export default {
     isAuthenticated: false
   },
   users: { users: [], metadata:{} },
-  documents: { documents: [], metadata:{} },
+  documents: { documents: [], metadata:{}, document:{} },
   search: { search: [], metadata:{} }
 
 };
