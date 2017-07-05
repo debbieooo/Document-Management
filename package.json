@@ -17,7 +17,7 @@
     "start:client:dev": "webpack -w & nodemon app.js",
     "build": "webpack -p",
     "test": "NODE_ENV=test nyc --reporter=html --reporter=text mocha --require server/tests/helper.js server/tests/**/*.spec.js --compilers js:babel-register",
-    "test:coverage": "istanbul cover _mocha server/tests"
+    "test:coverage": "nyc report --reporter=text-lcov | coveralls"
   },
   "nyc": {
     "exclude": [
