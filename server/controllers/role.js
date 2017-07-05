@@ -28,10 +28,6 @@ module.exports = {
   getAll(req, res) {
     return Role.findAll({})
       .then(roles => res.status(201).send(roles))
-      .catch(error => res.status(400).send({
-        error,
-        message:  `No Roles Found ${error}`
-      }));
   }
 };
 

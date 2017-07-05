@@ -5,9 +5,11 @@ import db from '../models/index';
 import httpMocks from 'node-mocks-http';
 const faker = require('faker');
 import events from 'events';
-
 require('dotenv').config();
+const request = require('supertest');
 
+global.chai = chai;
+global.request = request;
 global.expect = chai.expect;
 global.User = db.User;
 global.sinon = sinon;
@@ -24,6 +26,21 @@ global.generateToken = (user) => {
   return token;
 }
 global.sequelize = db.sequelize;
+global.generateRoleAdmin = () => {
+  return {
+    title: 'Admin'
+  }
+};
+global.generateRoleGeneral = () => {
+  return {
+    title: 'General'
+  }
+};
+global.generateRoleStaff = () => {
+  return {
+    title: 'Staff'
+  }
+};
 global.generateRegUser = () => {
   return {
     name: faker.name.firstName(),

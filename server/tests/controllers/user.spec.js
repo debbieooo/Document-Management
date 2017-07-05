@@ -1,8 +1,4 @@
 const app = require('../../../app');
-const request = require('supertest');
-const chai = require('chai');
-const faker = require('faker');
-
 const expect = chai.expect;
 
 const api = request(app);
@@ -331,7 +327,7 @@ describe('User', () => {
         .end((err, res) => {
           expect(res.status).to.equal(200);
           done();
-        })
+        });
       });
     });
   });
