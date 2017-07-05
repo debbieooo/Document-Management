@@ -20,14 +20,15 @@ class CreateDoc extends React.Component {
   submit(document) {
     this.props.actions.createDoc(document)
     .then(() => {
-      browserHistory.goBack();
+      browserHistory.push('/documents');
     });
   }
 
   render() {
+    console.log('create document');
     return (
-    <div>
-         <TextEditor onClick ={this.submit} />
+      <div>
+         <TextEditor onClick={this.submit} />
       </div>
     );
   }

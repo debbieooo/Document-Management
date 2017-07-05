@@ -56,6 +56,15 @@ class ManageUser extends React.Component {
   componentWillReceiveProps(nextProps) {
     this.setState({ users: nextProps.users });
   }
+  /**
+   * 
+   * 
+   * 
+   * @memberof ManageUser
+   */
+  componentWilUnmount() {
+    this.setState({});
+  }
 /**
  *
  *

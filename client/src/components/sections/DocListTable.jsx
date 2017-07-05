@@ -13,12 +13,12 @@ const DocListTable = ({ document, handleClick, authUser }) =>
        <td>{document.access}</td>
        <td>{moment(document.createdAt).format('MMMM Do YYYY')}</td>
        <td>{moment(document.updatedAt).format('MMMM Do YYYY')}</td>
-      <td>
+      {(document.User.name === authUser.name || authUser.roleId === 1 ) ? <td>
       <a className="btn-floating btn-large waves-effect waves-light red"
        onClick={() => { handleClick(document.id); }}>
         <i className="material-icons">delete</i>
        </a>
-      </td>
+      </td> : <td></td>}
         {document.User.name === authUser.name
           ? <td>
             <a className="btn-floating btn-large waves-effect waves-light red"
@@ -26,7 +26,7 @@ const DocListTable = ({ document, handleClick, authUser }) =>
           {() => browserHistory.push(`/documents/${document.id}/edit`)}>
           <i className="material-icons">mode_edit</i>
           </a>
-          </td> : ''}
+          </td> : <td></td>}
 </tr>
   ;
 

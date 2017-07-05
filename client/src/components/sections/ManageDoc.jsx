@@ -53,12 +53,22 @@ class ManageDoc extends React.Component {
     this.setState({ documents: nextProps.documents });
   }
   /**
+   * 
+   * 
+   * 
+   * @memberof ManageUser
+   */
+  componentWilUnmount() {
+    this.setState({});
+  }
+  /**
    *
    *
    * @param {any} docId
    *
    * @memberof ManageDoc
    */
+  
   handleClick(docId) {
     this.props.actions.deleteDoc(docId);
   }
