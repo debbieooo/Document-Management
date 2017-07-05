@@ -30,7 +30,10 @@ export default function docReducer(state = initialState.documents, action) {
         state,
         { documents: [...state.documents].map((document) => {
           if (document.id === action.document.id) {
-            return action.document;
+            return Object.assign({}, document, {
+              title: action.document.title,
+              content: action.document.content
+            });
           }
           return document;
         }) });

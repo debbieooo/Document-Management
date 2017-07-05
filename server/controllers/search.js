@@ -25,7 +25,11 @@ module.exports = {
       offset
     })
       .then((user) => {
-        res.status(200)
+        if(user.rows.length < 1) {
+         return res.status(404)
+          .send({ message: `${query}cannot be found on the database` }); 
+        }
+        return res.status(200)
           .send({
             user: user.rows,
             metadata: {
@@ -37,10 +41,6 @@ module.exports = {
             }
           });
       })
-      .catch(() => {
-        res.status(404)
-          .send({ message: `${query}cannot be found on the database` });
-      });
   },
   /**
    *
@@ -54,7 +54,7 @@ module.exports = {
     const limit = parseInt(req.query.limit, 10) || 4;
     const query = req.query.title;
     let where = {};
-    if (role !== 1) {
+    if (role === 1) {
       where = { title: { $iLike: `%${query}%` } };
     } else {
       where = { title: { $iLike: `%${query}%` }, access: 'Public' };
@@ -70,7 +70,11 @@ module.exports = {
       }
     })
       .then((result) => {
-        res.status(200)
+        if (result.count < 1) {
+          return res.status(404)
+            .send({ message: `${query} cannot be found on the database` });
+        }
+        return res.status(200)
           .send({
             result,
             metadata: {
@@ -78,13 +82,8 @@ module.exports = {
               searchTerm: query,
               pageCount: Math.floor(result.count / limit),
               pageSize: limit
-
             }
           });
-      })
-      .catch(() => {
-        res.status(404)
-          .send({ message: `${query} cannot be found on the database` });
       });
   }
 

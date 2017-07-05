@@ -43,20 +43,8 @@
     "superInFunctions": true,
     "templateStrings": true
   },
-  "settings": {
-    "import/resolver": {
-      "webpack": {
-        "config": "webpack.config.js"
-      }
-    }
-  },
   "rules": {
     "import/no-unresolved": 0,
-    "import/no-duplicates": 0,
-    "import/no-absolute-path": 0,
-    "import/no-named-as-default": 0,
-    "import/no-extraneous-dependencies": 0,
-    "import/no-named-as-default-member":0,
     "import/extensions": ["error", "never", {
       "js": "never",
       "jsx": "always"
@@ -89,7 +77,7 @@
     ],
     "max-len": [2, 80, 2],
     "no-shadow": [1, { "allow": ["req", "res", "err"] }],
-    "require-jsdoc": [1, {
+    "require-jsdoc": [0, {
       "require": {
         "FunctionDeclaration": true,
         "MethodDefinition": true,
@@ -130,7 +118,7 @@
     "react/react-in-jsx-scope": 1,
     "react/self-closing-comp": 1,
     "react/sort-comp": 1,
-    "react/wrap-multilines": 0,
+    "react/wrap-multilines": 1,
     "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }]
   }
 }

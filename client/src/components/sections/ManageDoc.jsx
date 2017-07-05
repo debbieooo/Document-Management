@@ -38,8 +38,9 @@ class ManageDoc extends React.Component {
    * @memberof ManageDoc
    */
   componentDidMount() {
-    this.props.actions.doclist();
-    this.props.actions.activeUser();
+    this.props.actions.activeUser().then(() => {
+      this.props.actions.doclist();
+    });
   }
   /**
    *
@@ -109,9 +110,9 @@ class ManageDoc extends React.Component {
    */
 
   render() {
-    const { authUser } = this.state;
-    const documents
-      = this.state.searching ? this.props.search : this.state.documents;
+    const { authUser } = this.props;
+    const documents = this.state.searching ?
+      this.props.search : this.state.documents;
 
     return (
       <div>

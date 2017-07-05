@@ -54,7 +54,6 @@ class ManageUser extends React.Component {
    * @memberof ManageUser
    */
   componentWillReceiveProps(nextProps) {
-    console.log('this is next props', nextProps);
     this.setState({ users: nextProps.users });
   }
 /**
@@ -65,7 +64,6 @@ class ManageUser extends React.Component {
  * @memberof ManageUser
  */
   handlePageChange(page) {
-    console.log('going to page', this.state.limit, page, (page - 1) * this.state.limit);
     this.props.actions.userlist(
       this.state.limit, (page - 1) * this.state.limit
     );
@@ -103,7 +101,6 @@ class ManageUser extends React.Component {
    */
   render() {
     const users = this.state.searching ? this.props.search : this.state.users;
-    console.log(this.props.metadata);
     return (
       <div>
       {this.props.users && this.props.users.length > 1

@@ -25,7 +25,7 @@ const onEnter = (nextState, replace) => {
 export default
 <Route>
  <Route path="/" component={Login} />
-  <Route path="/" component={Login} />
+  <Route path="/login" component={Login} />
    <Route path="/signup" component={SignUp} />
   <Route path="/home" component={App} onEnter = {onEnter}>
     <IndexRoute component={ManageDoc} />

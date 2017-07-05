@@ -2,10 +2,11 @@
 module.exports = (sequelize, DataTypes) => {
   const Documents = sequelize.define('Documents', {
     title: {
-      type: DataTypes.STRING
+      type: DataTypes.STRING,
+      allowNull: false
     },
     content: {
-      type: DataTypes.STRING,
+      type: DataTypes.TEXT,
       allowNull: false,
       validate: {
         len: {

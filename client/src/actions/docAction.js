@@ -34,10 +34,10 @@ export function deleteDocs(id) {
  * @param {any} id
  * @returns
  */
-export function updateDocs(id) {
+export function updateDocs(document) {
   return {
     type: types.UPDATE_DOCUMENTS_SUCCESS,
-    id
+    document
   };
 }
 /**

@@ -51,6 +51,10 @@ class UpdateDoc extends React.Component {
   componentWillReceiveProps(nextProps) {
     this.setState({ document: nextProps.document });
   }
+
+  componentWillUnmount() {
+    this.setState({document: {}});
+  }
   /**
    *
    *

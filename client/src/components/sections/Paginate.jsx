@@ -8,7 +8,6 @@ import React from 'react';
  */
 function pageNumber(pageCount, handleChange, currentPage) {
   const pageNum = [];
-  console.log('mounting', pageCount);
   for (let page = 1; page <= pageCount; page += 1) {
     pageNum.push(
       <li
