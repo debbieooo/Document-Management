@@ -110,6 +110,7 @@ export function signUp(user) {
     dispatch({ type: 'Error', error: error.response.data });
   });
 }
+
 /**
  *
  *
@@ -126,7 +127,7 @@ export function login(user) {
     return response.data.token;
   })
   .catch((error) => {
-    dispatch({ type: 'Error', error: error.response.data });
+    dispatch({ type: types.LOGIN_USER_FAILED });
   });
 }
 /**

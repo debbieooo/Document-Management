@@ -30,6 +30,15 @@ class Nav extends React.Component {
     this.props.actions.activeUser();
   }
   /**
+   * 
+   * 
+   * 
+   * @memberof Nav
+   */
+  componentWillUnmount() {
+
+  }
+  /**
    *
    *
    *
