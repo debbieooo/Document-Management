@@ -21,11 +21,33 @@ class Login extends React.Component {
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
-
+/**
+ * 
+ * 
+ * 
+ * @memberof Login
+ */
   componentDidMount() {
     $(document).ready(function () {
       $('.slider').slider();
     });
+  }
+  /**
+   * 
+   * 
+   * @param {any} nextProps 
+   * 
+   * @memberof Login
+   */
+  componentWillReceiveProps(nextProps) {
+    console.log('nextProps', nextProps, this.props);
+    if(!this.props.user.isAuthenticated && nextProps.user.isAuthenticated) {
+     return browserHistory.push('/home'); 
+    }
+    return this.setState({error: nextProps.user.error})
+  }
+  componentWillUnmount() {
+    this.setState({});
   }
   /**
    *
@@ -36,14 +58,11 @@ class Login extends React.Component {
    */
   handleSubmit(event) {
     event.preventDefault();
-    this.props.actions.login(this.state.user)
-      .then((token) => {
-        browserHistory.push('/home');
-      })
-      .catch((error) => {
-        this.setState({ error: 'Wrong input details' });
-      });
+    const { email, password } = this.state.user;
+    const loginUser = { email, password };
+    this.props.actions.login(loginUser);
   }
+
   /**
    *
    *
@@ -143,7 +162,7 @@ class Login extends React.Component {
  */
 function mapStateToProps(state) {
   return {
-    user: state.user
+    user: state.authUser
   };
 }
 /**

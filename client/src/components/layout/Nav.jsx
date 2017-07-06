@@ -1,8 +1,8 @@
-import React from 'react';
-import { browserHistory, Link } from 'react-router';
-import { connect } from 'react-redux';
+import React, { PropTypes } from 'react';
 import { bindActionCreators } from 'redux';
-import { activeUser } from '../../actions/userAction';
+import { connect } from 'react-redux';
+import { browserHistory, Link } from 'react-router';
+import * as userActions from '../../actions/userAction';
 
 
 class Nav extends React.Component {
@@ -30,6 +30,15 @@ class Nav extends React.Component {
     this.props.actions.activeUser();
   }
   /**
+   * 
+   * 
+   * 
+   * @memberof Nav
+   */
+  componentWillUnmount() {
+    this.setState({});
+  }
+  /**
    *
    *
    *
@@ -37,6 +46,7 @@ class Nav extends React.Component {
    */
   handleClick() {
     window.localStorage.removeItem('token');
+    this.props.actions.logout();
     browserHistory.push('/');
   }
 /**
@@ -85,9 +95,7 @@ function mapStateToProps(state) {
  */
 function mapDispatchToProps(dispatch) {
   return {
-    actions: bindActionCreators({
-      activeUser }, dispatch
-      )
+    actions: bindActionCreators(userActions, dispatch)
   };
 }
 export default connect(mapStateToProps, mapDispatchToProps)(Nav);

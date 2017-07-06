@@ -23,7 +23,29 @@ export default function userReducer(state = initialState.authUser, action) {
     case types.LOGIN_USER_SUCCESS: {
       const authUser = {
         ...action.user,
-        isAuthenticated: true
+        isAuthenticated: true,
+        error: null
+      };
+      return Object.assign({}, state, authUser);
+    }
+    case types.LOGIN_USER_FAILED: {
+      const authUser = {
+        error: 'Invalid email/password',
+        isAuthenticated: false
+      };
+      return Object.assign({}, state, authUser);
+    }
+    case types.LOGOUT_SUCCESSFUL: {
+      const authUser = {
+      isAuthenticated: false,
+      user: null
+    }
+    return Object.assign({}, state, authUser);
+    }
+    case types.CLEAR_ERROR : {
+      const authUser = {
+        error: null,
+        isAuthenticated: false
       };
       return Object.assign({}, state, authUser);
     }

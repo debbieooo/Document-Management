@@ -184,6 +184,7 @@ module.exports = {
    */
   update(req, res) {
     const userId = req.decoded.id;
+    console.log('req.body',req.body)
     return Users
       .findOne({
         where: { id: req.params.id },

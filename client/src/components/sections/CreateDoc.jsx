@@ -16,14 +16,35 @@ class CreateDoc extends React.Component {
     };
     this.submit = this.submit.bind(this);
   }
+  /**
+   * 
+   * 
+   * 
+   * @memberof CreateDoc
+   */
+  componentWillUnmount() {
 
+  }
+/**
+ * 
+ * 
+ * @param {any} document 
+ * 
+ * @memberof CreateDoc
+ */
   submit(document) {
     this.props.actions.createDoc(document)
     .then(() => {
       browserHistory.push('/documents');
     });
   }
-
+/**
+ * 
+ * 
+ * @returns 
+ * 
+ * @memberof CreateDoc
+ */
   render() {
     console.log('create document');
     return (
