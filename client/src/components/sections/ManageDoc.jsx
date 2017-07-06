@@ -153,8 +153,6 @@ class ManageDoc extends React.Component {
 }
 
 ManageDoc.propTypes = {
-  documents: PropTypes.array.isRequired,
-  users: PropTypes.array.isRequired,
   authUser: PropTypes.object.isRequired
 };
 ManageDoc.defaultProps = {

@@ -40,10 +40,14 @@ class Login extends React.Component {
    * @memberof Login
    */
   componentWillReceiveProps(nextProps) {
+    console.log('nextProps', nextProps, this.props);
     if(!this.props.user.isAuthenticated && nextProps.user.isAuthenticated) {
      return browserHistory.push('/home'); 
     }
     return this.setState({error: nextProps.user.error})
+  }
+  componentWillUnmount() {
+    this.setState({});
   }
   /**
    *
@@ -54,7 +58,9 @@ class Login extends React.Component {
    */
   handleSubmit(event) {
     event.preventDefault();
-    this.props.actions.login(this.state.user);
+    const { email, password } = this.state.user;
+    const loginUser = { email, password };
+    this.props.actions.login(loginUser);
   }
 
   /**

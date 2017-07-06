@@ -35,6 +35,13 @@ export default function userReducer(state = initialState.authUser, action) {
       };
       return Object.assign({}, state, authUser);
     }
+    case types.LOGOUT_SUCCESSFUL: {
+      const authUser = {
+      isAuthenticated: false,
+      user: null
+    }
+    return Object.assign({}, state, authUser);
+    }
     case types.CLEAR_ERROR : {
       const authUser = {
         error: null,
