@@ -35,7 +35,6 @@ class ViewDoc extends React.Component {
  * @memberof ViewDoc
  */
   componentWillReceiveProps(nextProps) {
-    console.log(nextProps);
     this.setState({ document: nextProps.document });
   }
 /**
@@ -55,7 +54,6 @@ class ViewDoc extends React.Component {
    * @memberof ViewDoc
    */
 createMarkup() {
-  console.log(this.state.document)
   return {__html: this.state.document.content};
 }
 /**
@@ -66,7 +64,6 @@ createMarkup() {
  * @memberof ViewDoc
  */
   render() {
-    console.log(this.state);
     return (
       <div>
         {this.state.document.title
@@ -93,7 +90,6 @@ ViewDoc.defaultProps = {
  * @returns
  */
 function mapStateToProps(state) {
-  console.log('state',state.documents)
   return {
     document: state.documents.document
   };

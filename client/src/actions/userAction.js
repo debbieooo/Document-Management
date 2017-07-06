@@ -107,7 +107,7 @@ export function signUp(user) {
     return response.data.token;
   })
   .catch((error) => {
-    dispatch({ type: 'Error', error: error.response.data });
+    dispatch({ type: types.LOGIN_USER_FAILED });
   });
 }
 
@@ -127,7 +127,7 @@ export function login(user) {
     return response.data.token;
   })
   .catch((error) => {
-    dispatch({ type: types.LOGIN_USER_FAILED });
+    dispatch({ type: types.SIGNUP_USER_FAILED });
   });
 }
 export function logout(){
@@ -185,7 +185,6 @@ export function activeUser() {
     dispatch(getUser(response.data));
   })
   .catch((error) => {
-    console.log(error)
     dispatch({ type: 'Error', error: error.response.data });
   });
 }

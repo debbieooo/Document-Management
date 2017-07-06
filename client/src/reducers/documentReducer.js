@@ -38,7 +38,6 @@ export default function docReducer(state = initialState.documents, action) {
           return document;
         }) });
     case types.FETCH_DOCUMENT_SUCCESS:
-      console.log('fetch', action.document);
       return Object.assign({}, state, { document: action.document });
 
     case types.CREATE_DOCUMENTS_SUCCESS:

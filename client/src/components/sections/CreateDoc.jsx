@@ -46,7 +46,6 @@ class CreateDoc extends React.Component {
  * @memberof CreateDoc
  */
   render() {
-    console.log('create document');
     return (
       <div>
          <TextEditor onClick={this.submit} />
