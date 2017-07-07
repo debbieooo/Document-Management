@@ -19,7 +19,7 @@
     "test": "NODE_ENV=test nyc --reporter=html --reporter=text mocha --require server/tests/helper.js server/tests/**/*.spec.js --compilers js:babel-register",
     "test:coverage": "nyc report --reporter=text-lcov | coveralls",
     "test:e2e": "./node_modules/.bin/nightwatch --config nightwatch.json",
-    "test:frontend": "NODE_ENV=test nyc --reporter=html --reporter=text mocha client/tests/**/*.js --compilers js:babel-register"
+    "test:frontend": "NODE_ENV=test nyc --reporter=html --reporter=text mocha --require client/tests/helper.js client/tests/**/*.js --compilers js:babel-register"
   },
   "nyc": {
     "exclude": [
@@ -49,6 +49,7 @@
     "file-loader": "^0.11.2",
     "istanbul": "^0.4.5",
     "js-cookie": "^2.1.4",
+    "jsdom": "^9.12.0",
     "jsonwebtoken": "^7.4.1",
     "lodash": "^4.17.4",
     "materialize-css": "^0.99.0",
