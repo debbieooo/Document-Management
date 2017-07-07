@@ -40,12 +40,17 @@ class Login extends React.Component {
    * @memberof Login
    */
   componentWillReceiveProps(nextProps) {
-    console.log('nextProps', nextProps, this.props);
     if(!this.props.user.isAuthenticated && nextProps.user.isAuthenticated) {
      return browserHistory.push('/home'); 
     }
     return this.setState({error: nextProps.user.error})
   }
+  /**
+   * 
+   * 
+   * 
+   * @memberof Login
+   */
   componentWillUnmount() {
     this.setState({});
   }
@@ -145,15 +150,6 @@ class Login extends React.Component {
     );
   }
 }
-// Login.propTypes = {
-//   handleChange: React.PropTypes.func,
-//   handleSubmit: React.PropTypes.func
-// };
-
-// Login.defaultProps = {
-//   handleChange: () => null,
-//   handleSubmit: () => null
-// };
 /**
  *
  *

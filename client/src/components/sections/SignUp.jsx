@@ -24,10 +24,38 @@ class SignUp extends React.Component {
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
+  /**
+   * 
+   * 
+   * 
+   * @memberof SignUp
+   */
   componentDidMount() {
     $(document).ready(function () {
       $('.slider').slider();
     });
+  }
+  /**
+   * 
+   * 
+   * @param {any} nextProps 
+   * 
+   * @memberof SignUp
+   */
+ componentWillReceiveProps(nextProps) {
+    if(!this.props.user.isAuthenticated && nextProps.user.isAuthenticated) {
+     return browserHistory.push('/home'); 
+    }
+    return this.setState({error: nextProps.user.error})
+  }
+  /**
+   * 
+   * 
+   * 
+   * @memberof SignUp
+   */
+  componentWillUnmount() {
+    this.setState({});
   }
   /**
    *
@@ -40,12 +68,6 @@ class SignUp extends React.Component {
     event.preventDefault();
     if (this.passwordConfirmation()) {
       this.props.actions.signUp(this.state.user)
-        .then((token) => {
-          browserHistory.push('/home');
-        })
-        .catch((error) => {
-          this.setState({ error: 'Wrong input details' });
-        });
     } else {
       this.setState({ error: 'Passwords do not match' });
     }
@@ -185,7 +207,7 @@ class SignUp extends React.Component {
  */
 function mapStateToProps(state) {
   return {
-    user: state.user
+    user: state.authUser
   };
 }
 /**

@@ -137,7 +137,6 @@ export function findDoc(id) {
   axios.defaults.headers.common.Authorization = token;
   return dispatch => axios.get(`/api/v1/documents/${id}`)
   .then((response) => {
-    console.log('response', response);
     dispatch(fetchDoc(response.data.documents));
   })
   .catch((error) => {

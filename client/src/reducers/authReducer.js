@@ -11,7 +11,13 @@ export default function userReducer(state = initialState.authUser, action) {
       };
       return Object.assign({}, state, authUser);
     }
-
+    case types.SIGNUP_USER_FAILED: {
+      const authUser = {
+        error: 'OOPS!, AN ERROR OCCURED :P',
+        isAuthenticated: false
+      };
+      return Object.assign({}, state, authUser);
+    }
     case types.CURRENT_USER_INFO: {
       const authUser = {
         ...action.user,
