@@ -17,19 +17,19 @@ class CreateDoc extends React.Component {
     this.submit = this.submit.bind(this);
   }
   /**
-   * 
-   * 
-   * 
+   *
+   *
+   *
    * @memberof CreateDoc
    */
   componentWillUnmount() {
 
   }
 /**
- * 
- * 
- * @param {any} document 
- * 
+ *
+ *
+ * @param {any} document
+ *
  * @memberof CreateDoc
  */
   submit(document) {
@@ -39,15 +39,16 @@ class CreateDoc extends React.Component {
     });
   }
 /**
- * 
- * 
- * @returns 
- * 
+ *
+ *
+ * @returns
+ *
  * @memberof CreateDoc
  */
   render() {
     return (
       <div>
+        <h5>New Document</h5>
          <TextEditor onClick={this.submit} />
       </div>
     );

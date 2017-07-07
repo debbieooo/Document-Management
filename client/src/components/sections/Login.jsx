@@ -21,29 +21,29 @@ class Login extends React.Component {
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
-/**
- * 
- * 
- * 
+  /**
+ *
+ *
+ *
  * @memberof Login
  */
   componentDidMount() {
-    $(document).ready(function () {
+    $(document).ready(() => {
       $('.slider').slider();
     });
   }
   /**
-   * 
-   * 
-   * @param {any} nextProps 
-   * 
+   *
+   *
+   * @param {any} nextProps
+   *
    * @memberof Login
    */
   componentWillReceiveProps(nextProps) {
-    if(!this.props.user.isAuthenticated && nextProps.user.isAuthenticated) {
-     return browserHistory.push('/home'); 
+    if (!this.props.user.isAuthenticated && nextProps.user.isAuthenticated) {
+      return browserHistory.push('/home');
     }
-    return this.setState({error: nextProps.user.error})
+    return this.setState({ error: nextProps.user.error });
   }
   /**
    * 
@@ -98,43 +98,58 @@ class Login extends React.Component {
             <img src="/images/Landing.png" />
             <div className="caption center-align">
               <h3 id="landing-text">Doc Manager</h3>
-              <h5 className="light grey-text text-lighten-3">Document Management System</h5>
+              <h5
+                className="light grey-text text-lighten-3"
+              >
+              Document Management System
+              </h5>
               <div className="row">
                 <h4>Login</h4>
-                <form className="col s12 offset-s3" onSubmit={this.handleSubmit}>
+                <form
+                  className="col s12 offset-s3"
+                  onSubmit={this.handleSubmit}
+                >
                   <div className="row">
                     <div className="input-field col s6 ">
-                      <input placeholder="Email"
+                      <input
+placeholder="Email"
+                        required="required"
                         name="email"
                         id="email"
                         type="email"
                         className="validate input"
                         value={this.state.email}
-                        onChange={this.handleChange} />
+                        onChange={this.handleChange}
+                      />
                     </div>
-                    </div>
-                    <div className = "row">
-                    <div className="input-field col s6">
-                      <input placeholder="Password"
+                  </div>
+                  <div className ="row">
+                      <div className="input-field col s6">
+                      <input
+placeholder="Password"
+                        required="required"
                         name="password"
                         id="password"
                         type="password"
                         className="validate"
                         value={this.state.password}
-                        onChange={this.handleChange} />
+                        onChange={this.handleChange}
+                      />
                     </div>
-                  </div>
-                  <div className= "row col s6">
-                  <button className="btn waves-effect waves-light"
-                    id= "button"
-                    type="submit"
-                    name="action"
-                    value="submit">
+                    </div>
+                  <div className="row col s6">
+                    <button
+className="btn waves-effect waves-light"
+                      id="login-button"
+                      type="submit"
+                      name="action"
+                      value="submit"
+                  >
                     Login
-<i className="material-icons right">
+                      <i className="material-icons right">
                       send
-                  </i>
-                  </button>
+                      </i>
+                    </button>
                   </div>
                   {this.state.error && <div><h5>{this.state.error}</h5></div>}
                 </form>
@@ -143,10 +158,10 @@ class Login extends React.Component {
                 <Link to="/signup" className=" disabled">New User?</Link>
               </div>
             </div>
-      </li>
-    </ul>
-  </div >
-      
+          </li>
+        </ul>
+      </div >
+
     );
   }
 }

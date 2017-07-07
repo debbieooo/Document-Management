@@ -5,8 +5,9 @@ module.exports = {
   /**
    *
    *
-   * @param {any} req
-   * @param {any} res
+    * @param {any} req request
+   * @param {any} res response
+   * @returns {null} nothing
    */
   create(req, res) {
     Role
@@ -15,19 +16,19 @@ module.exports = {
       })
       .then(
         role => res.status(201).send(role))
-       .catch(error => res.status(400).send({
-         message: `This Role could not be created ${error}` }));
+      .catch(error => res.status(400).send({
+        message: `This Role could not be created ${error}` }));
   },
   /**
    *
    *
-   * @param {any} req
-   * @param {any} res
-   * @returns
+    * @param {any} req request
+   * @param {any} res response
+   * @returns {null} nothing
    */
   getAll(req, res) {
     return Role.findAll({})
-      .then(roles => res.status(201).send(roles))
+      .then(roles => res.status(201).send(roles));
   }
 };
 

@@ -9,8 +9,8 @@ import SearchBox from './SearchBox.jsx';
 class ManageUser extends React.Component {
   /**
    * Creates an instance of ManageUser.
-   * @param {any} props
-   * @param {any} context
+   * @param {any} props from react component
+   * @param {any} context from react
    *
    * @memberof ManageUser
    */
@@ -30,7 +30,7 @@ class ManageUser extends React.Component {
   /**
    *
    *
-   *
+   * @returns {null} returns nothing
    * @memberof ManageUser
    */
   componentDidMount() {
@@ -39,37 +39,37 @@ class ManageUser extends React.Component {
   /**
    *
    *
-   * @param {any} userId
-   *
-   * @memberof ManageUser
-   */
-  handleClick(userId) {//eslint-disable-line
-    this.props.actions.deleteAcc(userId);
-  }
-  /**
-   *
-   *
-   * @param {any} nextProps
-   *
+   * @param {any} nextProps for this.props
+   * @returns {null} returns nothing
    * @memberof ManageUser
    */
   componentWillReceiveProps(nextProps) {
     this.setState({ users: nextProps.users });
   }
   /**
-   * 
-   * 
-   * 
+   *
+   *
+   * @returns {null} returns nothing
    * @memberof ManageUser
    */
   componentWilUnmount() {
     this.setState({});
   }
-/**
+  /**
+   *
+   *
+   * @param {any} userId params
+   * @returns {null} returns nothing
+   * @memberof ManageUser
+   */
+  handleClick(userId) {//eslint-disable-line
+    this.props.actions.deleteAcc(userId);
+  }
+  /**
  *
  *
- * @param {any} event
- *
+ * @param {any} page parameter
+ * @returns {null} returns nothing
  * @memberof ManageUser
  */
   handlePageChange(page) {
@@ -80,8 +80,8 @@ class ManageUser extends React.Component {
   /**
    *
    *
-   * @param {any} event
-   *
+   * @param {any} event parameter
+   * @returns {null} returns nothing
    * @memberof ManageUser
    */
   inputChange(event) {
@@ -93,8 +93,8 @@ class ManageUser extends React.Component {
   /**
    *
    *
-   * @param {any} event
-   *
+   * @param {any} event parameter
+   * @returns {null} returns nothing
    * @memberof ManageUser
    */
   handleSearch(event) {
@@ -104,33 +104,33 @@ class ManageUser extends React.Component {
   /**
    *
    *
-   * @returns
+   * @returns {null} returns nothing
    *
    * @memberof ManageUser
    */
   render() {
     const users = this.state.searching ? this.props.search : this.state.users;
     return (
-      <div>
-      {this.props.users && this.props.users.length > 1
-        ? <div>
-        <div className="row">
-          <div className="col s12">
-            <SearchBox onChange = {this.handleSearch}/>
+      <div id="manage-users" className="manage-users">
+        {this.props.users && this.props.users.length > 1
+          ? <div>
+            <div className="row">
+              <div className="col s12">
+                <SearchBox onChange={this.handleSearch} />
+              </div>
+            </div>
+            <UserList users={users} onClick={this.handleClick} />
+            {!this.state.searching ?
+              <div className="col s12">
+                <Paginate
+                  pageCount={this.props.metadata.pageCount}
+                  handleChange={this.handlePageChange}
+                  currentPage={this.props.metadata.page}
+                />
+              </div> : ''}
           </div>
-        </div>
-        <UserList users = {users} onClick ={this.handleClick}/>
-        {!this.state.searching ?
-            <div className="col s12">
-              <Paginate
-                pageCount={this.props.metadata.pageCount}
-                handleChange={this.handlePageChange}
-                currentPage={this.props.metadata.page}
-              />
-            </div> : ''}
-      </div>
-      : <img src="default.gif" />
-      }
+          : <img src="default.gif" />
+        }
       </div>
     );
   }
@@ -144,8 +144,8 @@ ManageUser.defaultProps = {
 /**
  *
  *
- * @param {any} state
- * @returns
+ * @param {any} state parameter
+ * @returns {null} returns nothing
  */
 function mapStateToProps(state) {
   return {
@@ -157,8 +157,8 @@ function mapStateToProps(state) {
 /**
  *
  *
- * @param {any} dispatch
- * @returns
+ * @param {any} dispatch params
+ * @returns {null} returns nothing
  */
 function mapDispatchToProps(dispatch) {
   return {

@@ -66,10 +66,10 @@ class Nav extends React.Component {
        <li className= "orange-text text-darken-4"><b>Hi {authUser.name}! </b></li>
     {authUser.roleId === 1 ? <li><Link to="/users">Users</Link></li> : ''}
          <li> <Link to="/documents">Documents</Link></li>
-          <li><Link to="/documents/create">New Document</Link>
+          <li><Link to="/documents/create" id="newDocument">New Document</Link>
 </li>
-        <li><Link to="/profile"> Edit Profile?</Link></li>
-        <li><a className= "right" onClick= {this.handleClick} >Logout</a></li>
+        <li><Link to="/profile" id="profile"> Edit Profile?</Link></li>
+        <li><a className= "right" id="logout" onClick= {this.handleClick} >Logout</a></li>
       </ul>
     </div>
   </nav>

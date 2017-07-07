@@ -8,7 +8,7 @@ const UserListRow = ({ user, handleClick }) =>
      <td><Link to ={`/user/${user.id}`}> {user.userName}</Link> </td>
      <td> <a className="btn-floating btn-large waves-effect waves-light red"
       onClick={() => { handleClick(user.id); }}>
-       <i className="material-icons">delete</i>
+       <i className="material-icons" id="btn-delete-user">delete</i>
       </a></td>
     </tr>
   ;

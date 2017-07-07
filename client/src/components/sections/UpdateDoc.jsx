@@ -4,7 +4,8 @@ import { browserHistory } from 'react-router';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as docActions from '../../actions/docAction';
-class UpdateDoc extends React.Component {
+
+export class UpdateDoc extends React.Component {
   /**
    * Creates an instance of UpdateDoc.
    * @param {any} props

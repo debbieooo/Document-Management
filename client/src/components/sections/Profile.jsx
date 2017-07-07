@@ -95,7 +95,8 @@ class Profile extends React.Component {
     const { authUser } = this.state;
 
     return (
-      <div>
+      <div id="profile" className="profile"> 
+        <h5>Edit Profile</h5>
         {authUser.name
         ? <form className="col s12" onSubmit={this.handleSubmit}>
           <div className="row">
@@ -156,6 +157,7 @@ class Profile extends React.Component {
           <div className="row">
             <button
             className="btn waves-effect waves-light"
+            id="editProfile"
              type="submit"
              name="action">
              Submit

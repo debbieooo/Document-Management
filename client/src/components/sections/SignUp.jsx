@@ -111,13 +111,14 @@ class SignUp extends React.Component {
           <li>
             <img src="/images/Landing.png" />
             <div className="caption center-align">
-              <h3 id="landing-text" id="app-name">Doc Manager</h3>
+              <h3 id="landing-text">Doc Manager</h3>
               <h3>Sign up</h3>
               <div className="row">
                 <form className="col s12 offset-s3" onSubmit={this.handleSubmit}>
                   <div className="row">
                     <div className="input-field col s6">
                       <input placeholder="Name"
+                        required="required"
                         name="name"
                         id="name"
                         type="text"
@@ -131,6 +132,7 @@ class SignUp extends React.Component {
                     <div className="row">
                       <div className="input-field col s3">
                         <input placeholder="Username"
+                          required="required"
                           name="userName"
                           id="userName"
                           type="text"
@@ -141,6 +143,7 @@ class SignUp extends React.Component {
                    
                       <div className="input-field col s3">
                         <input placeholder="Email"
+                          required="required"
                           name="email"
                           id="email"
                           type="email"
@@ -152,6 +155,7 @@ class SignUp extends React.Component {
                     <div className="row">
                       <div className="input-field col s3">
                         <input placeholder="Password"
+                          required="required"
                           name="password"
                           id="password"
                           type="password"
@@ -162,8 +166,9 @@ class SignUp extends React.Component {
 
                       <div className="input-field col s3">
                         <input placeholder="Confirm Password"
+                          required="required"
                           name="confirmPassword"
-                          id="password"
+                          id="confirmPassword"
                           type="password"
                           className="validate"
                           value={this.state.confirmPassword}
@@ -177,7 +182,7 @@ class SignUp extends React.Component {
                     </div>
                     <div className="row">
                       <button className="btn waves-effect waves-light col s3"
-                        id="button"
+                        id="submit-btn"
                         type="submit"
                         name="action"
                         value="submit">

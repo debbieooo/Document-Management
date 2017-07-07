@@ -4,9 +4,9 @@ const Documents = require('../models').Documents;
 module.exports = {
   /**
    *
-   *
-   * @param {any} req
-   * @param {any} res
+    * @param {any} req request
+   * @param {any} res response
+   * @returns {null} nothing
    */
   searchUser(req, res) {
     const offset = parseInt(req.query.offset, 10) || 0;
@@ -14,7 +14,7 @@ module.exports = {
     const query = req.query.name;
     Users.findAndCountAll({
       order: '"createdAt" DESC',
-      where :{
+      where: {
         $or: [{
           userName: { $iLike: `%${req.query.q}%` }
         }, {
@@ -25,9 +25,9 @@ module.exports = {
       offset
     })
       .then((user) => {
-        if(user.rows.length < 1) {
-         return res.status(404)
-          .send({ message: `${query}cannot be found on the database` }); 
+        if (user.rows.length < 1) {
+          return res.status(404)
+            .send({ message: `${query}cannot be found on the database` });
         }
         return res.status(200)
           .send({
@@ -40,13 +40,13 @@ module.exports = {
               pageSize: limit
             }
           });
-      })
+      });
   },
   /**
    *
-   *
-   * @param {any} req
-   * @param {any} res
+    * @param {any} req request
+   * @param {any} res response
+   * @returns {null} nothing
    */
   searchDocs(req, res) {
     const role = req.decoded.role;

@@ -80,6 +80,7 @@ class TextEditor extends React.Component {
               <div className="input-field col s8">
                 <input id="textarea1"
                 className="materialize-textarea"
+                name="title"
                 value= {this.state.title}
                 onChange = {this.handleInput} />
                 <label className="active" htmlFor="textarea1">Title</label>
@@ -122,6 +123,7 @@ class TextEditor extends React.Component {
         onClick={this.handleSubmit}>Submit
         </button>
         <button className="btn"
+        id="newDocumentBtn"
         type="submit"
         name="action"
         onClick={() => browserHistory.goBack()}> Cancel </button>

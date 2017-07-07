@@ -11,8 +11,8 @@ import Paginate from './Paginate.jsx';
 class ManageDoc extends React.Component {
   /**
    * Creates an instance of ManageDoc.
-   * @param {any} props
-   * @param {any} context
+   * @param {any} props from react component
+   * @param {any} context from react
    *
    * @memberof ManageDoc
    */
@@ -34,7 +34,7 @@ class ManageDoc extends React.Component {
   /**
    *
    *
-   *
+   * @returns {null} returns nothing
    * @memberof ManageDoc
    */
   componentDidMount() {
@@ -45,17 +45,17 @@ class ManageDoc extends React.Component {
   /**
    *
    *
-   * @param {any} nextProps
-   *
+   * @param {any} nextProps params
+   * @returns {null} returns nothing
    * @memberof ManageDoc
    */
   componentWillReceiveProps(nextProps) {
     this.setState({ documents: nextProps.documents });
   }
   /**
-   * 
-   * 
-   * 
+   *
+   *
+   * @returns {null} returns nothing
    * @memberof ManageUser
    */
   componentWilUnmount() {
@@ -64,31 +64,31 @@ class ManageDoc extends React.Component {
   /**
    *
    *
-   * @param {any} docId
-   *
+   * @param {any} docId param
+   * @returns {null} returns nothing
    * @memberof ManageDoc
    */
-  
   handleClick(docId) {
     this.props.actions.deleteDoc(docId);
   }
   /**
    *
-   *
-   * @param {any} event
+   * @returns {null} returns nothing
+   * @param {any} page params
    *
    * @memberof ManageDoc
    */
-  handlePageChange(event) {
+  handlePageChange(page) {
+    // console.log(this.props);
     this.props.actions.doclist(
-      this.state.limit, event.target.value * this.state.limit
+      this.state.limit, (page - 1) * this.state.limit
     );
   }
   /**
    *
    *
-   * @param {any} event
-   *
+   * @param {any} event params
+   * @returns {null} returns nothing
    * @memberof ManageDoc
    */
   inputChange(event) {
@@ -103,8 +103,8 @@ class ManageDoc extends React.Component {
   /**
    *
    *
-   * @param {any} event
-   *
+   * @param {any} event params
+   * @returns {null} returns nothing
    * @memberof ManageDoc
    */
   handleSearch(event) {
@@ -123,9 +123,9 @@ class ManageDoc extends React.Component {
     const { authUser } = this.props;
     const documents = this.state.searching ?
       this.props.search : this.state.documents;
-
+    console.log('rerender', documents);
     return (
-      <div>
+      <div id="manage-documents" className="manage-documents">
         {this.props.documents.length > 1
           ? <div>
             <div className="row">
@@ -162,9 +162,9 @@ ManageDoc.defaultProps = {
 };
 /**
  *
+ * @returns {null} returns nothing
+ * @param {any} state params
  *
- * @param {any} state
- * @returns
  */
 function mapStateToProps(state) {
   return {
@@ -178,8 +178,8 @@ function mapStateToProps(state) {
 /**
  *
  *
- * @param {any} dispatch
- * @returns
+ * @param {any} dispatch params
+ * @returns {null} returns nothing
  */
 function mapDispatchToProps(dispatch) {
   return {
