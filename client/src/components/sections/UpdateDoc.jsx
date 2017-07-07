@@ -29,9 +29,9 @@ export class UpdateDoc extends React.Component {
    */
   submit(document) {
     this.props.actions.updateDoc({ ...document, id: this.state.document.id })
-    // .then(() => {
-    //   browserHistory.goBack();
-    // });
+    .then(() => {
+      browserHistory.goBack();
+    });
   }
   /**
    *

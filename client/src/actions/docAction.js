@@ -2,8 +2,7 @@ import axios from 'axios';
 import * as types from './actionTypes';
 import { searchSuccess } from './userAction';
 /**
- *
- *
+ * 
  * @export 
  * @param {any} documents
  * @returns
