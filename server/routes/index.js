@@ -5,8 +5,6 @@ const authorization = require('../middleware/authorization');
 const search = require('../controllers/search');
 
 module.exports = (app) => {
-
-
 // Role routes
 /**
  * @swagger
@@ -87,8 +85,8 @@ module.exports = (app) => {
   app.get('/api/v1/roles', authorization.authorize, authorization.authorizeAdmin, roles.getAll);
 
 
-// User routes
-/**
+  // User routes
+  /**
  * @swagger
  * /api/v1/users/signup:
  *   post:
@@ -252,8 +250,8 @@ module.exports = (app) => {
  */
   app.get('/api/v1/users/:id/documents', authorization.authorize, users.findUserDoc);
 
-// Document routes
-/**
+  // Document routes
+  /**
  * @swagger
  * /api/v1/documents:
  *   post:
@@ -335,7 +333,7 @@ module.exports = (app) => {
  *         description: Successfully deleted
  */
   app.delete('/api/v1/documents/:id', authorization.authorize, documents.delete);
- /**
+  /**
  * @swagger
  * /api/v1/documents:
  *   get:
@@ -352,8 +350,8 @@ module.exports = (app) => {
  */
   app.get('/api/v1/documents', authorization.authorize, users.userDoclist);
 
-// Search routes
-/**
+  // Search routes
+  /**
  * @swagger
  * /api/v1/search/users:
  *   get:

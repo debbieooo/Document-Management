@@ -1,9 +1,15 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { browserHistory } from 'react-router';
 import * as userActions from '../../actions/userAction';
-
+/**
+ * 
+ * 
+ * @class Profile
+ * @extends {React.Component}
+ */
 class Profile extends React.Component {
   /**
    * Creates an instance of Profile.
@@ -17,7 +23,14 @@ class Profile extends React.Component {
     this.state = {
       user: Object.assign({}, props.user),
       error: '',
-      authUser: Object.assign({}, props.authUser, { password: '', confirmPassword: '' })
+      authUser: Object.assign(
+        {},
+        props.authUser,
+        {
+          password: '',
+          confirmPassword: ''
+        }
+      )
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -25,29 +38,32 @@ class Profile extends React.Component {
   /**
    *
    *
-   *
+   * @returns {null} null
    * @memberof Profile
    */
   componentDidMount() {
     this.props.actions.activeUser();
   }
-/**
- *
- *
- * @param {any} nextProps
- *
- * @memberof Profile
- */
+  /**
+   *
+   *
+   * @param {any} nextProps
+   * @returns {null} null
+   * @memberof Profile
+   */
   componentWillReceiveProps(nextProps) {
-    this.setState({ authUser: { ...nextProps.authUser } });
+    this.setState(
+      { authUser: { ...nextProps.authUser }
+      }
+    );
   }
-/**
- *
- *
- * @param {any} event
- *
- * @memberof Profile
- */
+  /**
+   *
+   *
+   * @param {any} event
+   * @returns {null} null
+   * @memberof Profile
+   */
   handleChange(event) {
     const name = event.target.name;
     const value = event.target.value;
@@ -58,7 +74,7 @@ class Profile extends React.Component {
   /**
    *
    *
-   * @returns
+   * @returns {state} state
    *
    * @memberof Profile
    */
@@ -69,7 +85,7 @@ class Profile extends React.Component {
    *
    *
    * @param {any} event
-   *
+   * @returns {state} state
    * @memberof Profile
    */
   handleSubmit(event) {
@@ -77,9 +93,9 @@ class Profile extends React.Component {
     if (this.passwordConfirmation()) {
       delete this.state.authUser.confirmPassword;
       this.props.actions.sendUserUpdate(this.state.authUser)
-      .then(() => {
-        browserHistory.push('/home');
-      });
+        .then(() => {
+          browserHistory.push('/home');
+        });
     } else {
       this.setState({ error: 'Passwords do not match' });
     }
@@ -87,7 +103,7 @@ class Profile extends React.Component {
   /**
    *
    *
-   * @returns
+   * @returns {div} element
    *
    * @memberof Profile
    */
@@ -95,76 +111,88 @@ class Profile extends React.Component {
     const { authUser } = this.state;
 
     return (
-      <div id="profile" className="profile"> 
+      <div id="profile" className="profile">
         <h5>Edit Profile</h5>
         {authUser.name
-        ? <form className="col s12" onSubmit={this.handleSubmit}>
-          <div className="row">
-            <div className="input-field col s6 ">
-              <input value={authUser.name}
-               id="first_name2"
-               type="text"
-               className="validate"
-               name="name"
-               onChange={this.handleChange} />
-              <label className="active">Name</label>
+          ? <form className="col s12" onSubmit={this.handleSubmit}>
+            <div className="row">
+              <div className="input-field col s6 ">
+                <input
+                  value={authUser.name}
+                  id="name"
+                  type="text"
+                  className="validate"
+                  name="name"
+                  onChange={this.handleChange}
+                />
+                <label className="active" >
+                  Name
+                </label>
+              </div>
             </div>
-          </div>
-          <div className="row">
-            <div className="input-field col s6">
-              <input
-              value={authUser.email}
-              id="first_name2"
-              type="text"
-              className="validate"
-              name="email"
-              onChange={this.handleChange} />
-              <label className="active">Email</label>
+            <div className="row">
+              <div className="input-field col s6">
+                <input
+                  value={authUser.email}
+                  id="first_name2"
+                  type="text"
+                  className="validate"
+                  name="email"
+                  onChange={this.handleChange}
+                />
+                <label className="active">Email</label>
+              </div>
             </div>
-          </div>
-          <div className="row">
-            <div className="input-field col s6">
-              <input value={authUser.userName}
-               id="userName"
-               type="text"
-               className="validate"
-               name="userName"
-               onChange={this.handleChange} />
-              <label className="active">Username</label>
+            <div className="row">
+              <div className="input-field col s6">
+                <input
+                  value={authUser.userName}
+                  id="userName"
+                  type="text"
+                  className="validate"
+                  name="userName"
+                  onChange={this.handleChange}
+                />
+                <label className="active">Username</label>
+              </div>
             </div>
-          </div>
-          <div className="row">
-            <div className="input-field col s6">
-              <input value={authUser.password}
-               id="password"
-               type="password"
-               name="password"
-               onChange={this.handleChange} />
-              <label className="active">Password</label>
+            <div className="row">
+              <div className="input-field col s6">
+                <input
+                  value={authUser.password}
+                  id="password"
+                  type="password"
+                  name="password"
+                  onChange={this.handleChange}
+                />
+                <label className="active">Password</label>
+              </div>
             </div>
-          </div>
-          <div className="row">
-            <div className="input-field col s6">
-              <input value={authUser.confirmPassword}
-               id="password"
-               type="password"
-               name="confirmPassword"
-               onChange={this.handleChange} />
-              <label className="active"> Confirm Password</label>
-              <span>{this.state.error}</span>
+            <div className="row">
+              <div className="input-field col s6">
+                <input
+                  value={authUser.confirmPassword}
+                  id="password"
+                  type="password"
+                  name="confirmPassword"
+                  onChange={this.handleChange}
+                />
+                <label className="active"> Confirm Password</label>
+                <span>{this.state.error}</span>
+              </div>
             </div>
-          </div>
-          <div className="row">
-            <button
-            className="btn waves-effect waves-light"
-            id="editProfile"
-             type="submit"
-             name="action">
-             Submit
-                </button>
-          </div>
-        </form>
-        : <img src="/images/default.gif" />
+            <div className="row">
+              <button
+                className="btn waves-effect waves-light"
+                id="editProfile"
+                type="submit"
+                name="action"
+              >
+                Submit
+              </button>
+            </div>
+          </form>
+          : <img src="/images/default.gif"alt="" />
         }
 
       </div>
@@ -172,16 +200,18 @@ class Profile extends React.Component {
   }
 }
 Profile.propTypes = {
-  users: PropTypes.array.isRequired
+  actions: PropTypes.object.isRequired,
+  authUser: PropTypes.object.isRequired,
+  user: PropTypes.object,
 };
 Profile.defaultProps = {
-  users: []
+  user: {}
 };
 /**
  *
  *
  * @param {any} state
- * @returns
+ * @returns {object} object
  */
 function mapStateToProps(state) {
   return {
@@ -194,7 +224,7 @@ function mapStateToProps(state) {
  *
  *
  * @param {any} dispatch
- * @returns
+ * @returns {object} object
  */
 function mapDispatchToProps(dispatch) {
   return {

@@ -1,9 +1,15 @@
 import * as types from '../actions/actionTypes';
 import initialState from './initialState';
-
+/**
+ * 
+ * 
+ * @export
+ * @param {any} [state=initialState.authUser] 
+ * @param {any} action 
+ * @returns {object} state
+ */
 export default function userReducer(state = initialState.authUser, action) {
   switch (action.type) {
-
     case types.CREATE_USER_SUCCESS: {
       const authUser = {
         ...action.user,
@@ -43,10 +49,10 @@ export default function userReducer(state = initialState.authUser, action) {
     }
     case types.LOGOUT_SUCCESSFUL: {
       const authUser = {
-      isAuthenticated: false,
-      user: null
-    }
-    return Object.assign({}, state, authUser);
+        isAuthenticated: false,
+        user: null
+      };
+      return Object.assign({}, state, authUser);
     }
     case types.CLEAR_ERROR : {
       const authUser = {

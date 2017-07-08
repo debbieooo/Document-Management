@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import DocList from './DocList.jsx';
@@ -7,7 +8,12 @@ import { activeUser } from '../../actions/userAction';
 import SearchBox from './SearchBox.jsx';
 import Paginate from './Paginate.jsx';
 
-
+/**
+ * 
+ * 
+ * @class ManageDoc
+ * @extends {React.Component}
+ */
 class ManageDoc extends React.Component {
   /**
    * Creates an instance of ManageDoc.
@@ -114,16 +120,14 @@ class ManageDoc extends React.Component {
   /**
    *
    *
-   * @returns
+   * @returns {div} element
    *
    * @memberof ManageDoc
    */
-
   render() {
     const { authUser } = this.props;
     const documents = this.state.searching ?
       this.props.search : this.state.documents;
-    console.log('rerender', documents);
     return (
       <div id="manage-documents" className="manage-documents">
         {this.props.documents.length > 1
@@ -133,9 +137,11 @@ class ManageDoc extends React.Component {
                 <SearchBox onChange={this.handleSearch} />
               </div>
             </div>
-            <DocList documents={documents}
+            <DocList
+              documents={documents}
               authUser={authUser}
-              onClick={this.handleClick} />
+              onClick={this.handleClick}
+            />
             {!this.state.searching ? <div className="col s12">
               <Paginate
                 pageCount={this.props.metadata.pageCount}
@@ -144,7 +150,7 @@ class ManageDoc extends React.Component {
               />
             </div> : ''}
           </div>
-          : <img src="default.gif" />
+          : <img src="default.gif" alt="loading" />
         }
 
       </div>
@@ -153,12 +159,11 @@ class ManageDoc extends React.Component {
 }
 
 ManageDoc.propTypes = {
-  authUser: PropTypes.object.isRequired
-};
-ManageDoc.defaultProps = {
-  documents: [],
-  users: [],
-  authUser: {}
+  authUser: PropTypes.object.isRequired,
+  documents: PropTypes.array.isRequired,
+  actions: PropTypes.object.isRequired,
+  search: PropTypes.array.isRequired,
+  metadata: PropTypes.object.isRequired
 };
 /**
  *

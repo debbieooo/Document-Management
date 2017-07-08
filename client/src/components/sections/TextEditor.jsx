@@ -1,7 +1,13 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import TinyMCE from 'react-tinymce';
 import { browserHistory } from 'react-router';
-
+/**
+ * 
+ * 
+ * @class TextEditor
+ * @extends {React.Component}
+ */
 class TextEditor extends React.Component {
   /**
    * Creates an instance of TextEditor.
@@ -26,7 +32,7 @@ class TextEditor extends React.Component {
    *
    *
    * @param {any} e
-   *
+   * @returns {null} null
    * @memberof TextEditor
    */
   handleEditorChange(e) {
@@ -35,7 +41,7 @@ class TextEditor extends React.Component {
   /**
    *
    *
-   *
+   * @returns {null} null
    * @memberof TextEditor
    */
   handleSubmit() {
@@ -45,18 +51,17 @@ class TextEditor extends React.Component {
    *
    *
    * @param {any} e
-   *
+   * @returns {null} null
    * @memberof TextEditor
    */
   handleChange(e) {
-    const val = e.target.value;
     this.setState({ access: e.target.value });
   }
   /**
    *
    *
    * @param {any} e
-   *
+   * @returns {null} null
    * @memberof TextEditor
    */
   handleInput(e) {
@@ -65,11 +70,10 @@ class TextEditor extends React.Component {
   /**
    *
    *
-   * @returns
+   * @returns {object} object
    *
    * @memberof TextEditor
    */
-
   render() {
     const { access } = this.state;
     return (
@@ -78,33 +82,37 @@ class TextEditor extends React.Component {
           <form className="col s8">
             <div className="row">
               <div className="input-field col s8">
-                <input id="textarea1"
-                className="materialize-textarea"
-                name="title"
-                value= {this.state.title}
-                onChange = {this.handleInput} />
+                <input
+                  id="textarea1"
+                  className="materialize-textarea"
+                  name="title"
+                  value={this.state.title}
+                  onChange={this.handleInput}
+                />
                 <label className="active" htmlFor="textarea1">Title</label>
               </div>
-                <p>
-                  <div>
-                    <input
-                      checked={access === 'Public'}
-                      name="access"
-                      id="Public"
-                      type="radio"
-                      onChange={this.handleChange}
-                      value="Public"/>
-                    <label htmlFor="Public">Public</label>
-                    <input
-                      checked={access === 'Private'}
-                      name="access"
-                      type="radio"
-                      id="Private"
-                      onChange={this.handleChange}
-                      value="Private"/>
-                    <label htmlFor="Private">Private</label>
-                  </div>
-                </p>
+
+              <div>
+                <input
+                  checked={access === 'Public'}
+                  name="access"
+                  id="Public"
+                  type="radio"
+                  onChange={this.handleChange}
+                  value="Public"
+                />
+                <label htmlFor="Public">Public</label>
+                <input
+                  checked={access === 'Private'}
+                  name="access"
+                  type="radio"
+                  id="Private"
+                  onChange={this.handleChange}
+                  value="Private"
+                />
+                <label htmlFor="Private">Private</label>
+              </div>
+
             </div>
           </form>
         </div>
@@ -117,19 +125,33 @@ class TextEditor extends React.Component {
           }}
           onChange={this.handleEditorChange}
         />
-        <button className="btn"
-        type="submit"
-        name="action"
-        onClick={this.handleSubmit}>Submit
+        <button
+          className="btn"
+          type="submit"
+          name="action"
+          onClick={this.handleSubmit}
+        >Submit
         </button>
-        <button className="btn"
-        id="newDocumentBtn"
-        type="submit"
-        name="action"
-        onClick={() => browserHistory.goBack()}> Cancel </button>
+        <button
+          className="btn"
+          id="newDocumentBtn"
+          type="submit"
+          name="action"
+          onClick={() => browserHistory.goBack()}
+        > Cancel </button>
       </div>
     );
   }
 }
-
+TextEditor.propTypes = {
+  onClick: PropTypes.func.isRequired,
+  content: PropTypes.string,
+  access: PropTypes.string,
+  title: PropTypes.string,
+};
+TextEditor.defaultProps = {
+  content: '',
+  title: '',
+  access: ''
+};
 export default TextEditor;

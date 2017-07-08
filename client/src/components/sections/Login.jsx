@@ -1,9 +1,15 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { browserHistory, Link } from 'react-router';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import * as userActions from '../../actions/userAction';
-
+/**
+ * 
+ * 
+ * @class Login
+ * @extends {React.Component}
+ */
 class Login extends React.Component {
   /**
    * Creates an instance of Login.
@@ -36,7 +42,7 @@ class Login extends React.Component {
    *
    *
    * @param {any} nextProps
-   *
+   * @returns {state} state
    * @memberof Login
    */
   componentWillReceiveProps(nextProps) {
@@ -48,7 +54,7 @@ class Login extends React.Component {
   /**
    * 
    * 
-   * 
+   * @returns {null} null
    * @memberof Login
    */
   componentWillUnmount() {
@@ -56,7 +62,7 @@ class Login extends React.Component {
   }
   /**
    *
-   *
+   * @returns {null} null
    * @param {any} event
    *
    * @memberof Login
@@ -72,7 +78,7 @@ class Login extends React.Component {
    *
    *
    * @param {any} event
-   * @returns
+   * @returns {null} null
    *
    * @memberof Login
    */
@@ -86,7 +92,7 @@ class Login extends React.Component {
   /**
    *
    *
-   * @returns
+   * @returns {null} null
    *
    * @memberof Login
    */
@@ -95,13 +101,13 @@ class Login extends React.Component {
       <div className="slider fullscreen">
         <ul className="slides">
           <li>
-            <img src="/images/Landing.png" />
+            <img src="/images/Landing.png" alt="" />
             <div className="caption center-align">
               <h3 id="landing-text">Doc Manager</h3>
               <h5
                 className="light grey-text text-lighten-3"
               >
-              Document Management System
+                Document Management System
               </h5>
               <div className="row">
                 <h4>Login</h4>
@@ -112,7 +118,7 @@ class Login extends React.Component {
                   <div className="row">
                     <div className="input-field col s6 ">
                       <input
-placeholder="Email"
+                        placeholder="Email"
                         required="required"
                         name="email"
                         id="email"
@@ -123,10 +129,10 @@ placeholder="Email"
                       />
                     </div>
                   </div>
-                  <div className ="row">
-                      <div className="input-field col s6">
+                  <div className="row">
+                    <div className="input-field col s6">
                       <input
-placeholder="Password"
+                        placeholder="Password"
                         required="required"
                         name="password"
                         id="password"
@@ -136,18 +142,18 @@ placeholder="Password"
                         onChange={this.handleChange}
                       />
                     </div>
-                    </div>
+                  </div>
                   <div className="row col s6">
                     <button
-className="btn waves-effect waves-light"
+                      className="btn waves-effect waves-light"
                       id="login-button"
                       type="submit"
                       name="action"
                       value="submit"
-                  >
-                    Login
+                    >
+                      Login
                       <i className="material-icons right">
-                      send
+                        send
                       </i>
                     </button>
                   </div>
@@ -165,11 +171,15 @@ className="btn waves-effect waves-light"
     );
   }
 }
+Login.propTypes = {
+  user: PropTypes.object.isRequired,
+  actions: PropTypes.object.isRequired,
+};
 /**
  *
  *
  * @param {any} state
- * @returns
+ * @returns {null} null
  */
 function mapStateToProps(state) {
   return {
@@ -180,7 +190,7 @@ function mapStateToProps(state) {
  *
  *
  * @param {any} dispatch
- * @returns
+ * @returns {null} null
  */
 function mapDispatchToProps(dispatch) {
   return {

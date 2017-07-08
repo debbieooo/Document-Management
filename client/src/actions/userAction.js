@@ -4,7 +4,7 @@ import * as types from './actionTypes';
 /**
  * @export
  * @param {any} user
- * @returns
+ * @returns {object} dispatch
  */
 export function createUser(user) {
   return {
@@ -17,7 +17,7 @@ export function createUser(user) {
  *
  * @export
  * @param {any} user
- * @returns
+ * @returns {object} dispatch
  */
 export function loginUser(user) {
   return {
@@ -27,8 +27,8 @@ export function loginUser(user) {
 }
 /**
  * @export
- * @param {any} user
- * @returns
+ * @param {any} users
+ * @returns {object} dispatch
  */
 export function listUsers(users) {
   return {
@@ -41,7 +41,7 @@ export function listUsers(users) {
  *
  * @export
  * @param {any} id
- * @returns
+ * @returns {object} dispatch
  */
 export function deleteUsers(id) {
   return {
@@ -54,7 +54,7 @@ export function deleteUsers(id) {
  *
  * @export
  * @param {any} user
- * @returns
+ * @returns {object} dispatch
  */
 export function getUser(user) {
   return {
@@ -67,7 +67,7 @@ export function getUser(user) {
  *
  * @export
  * @param {any} user
- * @returns
+ * @returns {object} dispatch
  */
 export function updateUser(user) {
   return {
@@ -81,10 +81,9 @@ export function updateUser(user) {
  * @export
  * @param {any} search
  * @param {any} metadata
- * @returns
+ * @returns {object} dispatch
  */
 export function searchSuccess(search, metadata) {
-
   return {
     type: types.SEARCH_SUCCESS,
     search,
@@ -96,19 +95,21 @@ export function searchSuccess(search, metadata) {
  *
  * @export
  * @param {any} user
- * @returns
+ * @returns {object} dispatch
  */
 export function signUp(user) {
   return dispatch => axios.post('/api/v1/users/signup', user)
-  .then((response) => {
-    window.localStorage.setItem('token', response.data.token);
-    // window.localStorage.setItem('userInfo', response.data.user);
-    dispatch(createUser(response.data.user));
-    return response.data.token;
-  })
-  .catch((error) => {
-    dispatch({ type: types.LOGIN_USER_FAILED });
-  });
+    .then((response) => {
+      window.localStorage.setItem('token', response.data.token);
+      dispatch(createUser(response.data.user));
+      return response.data.token;
+    })
+    .catch((error) => {
+      dispatch({
+        type: types.LOGIN_USER_FAILED,
+        error: error.response.data
+      });
+    });
 }
 
 /**
@@ -116,40 +117,47 @@ export function signUp(user) {
  *
  * @export
  * @param {any} user
- * @returns
+ * @returns {object} dispatch
  */
 export function login(user) {
   return dispatch => axios.post('/api/v1/users/login', user)
-  .then((response) => {
-    window.localStorage.setItem('token', response.data.token);
-    // window.localStorage.setItem('userInfo', response.data.userInfo);
-    dispatch(loginUser(response.data.userInfo));
-    return response.data.token;
-  })
-  .catch((error) => {
-    dispatch({ type: types.SIGNUP_USER_FAILED });
-  });
+    .then((response) => {
+      window.localStorage.setItem('token', response.data.token);
+      dispatch(loginUser(response.data.userInfo));
+      return response.data.token;
+    })
+    .catch((error) => {
+      dispatch({
+        type: types.SIGNUP_USER_FAILED,
+      });
+    });
 }
-export function logout(){
-  return {type: types.LOGOUT_SUCCESSFUL};
+/**
+ * 
+ * 
+ * @export
+ * @returns {object} dispatch
+ */
+export function logout() {
+  return { type: types.LOGOUT_SUCCESSFUL };
 }
 /**
  *
  *
  * @export
  * @param {any} userId
- * @returns
+ * @returns {object} dispatch
  */
 export function deleteAcc(userId) {
   const token = window.localStorage.getItem('token');
   axios.defaults.headers.common.Authorization = token;
   return dispatch => axios.delete(`api/v1/users/${userId}`)
-  .then(() => {
-    dispatch(deleteUsers(userId));
-  })
-  .catch((error) => {
-    dispatch({ type: 'Error', error: error.response.data });
-  });
+    .then(() => {
+      dispatch(deleteUsers(userId));
+    })
+    .catch((error) => {
+      dispatch({ type: 'Error', error: error.response.data });
+    });
 }
 /**
  *
@@ -157,12 +165,13 @@ export function deleteAcc(userId) {
  * @export
  * @param {any} limit
  * @param {any} offset
- * @returns
+ * @returns {object} dispatch
  */
 export function userlist(limit, offset) {
   const token = window.localStorage.getItem('token');
   axios.defaults.headers.common.Authorization = token;
-  return dispatch => axios.get(`/api/v1/users/?limit=${limit || 10}&offset=${offset || 0}`)
+  return dispatch => axios
+    .get(`/api/v1/users/?limit=${limit || 10}&offset=${offset || 0}`)
     .then((response) => {
       dispatch(listUsers(response.data));
       dispatch({ type: 'Error' });
@@ -175,52 +184,52 @@ export function userlist(limit, offset) {
  *
  *
  * @export
- * @returns
+ * @returns {object} dispatch
  */
 export function activeUser() {
   const token = window.localStorage.getItem('token');
   axios.defaults.headers.common.Authorization = token;
   return dispatch => axios.get('/api/v1/users/active')
-  .then((response) => {
-    dispatch(getUser(response.data));
-  })
-  .catch((error) => {
-    dispatch({ type: 'Error', error: error.response.data });
-  });
+    .then((response) => {
+      dispatch(getUser(response.data));
+    })
+    .catch((error) => {
+      dispatch({ type: 'Error', error: error.response.data });
+    });
 }
 /**
  *
  *
  * @export
  * @param {any} user
- * @returns
+ * @returns {object} dispatch
  */
 export function sendUserUpdate(user) {
   const token = window.localStorage.getItem('token');
   axios.defaults.headers.common.Authorization = token;
   return dispatch => axios.put(`/api/v1/users/${user.id}`, user)
-  .then((response) => {
-    dispatch(updateUser(response.data));
-  })
-  .catch((error) => {
-    dispatch({ type: 'Error', error: error.response.data });
-  });
+    .then((response) => {
+      dispatch(updateUser(response.data));
+    })
+    .catch((error) => {
+      dispatch({ type: 'Error', error: error.response.data });
+    });
 }
 /**
  *
  *
  * @export
  * @param {any} user
- * @returns
+ * @returns {object} dispatch
  */
 export function searchUser(user) {
   const token = window.localStorage.getItem('token');
   axios.defaults.headers.common.Authorization = token;
   return dispatch => axios.get(`/api/v1/search/users/?q=${user}`)
-  .then((response) => {
-    dispatch(searchSuccess(response.data.user, response.data.metadata));
-  })
-  .catch((error) => {
-    dispatch({ type: 'Error', error: error.response.data });
-  });
+    .then((response) => {
+      dispatch(searchSuccess(response.data.user, response.data.metadata));
+    })
+    .catch((error) => {
+      dispatch({ type: 'Error', error: error.response.data });
+    });
 }

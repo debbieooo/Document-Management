@@ -1,10 +1,10 @@
-import React, { PropTypes } from 'react';//eslint-disable-line
-import UserListTable from './UserListTable.jsx';//eslint-disable-line
+import React, { PropTypes } from 'react';
+import UserListTable from './UserListTable.jsx';
 
 const UserList = ({ users, onClick }) =>
-     <div>
-       <h5>Users</h5>
-       <table className="bordered responsive-table">
+  (<div>
+    <h5>Users</h5>
+    <table className="bordered responsive-table">
       <thead>
         <tr>
           <th>Name</th>
@@ -13,13 +13,13 @@ const UserList = ({ users, onClick }) =>
       </thead>
       <tbody>
         {users.map(user =>
-        <UserListTable key={user.id} user ={user} handleClick= {onClick}/>
+          <UserListTable key={user.id} user={user} handleClick={onClick} />
         )}
       </tbody>
     </table>
-     </div>
-  ;
-UserList.prototype = {
-  users: PropTypes.array.isRequired
+  </div>);
+UserList.propTypes = {
+  users: PropTypes.array.isRequired,
+  onClick: PropTypes.func.isRequired,
 };
 export default UserList;

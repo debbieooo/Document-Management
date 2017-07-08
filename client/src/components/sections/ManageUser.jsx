@@ -5,7 +5,12 @@ import UserList from './UserList.jsx';
 import Paginate from './Paginate.jsx';
 import * as userActions from '../../actions/userAction';
 import SearchBox from './SearchBox.jsx';
-
+/**
+ * 
+ * 
+ * @class ManageUser
+ * @extends {React.Component}
+ */
 class ManageUser extends React.Component {
   /**
    * Creates an instance of ManageUser.
@@ -129,14 +134,17 @@ class ManageUser extends React.Component {
                 />
               </div> : ''}
           </div>
-          : <img src="default.gif" />
+          : <img src="default.gif" alt="" />
         }
       </div>
     );
   }
 }
 ManageUser.propTypes = {
-  users: PropTypes.array.isRequired
+  users: PropTypes.array.isRequired,
+  actions: PropTypes.object.isRequired,
+  search: PropTypes.array.isRequired,
+  metadata: PropTypes.object.isRequired
 };
 ManageUser.defaultProps = {
   users: []

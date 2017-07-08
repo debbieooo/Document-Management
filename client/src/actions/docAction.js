@@ -5,7 +5,7 @@ import { searchSuccess } from './userAction';
  * 
  * @export 
  * @param {any} documents
- * @returns
+ * @returns {object} dispatch
  */
 export function listDocs(documents) {
   return {
@@ -18,7 +18,7 @@ export function listDocs(documents) {
  *
  * @export
  * @param {any} id
- * @returns
+ * @returns {object} dispatch
  */
 export function deleteDocs(id) {
   return {
@@ -30,8 +30,8 @@ export function deleteDocs(id) {
  *
  *
  * @export
- * @param {any} id
- * @returns
+ * @param {any} document
+ * @returns {object} dispatch
  */
 export function updateDocs(document) {
   return {
@@ -44,7 +44,7 @@ export function updateDocs(document) {
  *
  * @export
  * @param {any} document
- * @returns
+ * @returns {object} dispatch
  */
 export function fetchDoc(document) {
   return {
@@ -57,7 +57,7 @@ export function fetchDoc(document) {
  *
  * @export
  * @param {any} document
- * @returns
+ * @returns {object} dispatch
  */
 export function create(document) {
   return {
@@ -71,9 +71,8 @@ export function create(document) {
  * @export
  * @param {any} limit
  * @param {any} offset
- * @returns
+ * @returns {object} dispatch
  */
-
 export function doclist(limit, offset) {
   const token = window.localStorage.getItem('token');
   axios.defaults.headers.common.Authorization = token;
@@ -93,7 +92,7 @@ export function doclist(limit, offset) {
  *
  * @export
  * @param {any} docId
- * @returns
+ * @returns {object} dispatch
  */
 export function deleteDoc(docId) {
   const token = window.localStorage.getItem('token');
@@ -111,7 +110,7 @@ export function deleteDoc(docId) {
  *
  * @export
  * @param {any} document
- * @returns
+ * @returns {object} dispatch
  */
 export function updateDoc(document) {
   const token = window.localStorage.getItem('token');
@@ -129,7 +128,7 @@ export function updateDoc(document) {
  *
  * @export
  * @param {any} id
- * @returns
+ * @returns {object} dispatch
  */
 export function findDoc(id) {
   const token = window.localStorage.getItem('token');
@@ -139,7 +138,11 @@ export function findDoc(id) {
       dispatch(fetchDoc(response.data.documents));
     })
     .catch((error) => {
-      dispatch({ type: 'Error', error: error.response.data });
+      if (error.response.status === 401) {
+        dispatch({ type: types.UNAUTHORIZED, error: error.response.data });
+      } else {
+        dispatch({ type: 'Error', error: error.response.data });
+      }
     });
 }
 /**
@@ -147,7 +150,7 @@ export function findDoc(id) {
  *
  * @export
  * @param {any} document
- * @returns
+ * @returns {object} dispatch
  */
 export function createDoc(document) {
   const token = window.localStorage.getItem('token');
@@ -165,7 +168,7 @@ export function createDoc(document) {
  *
  * @export
  * @param {any} document
- * @returns
+ * @returns {object} dispatch
  */
 export function searchDoc(document) {
   const token = window.localStorage.getItem('token');

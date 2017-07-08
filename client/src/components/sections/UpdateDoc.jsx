@@ -1,10 +1,17 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import TextEditor from './TextEditor.jsx';
 import { browserHistory } from 'react-router';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as docActions from '../../actions/docAction';
-
+/**
+ * 
+ * 
+ * @export
+ * @class UpdateDoc
+ * @extends {React.Component}
+ */
 export class UpdateDoc extends React.Component {
   /**
    * Creates an instance of UpdateDoc.
@@ -22,20 +29,7 @@ export class UpdateDoc extends React.Component {
   }
   /**
    *
-   *
-   * @param {any} document
-   *
-   * @memberof UpdateDoc
-   */
-  submit(document) {
-    this.props.actions.updateDoc({ ...document, id: this.state.document.id })
-    .then(() => {
-      browserHistory.goBack();
-    });
-  }
-  /**
-   *
-   *
+   * @returns {null} null
    *
    * @memberof UpdateDoc
    */
@@ -46,20 +40,38 @@ export class UpdateDoc extends React.Component {
    *
    *
    * @param {any} nextProps
-   *
+   * @returns {null} null
    * @memberof UpdateDoc
    */
   componentWillReceiveProps(nextProps) {
     this.setState({ document: nextProps.document });
   }
-
+  /**
+   * 
+   * 
+   * @returns {null} null
+   * @memberof UpdateDoc
+   */
   componentWillUnmount() {
-    this.setState({document: {}});
+    this.setState({ document: {} });
   }
   /**
    *
    *
-   * @returns
+   * @param {any} document
+   * @returns {null} null
+   * @memberof UpdateDoc
+   */
+  submit(document) {
+    this.props.actions.updateDoc({ ...document, id: this.state.document.id })
+      .then(() => {
+        browserHistory.goBack();
+      });
+  }
+  /**
+   *
+   *
+   * @returns {object} element
    *
    * @memberof UpdateDoc
    */
@@ -67,13 +79,18 @@ export class UpdateDoc extends React.Component {
     return (
       <div>
         {this.state.document.title
-        ? <TextEditor {...this.state.document} onClick ={this.submit} />
-         : <img src= "/images/default.gif"/>}
+          ? <TextEditor {...this.state.document} onClick={this.submit} />
+          : <img src="/images/default.gif" alt="" />}
       </div>
     );
   }
 }
 
+UpdateDoc.propTypes = {
+  actions: PropTypes.object.isRequired,
+  document: PropTypes.object.isRequired,
+  params: PropTypes.object.isRequired,
+};
 UpdateDoc.defaultProps = {
   documents: []
 };
@@ -81,7 +98,7 @@ UpdateDoc.defaultProps = {
  *
  *
  * @param {any} state
- * @returns
+ * @returns {object} document
  */
 function mapStateToProps(state) {
   return {
@@ -92,7 +109,7 @@ function mapStateToProps(state) {
  *
  *
  * @param {any} dispatch
- * @returns
+ * @returns {object} actions
  */
 function mapDispatchToProps(dispatch) {
   return {

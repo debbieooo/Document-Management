@@ -1,13 +1,26 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { browserHistory } from 'react-router';
 import TextEditor from './TextEditor.jsx';
-import { connect } from 'react-redux';
 import { createDoc } from '../../actions/docAction';
 import { activeUser } from '../../actions/userAction';
 
-
+/**
+ * 
+ * 
+ * @class CreateDoc
+ * @extends {React.Component}
+ */
 class CreateDoc extends React.Component {
+  /**
+   * Creates an instance of CreateDoc.
+   * @param {any} props 
+   * @param {any} context 
+   * 
+   * @memberof CreateDoc
+   */
   constructor(props, context) {
     super(props, context);
     this.state = {
@@ -19,48 +32,52 @@ class CreateDoc extends React.Component {
   /**
    *
    *
-   *
+   * @returns {null} null
    * @memberof CreateDoc
    */
   componentWillUnmount() {
 
   }
-/**
- *
- *
- * @param {any} document
- *
- * @memberof CreateDoc
- */
+  /**
+   *
+   *
+   * @param {any} document
+   * @returns {null} null
+   * @memberof CreateDoc
+   */
   submit(document) {
     this.props.actions.createDoc(document)
-    .then(() => {
-      browserHistory.push('/documents');
-    });
+      .then(() => {
+        browserHistory.push('/documents');
+      });
   }
-/**
- *
- *
- * @returns
- *
- * @memberof CreateDoc
- */
+  /**
+   *
+   *
+   * @returns {div} null
+   *
+   * @memberof CreateDoc
+   */
   render() {
     return (
       <div>
         <h5>New Document</h5>
-         <TextEditor onClick={this.submit} />
+        <TextEditor onClick={this.submit} />
       </div>
     );
   }
 }
 
 CreateDoc.propTypes = {
-  actions: React.PropTypes.object,
-  authUser: React.PropTypes.object,
-  submit: React.PropTypes.func
+  actions: PropTypes.object.isRequired,
+  authUser: PropTypes.object.isRequired,
 };
-
+/**
+ * 
+ * 
+ * @param {any} state 
+ * @returns {object} object
+ */
 function mapStateToProps(state) {
   return {
     documents: state.documents.documents,
@@ -68,6 +85,12 @@ function mapStateToProps(state) {
     authUser: state.authUser
   };
 }
+/**
+ * 
+ * 
+ * @param {any} dispatch 
+ * @returns  {object} object
+ */
 function mapDispatchToProps(dispatch) {
   return {
     actions: bindActionCreators({ createDoc, activeUser }, dispatch)

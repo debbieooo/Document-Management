@@ -1,5 +1,4 @@
 const Documents = require('../models').Documents;
-const Users = require('../models').User;
 
 
 module.exports = {
