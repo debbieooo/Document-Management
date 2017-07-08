@@ -100,9 +100,10 @@ export function searchSuccess(search, metadata) {
 export function signUp(user) {
   return dispatch => axios.post('/api/v1/users/signup', user)
     .then((response) => {
+      console.log(response);
       window.localStorage.setItem('token', response.data.token);
       dispatch(createUser(response.data.user));
-      return response.data.token;
+      // return response.data.token;
     })
     .catch((error) => {
       dispatch({
@@ -129,6 +130,7 @@ export function login(user) {
     .catch((error) => {
       dispatch({
         type: types.SIGNUP_USER_FAILED,
+        error: error.response.data
       });
     });
 }

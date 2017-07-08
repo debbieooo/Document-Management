@@ -8,6 +8,7 @@ const UserListRow = ({ user, handleClick }) =>
     <td><Link to={`/user/${user.id}`}> {user.userName}</Link> </td>
     <td>
       <a
+        id="delete"
         role="link"
         tabIndex={0}
         className="btn-floating btn-large waves-effect waves-light red"
