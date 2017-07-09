@@ -2,3 +2,10 @@ node_modules
 .DS_store
 coverage/
 .env
+reports/CHROME_59.0.3071.115_MAC_admin.xml
+reports/CHROME_59.0.3071.115_MAC_user.xml
+selenium-debug.log
+.nyc_output/b5dbb1bcdf65a12d53d659cace71bd00.json
+.nyc_output/f30813ce1cd60fac1b031fdc046aaa54.json
+client/public/bundle.js
+

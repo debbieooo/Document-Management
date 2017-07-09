@@ -18,11 +18,16 @@
     "build": "webpack -p",
     "test": "NODE_ENV=test nyc --reporter=html --reporter=text mocha --require server/tests/helper.js server/tests/**/*.spec.js --compilers js:babel-register",
     "test:coverage": "nyc report --reporter=text-lcov | coveralls",
-    "test:e2e": "./node_modules/.bin/nightwatch --config nightwatch.js"
+    "test:e2e": "./node_modules/.bin/nightwatch --config nightwatch.json",
+    "test:frontend": "NODE_ENV=test nyc --reporter=html --reporter=text mocha client/tests/helper.js client/tests/**/*.spec.js --slow 5000 --compilers js:babel-register"
   },
   "nyc": {
     "exclude": [
-      "server/tests"
+      "server/tests",
+      "client/tests"
+    ],
+    "extension": [
+      ".jsx"
     ]
   },
   "keywords": [],
@@ -33,6 +38,7 @@
     "babel-core": "^6.24.1",
     "babel-eslint": "^7.2.3",
     "babel-loader": "^6.4.1",
+    "babel-plugin-module-resolver": "^2.7.1",
     "babel-polyfill": "^6.23.0",
     "babel-preset-es2015": "^6.24.1",
     "babel-preset-react": "^6.24.1",
@@ -41,12 +47,12 @@
     "body-parser": "^1.17.2",
     "css-loader": "^0.28.4",
     "dotenv": "^4.0.0",
-    "eslint-import-resolver-webpack": "^0.8.3",
     "express": "^4.15.3",
     "extract-text-webpack-plugin": "^1.0.1",
     "file-loader": "^0.11.2",
     "istanbul": "^0.4.5",
     "js-cookie": "^2.1.4",
+    "jsdom": "^9.12.0",
     "jsonwebtoken": "^7.4.1",
     "lodash": "^4.17.4",
     "materialize-css": "^0.99.0",
@@ -86,19 +92,26 @@
     "chai": "^4.0.1",
     "coveralls": "^2.13.1",
     "env2": "^2.2.0",
-    "eslint": "^3.19.0",
-    "eslint-config-airbnb": "^15.0.1",
-    "eslint-plugin-import": "^2.3.0",
-    "eslint-plugin-jsx-a11y": "^5.0.3",
-    "eslint-plugin-react": "^7.0.1",
+    "enzyme": "^2.9.1",
+    "eslint": "^4.1.1",
+    "eslint-config-airbnb": "^15.0.2",
+    "eslint-plugin-import": "^2.7.0",
+    "eslint-plugin-jsx-a11y": "^6.0.2",
+    "eslint-plugin-react": "^7.1.0",
     "faker": "^4.1.0",
     "image-webpack-loader": "^3.3.1",
+    "jsdom": "^11.1.0",
     "mocha": "^3.4.2",
     "mocha-lcov-reporter": "^1.3.0",
+    "moxios": "^0.4.0",
     "nightwatch": "^0.9.16",
     "node-mocks-http": "^1.6.4",
     "nodemon": "^1.11.0",
     "nyc": "^11.0.3",
-    "sinon": "^2.3.2"
+    "react-addons-test-utils": "^15.6.0",
+    "react-dom": "^15.6.1",
+    "react-test-renderer": "^15.6.1",
+    "redux-mock-store": "^1.2.3",
+    "sinon": "^2.3.6"
   }
 }

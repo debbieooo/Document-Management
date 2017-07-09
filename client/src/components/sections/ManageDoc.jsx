@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import DocList from './DocList.jsx';
@@ -7,12 +8,17 @@ import { activeUser } from '../../actions/userAction';
 import SearchBox from './SearchBox.jsx';
 import Paginate from './Paginate.jsx';
 
-
+/**
+ * 
+ * 
+ * @class ManageDoc
+ * @extends {React.Component}
+ */
 class ManageDoc extends React.Component {
   /**
    * Creates an instance of ManageDoc.
-   * @param {any} props
-   * @param {any} context
+   * @param {any} props from react component
+   * @param {any} context from react
    *
    * @memberof ManageDoc
    */
@@ -34,7 +40,7 @@ class ManageDoc extends React.Component {
   /**
    *
    *
-   *
+   * @returns {null} returns nothing
    * @memberof ManageDoc
    */
   componentDidMount() {
@@ -45,17 +51,17 @@ class ManageDoc extends React.Component {
   /**
    *
    *
-   * @param {any} nextProps
-   *
+   * @param {any} nextProps params
+   * @returns {null} returns nothing
    * @memberof ManageDoc
    */
   componentWillReceiveProps(nextProps) {
     this.setState({ documents: nextProps.documents });
   }
   /**
-   * 
-   * 
-   * 
+   *
+   *
+   * @returns {null} returns nothing
    * @memberof ManageUser
    */
   componentWilUnmount() {
@@ -64,31 +70,31 @@ class ManageDoc extends React.Component {
   /**
    *
    *
-   * @param {any} docId
-   *
+   * @param {any} docId param
+   * @returns {null} returns nothing
    * @memberof ManageDoc
    */
-  
   handleClick(docId) {
     this.props.actions.deleteDoc(docId);
   }
   /**
    *
-   *
-   * @param {any} event
+   * @returns {null} returns nothing
+   * @param {any} page params
    *
    * @memberof ManageDoc
    */
-  handlePageChange(event) {
+  handlePageChange(page) {
+    // console.log(this.props);
     this.props.actions.doclist(
-      this.state.limit, event.target.value * this.state.limit
+      this.state.limit, (page - 1) * this.state.limit
     );
   }
   /**
    *
    *
-   * @param {any} event
-   *
+   * @param {any} event params
+   * @returns {null} returns nothing
    * @memberof ManageDoc
    */
   inputChange(event) {
@@ -103,8 +109,8 @@ class ManageDoc extends React.Component {
   /**
    *
    *
-   * @param {any} event
-   *
+   * @param {any} event params
+   * @returns {null} returns nothing
    * @memberof ManageDoc
    */
   handleSearch(event) {
@@ -114,18 +120,16 @@ class ManageDoc extends React.Component {
   /**
    *
    *
-   * @returns
+   * @returns {div} element
    *
    * @memberof ManageDoc
    */
-
   render() {
     const { authUser } = this.props;
     const documents = this.state.searching ?
       this.props.search : this.state.documents;
-
     return (
-      <div>
+      <div id="manage-documents" className="manage-documents">
         {this.props.documents.length > 1
           ? <div>
             <div className="row">
@@ -133,9 +137,11 @@ class ManageDoc extends React.Component {
                 <SearchBox onChange={this.handleSearch} />
               </div>
             </div>
-            <DocList documents={documents}
+            <DocList
+              documents={documents}
               authUser={authUser}
-              onClick={this.handleClick} />
+              onClick={this.handleClick}
+            />
             {!this.state.searching ? <div className="col s12">
               <Paginate
                 pageCount={this.props.metadata.pageCount}
@@ -144,7 +150,7 @@ class ManageDoc extends React.Component {
               />
             </div> : ''}
           </div>
-          : <img src="default.gif" />
+          : <img src="default.gif" alt="loading" />
         }
 
       </div>
@@ -153,18 +159,17 @@ class ManageDoc extends React.Component {
 }
 
 ManageDoc.propTypes = {
-  authUser: PropTypes.object.isRequired
-};
-ManageDoc.defaultProps = {
-  documents: [],
-  users: [],
-  authUser: {}
+  authUser: PropTypes.object.isRequired,
+  documents: PropTypes.array.isRequired,
+  actions: PropTypes.object.isRequired,
+  search: PropTypes.array.isRequired,
+  metadata: PropTypes.object.isRequired
 };
 /**
  *
+ * @returns {null} returns nothing
+ * @param {any} state params
  *
- * @param {any} state
- * @returns
  */
 function mapStateToProps(state) {
   return {
@@ -178,8 +183,8 @@ function mapStateToProps(state) {
 /**
  *
  *
- * @param {any} dispatch
- * @returns
+ * @param {any} dispatch params
+ * @returns {null} returns nothing
  */
 function mapDispatchToProps(dispatch) {
   return {

@@ -8,8 +8,9 @@ module.exports = {
   /**
    *
    *
-   * @param {any} req
-   * @param {any} res
+    * @param {any} req request
+   * @param {any} res response
+   * @returns {null} nothing
    */
   create(req, res) {
     Users.findAndCountAll({
@@ -57,9 +58,9 @@ module.exports = {
   /**
    *
    *
-   * @param {any} req
-   * @param {any} res
-   * @returns
+    * @param {any} req request
+   * @param {any} res response
+   * @returns {null} nothing
    */
   login(req, res) {
     if (
@@ -119,9 +120,9 @@ module.exports = {
   /**
    *
    *
-   * @param {any} req
-   * @param {any} res
-   * @returns
+    * @param {any} req request
+   * @param {any} res response
+   * @returns {null} nothing
    */
   listAll(req, res) {
     const offset = parseInt(req.query.offset, 10) || 0;
@@ -143,15 +144,15 @@ module.exports = {
           }
         }))
       .catch(error => res.status(400).send(
-      { message: 'Bad request', error }
+        { message: 'Bad request', error }
       ));
   },
   /**
    *
    *
-   * @param {any} req
-   * @param {any} res
-   * @returns
+    * @param {any} req request
+   * @param {any} res response
+   * @returns {null} nothing
    */
   findUser(req, res) {
     return Users
@@ -178,9 +179,9 @@ module.exports = {
   /**
    *
    *
-   * @param {any} req
-   * @param {any} res
-   * @returns
+   * @param {any} req request
+   * @param {any} res response
+   * @returns {null} nothing
    */
   update(req, res) {
     const userId = req.decoded.id;
@@ -211,7 +212,16 @@ module.exports = {
               const email = user.email;
               const id = user.id;
               const roleId = user.roleId;
-              return res.status(201).send({ name, userName, email, id, roleId, message: 'Your account has been updated' });
+              return res.status(201)
+                .send({
+                  name,
+                  userName,
+                  email,
+                  id,
+                  roleId,
+                  message: 'Your account has been updated',
+                  token
+                });
             })
             .catch(error => res.status(400).send(error));
         }
@@ -221,9 +231,9 @@ module.exports = {
   /**
    *
    *
-   * @param {any} req
-   * @param {any} res
-   * @returns
+    * @param {any} req request
+   * @param {any} res response
+   * @returns {null} nothing
    */
   findUserDoc(req, res) {
     return Documents
@@ -250,9 +260,9 @@ module.exports = {
   /**
    *
    *
-   * @param {any} req
-   * @param {any} res
-   * @returns
+    * @param {any} req request
+   * @param {any} res response
+   * @returns {null} nothing
    */
   userDoclist(req, res) {
     const offset = parseInt(req.query.offset, 10) || 0;
@@ -306,9 +316,9 @@ module.exports = {
   /**
    *
    *
-   * @param {any} req
-   * @param {any} res
-   * @returns
+   * @param {any} req request
+   * @param {any} res response
+   * @returns {null} nothing
    */
   delete(req, res) {
     return Users
@@ -323,15 +333,15 @@ module.exports = {
           .destroy()
           .then(() => res.status(200).send({
             message: 'User deleted successfully'
-          }))
-      })
+          }));
+      });
   },
-/**
+  /**
  *
  *
- * @param {any} req
- * @param {any} res
- * @returns
+ * @param {any} req request
+   * @param {any} res response
+   * @returns {null} nothing
  */
   currentUser(req, res) {
     const id = req.decoded.id;
