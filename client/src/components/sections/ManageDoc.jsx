@@ -85,7 +85,6 @@ class ManageDoc extends React.Component {
    * @memberof ManageDoc
    */
   handlePageChange(page) {
-    // console.log(this.props);
     this.props.actions.doclist(
       this.state.limit, (page - 1) * this.state.limit
     );

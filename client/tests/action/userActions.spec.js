@@ -52,7 +52,6 @@ describe('User actions', () => {
   const expectedActions = [ { type: 'LOGIN_USER_FAILED', error: { message: 'error' } } ];    // creating a store from your mock store defined above
     const store = mockStore(state);
     store.dispatch(userAction.signUp({})).then(() => {
-      console.log(store.getActions());
       expect(store.getActions()).to.eql(expectedActions);
       done();
     });
@@ -74,7 +73,6 @@ describe('User actions', () => {
             name: 'deborah',
             userName: 'oni'
           })).then(() => {
-          console.log(store.getActions())
       expect(store.getActions()).to.eql(expectedActions);
       done();
     });
@@ -96,7 +94,6 @@ describe('User actions', () => {
   const expectedActions = [ { type: 'SIGNUP_USER_FAILED', error: { message: 'error' } } ];    // creating a store from your mock store defined above
     const store = mockStore(state);
     store.dispatch(userAction.login({})).then(() => {
-      console.log(store.getActions());
       expect(store.getActions()).to.eql(expectedActions);
       done();
     });
