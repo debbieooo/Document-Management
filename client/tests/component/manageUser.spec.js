@@ -54,15 +54,9 @@ describe('<ManageUser />', () => {
    it(' Render exists', () => {
     expect(ManageUser.prototype.render.calledOnce).to.exist;
   });
-  // it(' Render exists', () => {
-  //   wrapper.find('#delete').simulate('click');
-  //   console.log(wrapper.find('#delete'));
-  //   expect(props.action.deleteAcc.calledOnce).to.eql(true);
-  // });
   it('componentWillUnmount exists', () => {
     wrapper.unmount();
     sinon.spy(ManageUser.prototype, 'componentWillUnmount');
-    console.log(ManageUser.prototype.componentWillUnmount);
     expect(ManageUser.prototype.componentWillUnmount.calledOnce);
   });
 });

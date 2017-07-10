@@ -100,7 +100,6 @@ export function searchSuccess(search, metadata) {
 export function signUp(user) {
   return dispatch => axios.post('/api/v1/users/signup', user)
     .then((response) => {
-      console.log(response);
       window.localStorage.setItem('token', response.data.token);
       dispatch(createUser(response.data.user));
       // return response.data.token;
