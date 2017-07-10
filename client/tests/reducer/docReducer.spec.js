@@ -107,21 +107,6 @@ describe('CREATE_DOCUMENTS_SUCCESS', () => {
       done();
     });
   });
-  //  describe('FETCH_DOCUMENT_SUCCESS', () => {
-  //   it('should fetch a particular document', (done) => {
-  //     const  initialState= { documents: [], metadata: {} }
-  //     const document = {
-  //       id: 32,
-  //       title: 'deborah',
-  //       content: 'oni'
-  //     };
-  //     expect(initialState).to.eql(documentReducer(initialState, ''));
-  //     const action = { type: types.FETCH_DOCUMENT_SUCCESS, document };
-  //     const newState = documentReducer(initialState, action);
-  //     expect(newState).to.not.eql(initialState);
-  //     expect(newState).to.have.property('metadata');
-  //     done();
-  //   });
-  // });
+
   
 });
