@@ -16,10 +16,11 @@
     "start:client": "node app.js",
     "start:client:dev": "webpack -w & nodemon app.js",
     "build": "webpack -p",
-    "test": "NODE_ENV=test nyc --reporter=html --reporter=text mocha --require server/tests/helper.js server/tests/**/*.spec.js --compilers js:babel-register",
+    "test":"NODE_ENV=test nyc --reporter=html --reporter=text mocha client/tests/helper.js client/tests/**/*.spec.js  --require server/tests/helper.js server/tests/**/*.spec.js --compilers js:babel-register", 
+    "test:server":  "NODE_ENV=test nyc --reporter=html --reporter=text mocha --require server/tests/helper.js server/tests/**/*.spec.js --compilers js:babel-register",
     "test:coverage": "nyc report --reporter=text-lcov | coveralls",
     "test:e2e": "./node_modules/.bin/nightwatch --config nightwatch.json",
-    "test:frontend": "NODE_ENV=test nyc --reporter=html --reporter=text mocha client/tests/helper.js client/tests/**/*.spec.js --slow 5000 --compilers js:babel-register"
+    "test:client": "NODE_ENV=test nyc --reporter=html --reporter=text mocha client/tests/helper.js client/tests/**/*.spec.js --slow 5000 --compilers js:babel-register"
   },
   "nyc": {
     "exclude": [
