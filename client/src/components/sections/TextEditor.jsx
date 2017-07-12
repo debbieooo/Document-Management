@@ -111,6 +111,15 @@ class TextEditor extends React.Component {
                   value="Private"
                 />
                 <label htmlFor="Private">Private</label>
+                <input
+                  checked={access === 'Role'}
+                  name="access"
+                  id="Role"
+                  type="radio"
+                  onChange={this.handleChange}
+                  value="Role"
+                />
+                <label htmlFor="Role">Role</label>
               </div>
 
             </div>
