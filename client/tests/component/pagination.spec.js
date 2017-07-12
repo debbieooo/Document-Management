@@ -4,7 +4,11 @@ import { shallow } from 'enzyme';
 // import { browserHistory } from 'react-router';
 import Paginate from '../../src/components/sections/Paginate.jsx';
 /* eslint-disable no-unused-expressions*/
-
+const props= {
+  pageCount: 2,
+  handleChange: sinon.spy(),
+  currentPage: 2
+}
 describe('Pagination component with the elements available', () => {
   const wrapper = shallow(<Paginate />);
   it('it should render div elements', () => {
