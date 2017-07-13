@@ -26,7 +26,7 @@ module.exports = {
       'Documents',
       'content',
       {
-        type: Sequelize.STRING,
+        type: Sequelize.STRING,// eslint-disable-line
         allowNull: false,
       });
   }

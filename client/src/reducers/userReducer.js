@@ -19,6 +19,7 @@ export default function userReducer(state = initialState.users, action) {
         if (user.id !== action.id) {
           return user;
         }
+        return undefined;
       }) });
     default:
       return state;

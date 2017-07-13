@@ -30,7 +30,7 @@ class Login extends React.Component {
   /**
  *
  *
- *
+ * @returns {null} nothing
  * @memberof Login
  */
   componentDidMount() {
