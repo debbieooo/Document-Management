@@ -8,11 +8,6 @@ module.exports = (sequelize, DataTypes) => {
     content: {
       type: DataTypes.TEXT,
       allowNull: false,
-      validate: {
-        len: {
-          args: [2, 1000000]
-        }
-      }
     },
     access: {
       type: DataTypes.STRING,

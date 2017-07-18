@@ -1,4 +1,5 @@
 import React, { PropTypes } from 'react';
+import swal from 'sweetalert';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import UserList from './UserList.jsx';
@@ -68,7 +69,19 @@ class ManageUser extends React.Component {
    * @memberof ManageUser
    */
   handleClick(userId) {//eslint-disable-line
-    this.props.actions.deleteAcc(userId);
+    swal({
+      title: 'Are you sure?',
+      text: 'You will not be able to recover this user!',
+      type: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#DD6B55',
+      confirmButtonText: 'Yes, delete it!',
+      closeOnConfirm: false
+    },
+    () => {
+      this.props.actions.deleteAcc(userId);
+      swal('Deleted!', 'The user has been deleted.', 'success');
+    });
   }
   /**
  *

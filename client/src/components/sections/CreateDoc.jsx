@@ -25,7 +25,8 @@ class CreateDoc extends React.Component {
     super(props, context);
     this.state = {
       document: {},
-      authUser: Object.assign({}, props.authUser)
+      authUser: Object.assign({}, props.authUser),
+      error: ''
     };
     this.submit = this.submit.bind(this);
   }
@@ -36,7 +37,6 @@ class CreateDoc extends React.Component {
    * @memberof CreateDoc
    */
   componentWillUnmount() {
-
   }
   /**
    *

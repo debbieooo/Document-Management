@@ -1,4 +1,5 @@
 import React from 'react';
+import swal from 'sweetalert';
 import PropTypes from 'prop-types';
 import TinyMCE from 'react-tinymce';
 import { browserHistory } from 'react-router';
@@ -45,7 +46,26 @@ class TextEditor extends React.Component {
    * @memberof TextEditor
    */
   handleSubmit() {
-    this.props.onClick(this.state);
+    if (this.validate()) {
+      this.props.onClick(this.state);
+    }
+  }
+  /**
+   * 
+   * 
+   * @returns {boolean} boolean
+   * 
+   * @memberof TextEditor
+   */
+  validate() {
+    if (!this.state.title && this.state.title === '') {
+      swal('Oops...', 'Something went wrong!, enter a title', 'error');
+      return false;
+    } else if (!this.state.access && this.state.access === '') {
+      swal('Oops...', 'Something went wrong!, enter valid access', 'error');
+      return false;
+    }
+    return true;
   }
   /**
    *

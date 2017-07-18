@@ -71,9 +71,9 @@ class Nav extends React.Component {
           className="nav-wrapper"
           id="nav"
         >
-          <Link to="/home" className="brand-logo" id="app-name">Doc</Link>
+          <Link to="/home" className="brand-logo" id="app-name">Doc-Manager</Link>
           <ul id="nav-mobile" className="right hide-on-med-and-down">
-            <li className="orange-text text-darken-4"><b>Hi {authUser.name}! </b></li>
+            <li className="grey-text text-darken-4"><b>Hi {authUser.name}! </b></li>
             {authUser.roleId === 1 ? <li><Link to="/users">Users</Link></li> : ''}
             <li> <Link to="/documents">Documents</Link></li>
             <li><Link to="/documents/create" id="newDocument">New Document</Link></li>

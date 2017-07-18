@@ -1,4 +1,5 @@
 import React from 'react';
+import swal from 'sweetalert';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -75,7 +76,19 @@ class ManageDoc extends React.Component {
    * @memberof ManageDoc
    */
   handleClick(docId) {
-    this.props.actions.deleteDoc(docId);
+    swal({
+      title: 'Are you sure?',
+      text: 'You will not be able to recover this document!',
+      type: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#DD6B55',
+      confirmButtonText: 'Yes, delete it!',
+      closeOnConfirm: false
+    },
+    () => {
+      this.props.actions.deleteDoc(docId);
+      swal('Deleted!', 'The document has been deleted.', 'success');
+    });
   }
   /**
    *
