@@ -16,8 +16,8 @@
     "start:client": "node app.js",
     "start:client:dev": "webpack -w & nodemon app.js",
     "build": "webpack -p",
-    "test":"NODE_ENV=test nyc --reporter=html --reporter=text mocha client/tests/helper.js client/tests/**/*.spec.js  --require server/tests/helper.js server/tests/**/*.spec.js --compilers js:babel-register", 
-    "test:server":  "NODE_ENV=test nyc --reporter=html --reporter=text mocha --require server/tests/helper.js server/tests/**/*.spec.js --compilers js:babel-register",
+    "test": "NODE_ENV=test nyc --reporter=html --reporter=text mocha client/tests/helper.js client/tests/**/*.spec.js  --require server/tests/helper.js server/tests/**/*.spec.js --compilers js:babel-register",
+    "test:server": "NODE_ENV=test nyc --reporter=html --reporter=text mocha --require server/tests/helper.js server/tests/**/*.spec.js --compilers js:babel-register",
     "test:coverage": "nyc report --reporter=text-lcov | coveralls",
     "test:e2e": "./node_modules/.bin/nightwatch --config nightwatch.json",
     "test:client": "NODE_ENV=test nyc --reporter=html --reporter=text mocha client/tests/helper.js client/tests/**/*.spec.js --slow 5000 --compilers js:babel-register"
@@ -79,6 +79,7 @@
     "sass-loader": "^6.0.6",
     "selenium-download": "^2.0.10",
     "sequelize": "^3.30.4",
+    "style-loader": "^0.18.2",
     "supertest": "^3.0.0",
     "swagger-jsdoc": "^1.3.0",
     "sweetalert": "^1.1.3",
