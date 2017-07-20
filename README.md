@@ -19,18 +19,22 @@ The application is available on Heroku [https://doc-manager-app.herokuapp.com/]
 ### Functionalities
 
 Documents
-- Create documents
-- Update Document
-- Delete Document
-- Search for documents
+- Create, update and delete documents for registered users 
+- Search for documents that are public, within the user role and owned by the user searching 
+ Each document defines access rights; the document defines which roles can access it. Also, each document specifies the date it was published.
+- Page control( Pagination ) available for user to navigate document list content
 
 Users
-- Create Users
-- Update Users
-- Delete Users
-- Search for users
+- User can create accounts and update/ manage account on the application
+- Delete Users feature for the admininstrator of the app to control access to the application
+- Search Users feature for the admininstrator of the app to control access to the application
+- Page control( Pagination ) available for user to navigate user list content
+
 Role
-- Create Roles( Admin and General Users)
+- Create Roles( Admin, Staff and General Users)
+- Staff users can view documents with role access that are created by their fellow staff
+- General users can view documents with role access that are created by their fellow genereal users
+
 
 ### Technologies 
 The technologies used are:

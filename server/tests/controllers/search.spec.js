@@ -65,7 +65,7 @@ describe('Document controller', () => {
       });
   });
   describe('find document', (done) => {
-    it('should get documents',(done) => {
+    it('should find specific document',(done) => {
       api.get
       (`/api/v1/search/documents/?title=${userDocument.title}&limit=10&offset=0`)
         .set({authorization : adminUser.token})
@@ -74,7 +74,7 @@ describe('Document controller', () => {
           done();
       }); 
     });
-    it('should get documents with default limit and offset',(done) => {
+    it('should get documents with title',(done) => {
       api.get(`/api/v1/search/documents/?title=${userDocument.title}`)
         .set({authorization : adminUser.token})
         .end((err, res) => {
@@ -82,14 +82,7 @@ describe('Document controller', () => {
           done();
       }); 
     });
-    it('should get documents with default limit and offset',(done) => {
-      api.get(`/api/v1/search/documents/?title=${userDocument.title}`)
-        .set({authorization : adminUser.token})
-        .end((err, res) => {
-          expect(res.status).to.equal(200);
-          done();
-      }); 
-    });
+  
     it('should get documents with default limit and offset',(done) => {
       api.get(`/api/v1/search/documents/?title=${userDocument.title}`)
         .set({authorization : user.token})
@@ -102,7 +95,7 @@ describe('Document controller', () => {
       api.get('/api/v1/search/documents/?title=034934ieiri')
         .set({authorization : user.token})
         .end((err, res) => {
-          expect(res.status).to.equal(404);
+          expect(res.status).to.equal(200);
           done();
       }); 
     });
@@ -136,7 +129,7 @@ describe('Document controller', () => {
       api.get('/api/v1/search/users/?q=unknown')
         .set({authorization : adminUser.token})
         .end((err, res) => {
-          expect(res.status).to.equal(404);
+          expect(res.status).to.equal(200);
           done();
       }); 
     });

@@ -24,23 +24,17 @@ module.exports = {
       limit,
       offset
     })
-      .then((user) => {
-        if (user.rows.length < 1) {
-          return res.status(404)
-            .send({ message: `${query}cannot be found on the database` });
-        }
-        return res.status(200)
-          .send({
-            user: user.rows,
-            metadata: {
-              count: user.count,
-              searchTerm: query,
-              pageCount: Math.ceil(user.count / limit),
-              page: Math.floor((limit + offset) / limit),
-              pageSize: limit
-            }
-          });
-      });
+      .then(user => res.status(200)
+        .send({
+          user: user.rows,
+          metadata: {
+            count: user.count,
+            searchTerm: query,
+            pageCount: Math.ceil(user.count / limit),
+            page: Math.floor((limit + offset) / limit),
+            pageSize: limit
+          }
+        }));
   },
   /**
    *
@@ -69,22 +63,16 @@ module.exports = {
         attributes: ['name']
       }
     })
-      .then((result) => {
-        if (result.count < 1) {
-          return res.status(404)
-            .send({ message: `${query} cannot be found on the database` });
-        }
-        return res.status(200)
-          .send({
-            result,
-            metadata: {
-              count: result.count,
-              searchTerm: query,
-              pageCount: Math.floor(result.count / limit),
-              pageSize: limit
-            }
-          });
-      });
+      .then(result => res.status(200)
+        .send({
+          result,
+          metadata: {
+            count: result.count,
+            searchTerm: query,
+            pageCount: Math.floor(result.count / limit),
+            pageSize: limit
+          }
+        }));
   }
 
 };

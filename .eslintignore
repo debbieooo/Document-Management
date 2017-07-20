@@ -1,2 +1,3 @@
 client/public/bundle.js
 client/tests
+server/tests

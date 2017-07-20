@@ -35,26 +35,26 @@ describe('<ManageUser />', () => {
   it('should connect to the redux store', () => {
     expect(wrapper.props().store.getState()).to.eql(copyStore);
   });
-  it('it should render div elements', () => {
+  it('should render div elements', () => {
      expect(wrapper.find('div')).to.exist;
     });
-  it('it should render img element', () => {
+  it('should render img element', () => {
      expect(wrapper.find('img')).to.exist;
     });
-  it('it should render Paginate element', () => {
+  it('should render Paginate element', () => {
      expect(wrapper.find('Paginate')).to.exist;
     });
 
   sinon.spy(ManageUser.prototype, 'componentWillReceiveProps');
   sinon.spy(ManageUser.prototype, 'render');
 
-  it(' componentWillReceiveProps exists', () => {
+  it(' componentWillReceiveProps function exists', () => {
     expect(ManageUser.prototype.componentWillReceiveProps.calledOnce).to.exist;
   });
    it(' Render exists', () => {
     expect(ManageUser.prototype.render.calledOnce).to.exist;
   });
-  it('componentWillUnmount exists', () => {
+  it('ComponentWillUnmount function exists', () => {
     wrapper.unmount();
     sinon.spy(ManageUser.prototype, 'componentWillUnmount');
     expect(ManageUser.prototype.componentWillUnmount.calledOnce);

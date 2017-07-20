@@ -36,19 +36,19 @@ describe('<Nav />', () => {
   it('should connect to the redux store', () => {
     expect(wrapper.props().store.getState()).to.eql(copyStore);
   });
-    it('it should render nav class', () => {
+    it('should render nav class', () => {
      expect(wrapper.find('.nav-wrapper')).to.exist;
     });
-  it('it should render div elements', () => {
+  it('should render div elements', () => {
      expect(wrapper.find('div')).to.exist;
     });
-  it('it should render nav elements', () => { 
+  it('should render nav elements', () => { 
      expect(wrapper.find('nav')).to.exist;
     });
-   it('it should render li elements', () => { 
+   it('should render li elements', () => { 
      expect(wrapper.find('li')).to.exist;
     });
-    it('it should render ul elements', () => { 
+    it('should render ul elements', () => { 
      expect(wrapper.find('ul')).to.exist;
     });
 });

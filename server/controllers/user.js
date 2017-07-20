@@ -264,7 +264,7 @@ module.exports = {
    * @param {any} res response
    * @returns {null} nothing
    */
-  userDoclist(req, res) {
+  userdocumentList(req, res) {
     const offset = parseInt(req.query.offset, 10) || 0;
     const limit = parseInt(req.query.limit, 10) || 10;
     let where = {};

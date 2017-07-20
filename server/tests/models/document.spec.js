@@ -2,7 +2,7 @@ describe('Document Model', () => {
   let userId;
   let original;
   beforeEach((done) => {
-    sequelize.sync({ force: true})
+    sequelize.sync({ force: true })
       .done(() => {
         Role.create({ title: 'admin' })
           .then(() => {
@@ -17,24 +17,24 @@ describe('Document Model', () => {
               });
           });
       });
-  })
+  });
   afterEach((done) => {
     Documents.destroy({
       where: {}
     })
-    .then(() => {
-      User.destroy({
-        where: {}
-      })
       .then(() => {
-        Role.destroy({
+        User.destroy({
           where: {}
         })
-        .then(() => {
-          done();
-        });
-      })
-    })
+          .then(() => {
+            Role.destroy({
+              where: {}
+            })
+              .then(() => {
+                done();
+              });
+          });
+      });
   });
   it('should create a new document', (done) => {
     const document = generateDocument(userId);
@@ -43,7 +43,7 @@ describe('Document Model', () => {
         expect(createdDocument.userId).to.eql(userId);
         expect(createdDocument.title).to.eql(document.title);
         expect(createdDocument.content).to.eql(document.content);
-        done();       
+        done();
       });
   });
 
@@ -53,7 +53,7 @@ describe('Document Model', () => {
     Documents.create(document)
       .catch((error) => {
         expect(error.message).to.eql('notNull Violation: title cannot be null');
-        done();       
+        done();
       });
   });
   it('should not create a document without content', (done) => {
@@ -62,7 +62,7 @@ describe('Document Model', () => {
     Documents.create(document)
       .catch((error) => {
         expect(error.message).to.eql('notNull Violation: content cannot be null');
-        done();       
+        done();
       });
   });
   it('should not create a document without access settings', (done) => {
@@ -70,8 +70,8 @@ describe('Document Model', () => {
     delete document.access;
     Documents.create(document)
       .then((createdDocument) => {
-        expect(createdDocument.access).to.eql('Private');        
-        done();       
+        expect(createdDocument.access).to.eql('Private');
+        done();
       });
   });
 });

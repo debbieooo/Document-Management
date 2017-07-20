@@ -47,7 +47,7 @@ describe('User actions', () => {
         } });
     });
   });
-  it('dispatch ERROR when error occurs while creating user',
+  it('dispatch ERROR, when error occurs while creating user',
   (done) => {
   const expectedActions = [ { type: 'LOGIN_USER_FAILED', error: { message: 'error' } } ];    // creating a store from your mock store defined above
     const store = mockStore(state);
@@ -89,7 +89,7 @@ describe('User actions', () => {
         } });
     });
   });
-  it('dispatch ERROR when error occurs while creating user',
+  it('dispatch ERROR, when error occurs while creating user',
   (done) => {
   const expectedActions = [ { type: 'SIGNUP_USER_FAILED', error: { message: 'error' } } ];    // creating a store from your mock store defined above
     const store = mockStore(state);

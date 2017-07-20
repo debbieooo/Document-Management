@@ -5,13 +5,13 @@ import { shallow } from 'enzyme';
 import App from '../../src/components/layout/App.jsx';
 /* eslint-disable no-unused-expressions*/
 
-describe('App component with the elements available', () => {
+describe('App component', () => {
   const wrapper = shallow(<App />);
-  it('it should render div elements', () => {
+  it('should render div elements', () => {
     expect(wrapper.find('div')).to.exist;
   });
 
-  it('it should contain a link tag', () => {
+  it('should contain a link tag', () => {
     expect(wrapper.find('Nav')).to.exist;
   });
 });

@@ -2,7 +2,7 @@ import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import NotAuthorized from './NotAuthorized.jsx';
-import * as docActions from '../../actions/docAction';
+import * as documentActions from '../../actions/documentAction';
 /**
  * 
  * 
@@ -121,7 +121,7 @@ function mapStateToProps(state) {
  */
 function mapDispatchToProps(dispatch) {
   return {
-    actions: bindActionCreators(docActions, dispatch)
+    actions: bindActionCreators(documentActions, dispatch)
   };
 }
 export default connect(mapStateToProps, mapDispatchToProps)(ViewDoc);

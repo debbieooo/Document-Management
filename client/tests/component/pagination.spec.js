@@ -9,16 +9,16 @@ const props= {
   handleChange: sinon.spy(),
   currentPage: 2
 }
-describe('Pagination component with the elements available', () => {
+describe('Pagination', () => {
   const wrapper = shallow(<Paginate />);
-  it('it should render div elements', () => {
+  it('should render div elements', () => {
     expect(wrapper.find('ul')).to.exist;
   });
 
-  it('it should contain a link tag', () => {
+  it('should contain a link tag', () => {
     expect(wrapper.find('li')).to.exist;
   });
-  it('it should contain an a tag', () => {
+  it('should contain an a tag', () => {
     expect(wrapper.find('a')).to.exist;
   });
 });

@@ -1,4 +1,4 @@
-import * as docAction from '../../src/actions/docAction';
+import * as documentAction from '../../src/actions/documentAction';
 import * as types from '../../src/actions/actionTypes';
 
 const middlewares = [thunk];
@@ -37,7 +37,7 @@ describe('Documents actions', () => {
       }
     ];
     const store = mockStore(state);
-    store.dispatch(docAction.doclist()).then(() => {
+    store.dispatch(documentAction.documentsList()).then(() => {
       expect(store.getActions()).to.eql(expectedActions);
       done();
     });
@@ -70,7 +70,7 @@ describe('Documents actions', () => {
       }
     ];
     const store = mockStore(state);
-    store.dispatch(docAction.doclist()).then(() => {
+    store.dispatch(documentAction.documentsList()).then(() => {
       expect(store.getActions()).to.eql(expectedActions);
       done();
     });
@@ -92,7 +92,7 @@ describe('Documents actions', () => {
       }
     ];
     const store = mockStore(state);
-    store.dispatch(docAction.deleteDoc(1))
+    store.dispatch(documentAction.deleteDoc(1))
     .then(() => {
       expect(store.getActions()).to.eql(expectedActions);
       done();
@@ -107,7 +107,7 @@ describe('Documents actions', () => {
       });
     });
   });
-  it('dispatch Error when error occurs while deleting document',
+  it('dispatch ERROR when error occurs while deleting document',
   (done) => {
     const expectedActions = [
       {
@@ -118,7 +118,7 @@ describe('Documents actions', () => {
       }
     ];
     const store = mockStore(state);
-    store.dispatch(docAction.deleteDoc(1))
+    store.dispatch(documentAction.deleteDoc(1))
     .then(() => {
       expect(store.getActions()).to.eql(expectedActions);
       done();
@@ -133,7 +133,7 @@ describe('Documents actions', () => {
       });
     });
   });
-  it('dispatch UPDATE_DOCUMENTS_SUCCESS when a document was updated',
+  it('dispatch UPDATE_DOCUMENTS_SUCCESS when a document is updated',
   (done) => {
     const expectedActions = [
       {
@@ -142,7 +142,7 @@ describe('Documents actions', () => {
       }
     ];
     const store = mockStore(state);
-    store.dispatch(docAction.updateDoc({ title: 'update' }))
+    store.dispatch(documentAction.updateDoc({ title: 'update' }))
       .then(() => {
         expect(store.getActions()).to.eql(expectedActions);
         done();
@@ -165,7 +165,7 @@ describe('Documents actions', () => {
       }
     ];
     const store = mockStore(state);
-    store.dispatch(docAction.updateDoc({ title: 'update' }))
+    store.dispatch(documentAction.updateDoc({ title: 'update' }))
       .then(() => {
         expect(store.getActions()).to.eql(expectedActions);
         done();
@@ -191,7 +191,7 @@ describe('Documents actions', () => {
       }
     ];
     const store = mockStore(state);
-    store.dispatch(docAction.findDoc(1))
+    store.dispatch(documentAction.findDoc(1))
       .then(() => {
         expect(store.getActions()).to.eql(expectedActions);
         done();
@@ -219,7 +219,7 @@ describe('Documents actions', () => {
       }
     ];
     const store = mockStore(state);
-    store.dispatch(docAction.findDoc(1))
+    store.dispatch(documentAction.findDoc(1))
       .then(() => {
         expect(store.getActions()).to.eql(expectedActions);
         done();
@@ -247,7 +247,7 @@ describe('Documents actions', () => {
       }
     ];
     const store = mockStore(state);
-    store.dispatch(docAction.createDoc({ title: 'update', content: 'stuff' }))
+    store.dispatch(documentAction.createDocument({ title: 'update', content: 'stuff' }))
       .then(() => {
         expect(store.getActions()).to.eql(expectedActions);
         done();
@@ -275,7 +275,7 @@ describe('Documents actions', () => {
       }
     ];
     const store = mockStore(state);
-    store.dispatch(docAction.createDoc({}))
+    store.dispatch(documentAction.createDocument({}))
       .then(() => {
         expect(store.getActions()).to.eql(expectedActions);
         done();
@@ -299,7 +299,7 @@ describe('Documents actions', () => {
       }
     ];
     const store = mockStore(state);
-    store.dispatch(docAction.searchDoc({ title: 'update' }))
+    store.dispatch(documentAction.searchDoc({ title: 'update' }))
       .then(() => {
         expect(store.getActions()).to.eql(expectedActions);
         done();
@@ -316,7 +316,7 @@ describe('Documents actions', () => {
         } });
     });
   });
-  it('dispatch ERROR when error occurs while searching for documents',
+  it('dispatch ERROR, when error occurs while searching for documents',
   (done) => {
     const expectedActions = [
       {
@@ -327,7 +327,7 @@ describe('Documents actions', () => {
       }
     ];
     const store = mockStore(state);
-    store.dispatch(docAction.searchDoc({}))
+    store.dispatch(documentAction.searchDoc({}))
       .then(() => {
         expect(store.getActions()).to.eql(expectedActions);
         done();

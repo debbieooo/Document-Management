@@ -32,7 +32,7 @@ describe('User Model', () => {
         done();       
       });
   });
-    it('should update users password', (done) => {
+    it('should return a new password', (done) => {
     const user = generateAdminUser();
     User.create(user)
       .then((createdUser) => {

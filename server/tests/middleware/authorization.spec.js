@@ -9,21 +9,21 @@ describe('Authorization middleware', () => {
   const responseEvent = () => httpMocks.createResponse({
     eventEmitter: events.EventEmitter
   });
-  
-      beforeEach((done) => {
-        sequelize.sync({ force: true })
-         .done(() => {
-            Role.create({ title: 'admin' })
-              .then(() => {
-                User.create(generateAdminUser())
-                  .then((user) => {
-                    token = generateToken(user);
-                    done();
-                  });
+
+  beforeEach((done) => {
+    sequelize.sync({ force: true })
+      .done(() => {
+        Role.create({ title: 'admin' })
+          .then(() => {
+            User.create(generateAdminUser())
+              .then((user) => {
+                token = generateToken(user);
+                done();
               });
-         });
+          });
       });
-  
+  });
+
 
   afterEach((done) => {
     Role.destroy({ where: {} })
@@ -35,7 +35,7 @@ describe('Authorization middleware', () => {
       });
   });
 
-  it('should allow users with a valid token', (done) => {
+  it('should allow users with a valid token access the application', (done) => {
     req = httpMocks.createRequest({
       method: 'GET',
       url: '/api/v1/users',
@@ -48,7 +48,7 @@ describe('Authorization middleware', () => {
 
     sinon.spy(middlewareStub, 'callback');
     authorization.authorize(req, res, middlewareStub.callback);
-    
+
     done();
   });
 
@@ -60,20 +60,19 @@ describe('Authorization middleware', () => {
     });
     res = responseEvent();
     const middlewareStub = {
-      callback: () => null 
+      callback: () => null
     };
     sinon.spy(middlewareStub, 'callback');
     authorization.authorize(req, res, middlewareStub.callback);
     res.on('end', () => {
       const response = JSON.parse(res._getData());
-          expect(response['message']).to
-          .eql('wrong token');
+      expect(response.message).to
+        .eql('wrong token');
       done();
     });
+  });
 
-  })
-
-   it('should allow only admin with a role id of 1', (done) => {
+  it('should allow only admin with a role id of 1', (done) => {
     req = httpMocks.createRequest({
       method: 'GET',
       url: '/api/v1/users',
@@ -86,7 +85,7 @@ describe('Authorization middleware', () => {
     };
     sinon.spy(middlewareStub, 'callback');
     authorization.authorizeAdmin(req, res, middlewareStub.callback);
-    
+
     done();
   });
   it('should throw an error if the user is not authorized', (done) => {
@@ -98,7 +97,7 @@ describe('Authorization middleware', () => {
     });
     res = responseEvent();
     const middlewareStub = {
-      callback: () => null 
+      callback: () => null
     };
     sinon.spy(middlewareStub, 'callback');
     authorization.authorizeAdmin(req, res);

@@ -9,4 +9,5 @@ selenium-debug.log
 .nyc_output/f30813ce1cd60fac1b031fdc046aaa54.json
 client/public/bundle.js
 .nyc_output
+ reports/CHROME_59.0.3071.115_MAC_admin.xml
 

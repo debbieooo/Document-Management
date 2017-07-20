@@ -2,6 +2,7 @@ import React, { PropTypes } from 'react';
 import swal from 'sweetalert';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import sweetAlert from '../../alert.js';
 import UserList from './UserList.jsx';
 import Paginate from './Paginate.jsx';
 import * as userActions from '../../actions/userAction';
@@ -69,19 +70,12 @@ class ManageUser extends React.Component {
    * @memberof ManageUser
    */
   handleClick(userId) {//eslint-disable-line
-    swal({
-      title: 'Are you sure?',
-      text: 'You will not be able to recover this user!',
-      type: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#DD6B55',
-      confirmButtonText: 'Yes, delete it!',
-      closeOnConfirm: false
-    },
-    () => {
-      this.props.actions.deleteAcc(userId);
-      swal('Deleted!', 'The user has been deleted.', 'success');
-    });
+    const text = 'You will not be able to recover this user';
+    swal(sweetAlert(text),
+      () => {
+        this.props.actions.deleteAcc(userId);
+        swal('Deleted!', 'The user has been deleted.', 'success');
+      });
   }
   /**
  *
@@ -137,7 +131,10 @@ class ManageUser extends React.Component {
                 <SearchBox onChange={this.handleSearch} />
               </div>
             </div>
-            <UserList users={users} onClick={this.handleClick} />
+            <div>
+              {(this.state.searching && users.length === 0) ?
+                <center> <p><i className="material-icons">warning</i> User Not found </p> </center> : <UserList users={users} onClick={this.handleClick} />}
+            </div>
             {!this.state.searching ?
               <div className="col s12">
                 <Paginate
@@ -147,7 +144,7 @@ class ManageUser extends React.Component {
                 />
               </div> : ''}
           </div>
-          : <img src="default.gif" alt="" />
+          : <img src="default.gif" alt="Not found" />
         }
       </div>
     );

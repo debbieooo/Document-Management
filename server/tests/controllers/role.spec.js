@@ -48,16 +48,7 @@ describe('Role', () => {
   });
 
    describe('create role', (done) => {
-    it('admin ', (done) => {
-      api.post('/api/v1/roles')
-     .set({authorization : adminUser.token})
-      .send(Admin)
-       .end((err, res) => {
-         expect(res.status).to.equal(201);
-         done();
-       });
-    });
-     it('general ', (done) => {
+     it('general role created by admin', (done) => {
       api.post('/api/v1/roles')
       .set({authorization : adminUser.token})
       .send(Regular)
@@ -66,7 +57,7 @@ describe('Role', () => {
          done();
        });
     });
-     it('staff ', (done) => {
+     it('staff role created by admin', (done) => {
       api.post('/api/v1/roles')
       .set({authorization : adminUser.token})
       .send(Staff)
