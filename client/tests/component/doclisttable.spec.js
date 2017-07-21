@@ -4,7 +4,7 @@ import { shallow } from 'enzyme';
 import { browserHistory } from 'react-router';
 
 // import { browserHistory } from 'react-router';
-import DocListTable from '../../src/components/sections/DocListTable';
+import documentListTable from '../../src/components/sections/DocumentListTable';
 /* eslint-disable no-unused-expressions*/
 const props = {
   document: 
@@ -26,21 +26,21 @@ const props = {
 }
 
 const history = sinon.stub(browserHistory, 'push');
-describe('DocListTable component with the elements available', () => {
-  const wrapper = shallow(<DocListTable {...props} />);
-  it('it should render td element', () => {
+describe('documentListTable component', () => {
+  const wrapper = shallow(<documentListTable {...props} />);
+  it('should render td element', () => {
     expect(wrapper.find('td')).to.exist;
   });
-  it('it should contain a tr', () => {
+  it('should contain a tr', () => {
     expect(wrapper.find('tr')).to.exist;
   });
-  it('it should contain a a', () => {
+  it('should contain an "a" tag', () => {
     expect(wrapper.find('a')).to.exist;
   });
-  it('contains browserhistory', () => {
+  it('contains browserhistory function', () => {
     expect(history.calledOnce).to.exist;
   });
-   it('contains handleClick', () => {
+   it('contains handleClick function', () => {
     expect(props.handleClick.calledOnce).to.exist;
   });
 });

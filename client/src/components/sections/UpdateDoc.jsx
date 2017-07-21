@@ -1,10 +1,10 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import TextEditor from './TextEditor.jsx';
 import { browserHistory } from 'react-router';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import * as docActions from '../../actions/docAction';
+import PropTypes from 'prop-types';
+import TextEditor from './TextEditor.jsx';
+import * as documentActions from '../../actions/documentAction';
 /**
  * 
  * 
@@ -113,7 +113,7 @@ function mapStateToProps(state) {
  */
 function mapDispatchToProps(dispatch) {
   return {
-    actions: bindActionCreators(docActions, dispatch)
+    actions: bindActionCreators(documentActions, dispatch)
   };
 }
 export default connect(mapStateToProps, mapDispatchToProps)(UpdateDoc);

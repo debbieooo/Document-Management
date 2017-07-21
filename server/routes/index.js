@@ -348,7 +348,7 @@ module.exports = (app) => {
  *         schema:
  *           $ref: '#/definitions/documents'
  */
-  app.get('/api/v1/documents', authorization.authorize, users.userDoclist);
+  app.get('/api/v1/documents', authorization.authorize, users.userdocumentList);
 
   // Search routes
   /**

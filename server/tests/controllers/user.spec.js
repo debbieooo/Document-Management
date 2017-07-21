@@ -189,13 +189,13 @@ describe('User', () => {
   });
   describe('Display all users', () => {
       // list all users tests
-    it('should not display all the users in the system if not authorized', (done) => {
+    it('should not display all the users in the application if its not the admin user', (done) => {
       api.get('/api/v1/users').end((err, res) => {
         expect(res.status).to.equal(401);
         done();
       });
     });
-    it('should  display all the users in the system', (done) => {
+    it('should  display all the users in the application', (done) => {
       api.post('/api/v1/users/login').send({
         userName: 'test2',
         password: 'test2'
@@ -240,14 +240,6 @@ describe('User', () => {
         done();
       });
     });
-    xit('should catch the 404 error for wrong active user route  ', (done) => {
-        api.get('/api/v1/users/40')
-        .set({authorization : adminUser.token})
-        .end((err, res) => {
-          expect(res.status).to.equal(404);
-          done();
-        })
-      });
   });
   describe('listall users', () => {
     it('should have the list of all users without offset and limits', (done) => {
@@ -279,7 +271,7 @@ describe('User', () => {
       });
     });
   });
-  describe('delete a user', (done) => {
+  describe('delete a user by the admin', (done) => {
     it('should update a particular user using id', (done) => {
       api.delete(`/api/v1/users/${user.id}`)
       .set({authorization : adminUser.token})
@@ -296,7 +288,7 @@ describe('User', () => {
         done();
       });
     });
-    describe('create documents', (done) => {
+    describe('Display documents for admin user', (done) => {
       it('should display documents and their authors', (done) => {
         api.get('/api/v1/documents')
         .set({authorization : adminUser.token})
@@ -306,7 +298,7 @@ describe('User', () => {
         })
       });
     });
-      describe('create documents', (done) => {
+      describe('Display documents for regular or staff user', (done) => {
       it('should display public documents and their authors on the regular users dashboard', (done) => {
         api.get('/api/v1/documents')
         .set({authorization : user.token})
@@ -316,8 +308,8 @@ describe('User', () => {
         })
       });
     });
-    describe('get current user', (done) => {
-      it('should ', (done) => {
+    describe('Active user', (done) => {
+      it('should get the current user logged in ', (done) => {
         api.get('/api/v1/users/active')
         .set({authorization : user.token})
         .end((err, res) => {

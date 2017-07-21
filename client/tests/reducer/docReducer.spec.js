@@ -48,8 +48,6 @@ describe('CREATE_DOCUMENTS_SUCCESS', () => {
         name: 'deborah Oni',
         userName: 'debbie'
       };
-      // console.log(initialState)
-       console.log(cloneInitialState)
       expect(cloneInitialState).to.eql(documentReducer(cloneInitialState, ''));
       const action = { type: types.UPDATE_DOCUMENTS_SUCCESS, document };
       const newState = documentReducer(initialState, action);

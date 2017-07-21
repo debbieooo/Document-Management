@@ -1,7 +1,7 @@
 const webpack = require('webpack');
 const path = require('path');
 
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
+
 const BUILD_DIR = path.resolve(__dirname, 'client/public');
 const APP_DIR = path.resolve(__dirname, 'client/src');
 
@@ -50,7 +50,15 @@ const config = {
         loaders: ['style', 'css', 'sass']
       }
     ]
-  }
+  },
+  plugins: [
+    new webpack.DefinePlugin({
+      'process.env': {
+        NODE_ENV: JSON.stringify('production')
+      }
+    }),
+    new webpack.optimize.UglifyJsPlugin()
+  ]
 };
 
 module.exports = config;

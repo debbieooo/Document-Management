@@ -2,7 +2,7 @@
 import sinon from 'sinon';
 import { shallow } from 'enzyme';
 // import { browserHistory } from 'react-router';
-import DocList from '../../src/components/sections/DocList';
+import documentList from '../../src/components/sections/DocumentList';
 /* eslint-disable no-unused-expressions*/
 const props = {
   documents: [
@@ -18,19 +18,15 @@ const props = {
       userName: 'hello', 
     }
 }
-describe('DocList component with the elements available', () => {
-  const wrapper = shallow(<DocList {...props} />);
-  it('it should render div elements', () => {
+describe('documentList component', () => {
+  const wrapper = shallow(<documentList {...props} />);
+  it('should render div elements', () => {
     expect(wrapper.find('div')).to.exist;
   });
-
-  xit('it should contain a tbody', () => {
-    expect(wrapper.find('tbody')).to.exist;
-  });
-  it('it should contain a thead', () => {
+  it('should contain a thead', () => {
     expect(wrapper.find('thead')).to.exist;
   });
-  it('it should contain a table', () => {
+  it('should contain a table', () => {
     expect(wrapper.find('table')).to.exist;
   });
 });
